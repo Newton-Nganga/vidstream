@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 :root {
+  --footer-textcolor:#fa183d,
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
@@ -15,13 +16,144 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
+body {font-size: 1rem; color: white;}
+@layer base{
+  h1{
+    @apply text-3xl font-bold
+  }
+  h2{
+    @apply text-2xl font-semibold
+  }
+  h4{
+    @apply text-xl font-semibold
+  }
+  a{
+    @apply hover:text-[#fa183d]
+  }
+  button{
+    @apply w-full hover:transition-colors  hover:duration-300 hover:ease-[ease] py-2 px-6 rounded-full border-none bg-[#bf000a]
+  }
+  input{
+    @apply  block w-full bg-transparent outline-none border border-gray-400 rounded-full p-2 px-6 text-base text-white
+  }
+}
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+@layer utilities{
+
+.btn:before{
+  content: '';
+  position: absolute;
+  border-radius: 50px;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  scale: 0;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+.btn:hover::before{
+  scale: 1;
+  background-color: rgba(255, 255, 255, 0.301);
+}
+
+
+
+.slick-slider {
+  position: relative;
+}
+
+.slick-prev,
+.slick-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+.slick-prev {
+  left: 10px;
+}
+
+.slick-next {
+  right: 10px;
+}
+
+
+.texture{
+  font-size: 3.2rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  background: url("../../public/texure.jpg") no-repeat center;
+  background-size: cover;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.border-slice{
+  border-bottom: 1px solid;
+  border-image-source: linear-gradient(to left,rgba(209, 208, 207, 0), rgba(209, 208, 207, 0.6), rgba(209, 208, 207, 0));
+  border-image-slice: 1;
+}
+}
+
+@layer components{
+
+  .nav-item{
+    @apply flex items-center text-left text-lg min-w-[150px] w-full duration-1000 gap-4 border-dashed border-b border-blue-500 mb-2
+  }
+
+  .btn{
+    @apply flex relative overflow-hidden justify-around items-center p-2 px-3 gap-1 w-fit rounded-full
+  } 
+  /* All sections */ 
+  .section{
+    @apply  bg-[#06121e] py-4
+  }
+  .inner-section{
+    @apply w-[90vw] lg:max-w-[1200px] m-auto
+  }
+  .center-absolute{
+    @apply top-[50%] left-[50%] -translate-y-[50%] -translate-x-[50%]
+  }
+  /* Top movie active slide*/
+  .topmovie-active-slide{
+    @apply !border-red-600
+  }
+   /* Trending carousel */
+   .slide-item{
+    @apply relative border-[3px]  my-4  rounded-xl w-full sm:!w-[217px] h-[122px]
+   }
+   .slide-active{
+    @apply border-red-600 before:content-[''] before:absolute before:w-0 before:h-0 before:border-solid before:border-l-[15px] before:border-r-[15px] before:border-transparent before:border-t-[25px] before:border-t-red-600 before:bottom-[-25px] before:left-[45%] before:z-10
+   }
+   .form-label{
+    @apply flex items-center gap-3
+   }
+   .form-el{
+    @apply flex flex-col
+   }
+  .input-el{
+    @apply w-full text-sm border mt-3 border-white outline-2 outline-transparent py-3 p-4 bg-transparent text-white focus:text-gray-500 focus:bg-white focus:outline-blue-600 focus:outline-2
+  }
+  .t-head{
+    @apply text-red-500 
+  }
+  
+ 
+  .footer{
+    @apply flex flex-col gap-4 md:flex-row md:gap-0 justify-between  flex-wrap p-4 
+  }
+  .footer-title{
+    @apply text-[#fa183d] mb-4 
+  }
+  .footer-social-btn{
+    @apply text-lg hover:text-red-600 rounded-md  bg-[#233a50] hover:shadow hover:shadow-red-600 h-10 w-10 flex items-center justify-center
+  }
+
 }
