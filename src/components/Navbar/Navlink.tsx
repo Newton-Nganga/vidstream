@@ -6,8 +6,7 @@ interface LinkD {
     name: String;
     links: String[];
     onecolumn: Boolean;
-    width: String;
-    height: String;
+    prelink:String
   }
   
 type Props = {
@@ -30,7 +29,7 @@ export default function Navlink({LinkData}:Props) {
     setDisplay({ display: !display.display, open: key });
   };
   const modifyLink =(url :String):any=>{
-   const str = '/' + url.toLowerCase().replace(/\s/g, "")
+   const str = url.toLowerCase().replace(/\s/g, "")
    return str
   }
   return (
@@ -60,7 +59,7 @@ export default function Navlink({LinkData}:Props) {
                 <div className="flex flex-col">
                   {navlink.links.map((link) => {
                     return (
-                      <Link key={link.toString()} href={modifyLink(link)}>
+                      <Link key={link.toString()} href={navlink.prelink + modifyLink(link)}>
                         <div className="nav-item">
                           <BsRecordCircle className="text-red-600" />
                          <p className="w-max">{link}</p>
@@ -74,7 +73,7 @@ export default function Navlink({LinkData}:Props) {
                   <div>
                   {navlink.links.slice(0,(navlink.links.length / 2)).map((link) => {
                     return (
-                      <Link key={link.toString()} href={modifyLink(link)}>
+                      <Link key={link.toString()} href={navlink.prelink+modifyLink(link)}>
                         <div className="nav-item">
                           <BsRecordCircle className="text-red-600" />
                           <p className="w-max">{link}</p>
@@ -86,7 +85,7 @@ export default function Navlink({LinkData}:Props) {
                   <div>
                   {navlink.links.slice((navlink.links.length / 2)).map((link) => {
                     return (
-                      <Link key={link.toString()} href={modifyLink(link)}>
+                      <Link key={link.toString()} href={navlink.prelink+modifyLink(link)}>
                         <div className="nav-item">
                           <BsRecordCircle className="text-red-600" />
                           <p className="w-max">{link}</p>

@@ -13,8 +13,7 @@ interface LinkD {
   name: String;
   links: String[];
   onecolumn: Boolean;
-  width: String;
-  height: String;
+  prelink:String
 }
 
 const LinkData: LinkD[] = [
@@ -22,8 +21,7 @@ const LinkData: LinkD[] = [
     name: "HOME",
     links: ["Home1", "Home2", "Home3"],
     onecolumn: true,
-    width: "200px",
-    height: "fit",
+    prelink:'/'
   },
   {
     name: "GENRES",
@@ -44,8 +42,7 @@ const LinkData: LinkD[] = [
       "Music",
     ],
     onecolumn: false,
-    width: "200px",
-    height: "fit",
+    prelink:'/genres/'
   },
   {
     name: "PAGES",
@@ -58,29 +55,25 @@ const LinkData: LinkD[] = [
       "Terms and Conditions",
     ],
     onecolumn: true,
-    width: "200px",
-    height: "fit",
+    prelink:'/'
   },
   {
     name: "TV SHOWS",
     links: ["Show Category", "Show Single", "Show Details"],
     onecolumn: true,
-    width: "200px",
-    height: "fit",
+    prelink:'/shows/'
   },
   {
     name: "MOVIES",
     links: ["Movie Category", "Movie Single", "Movie Details"],
     onecolumn: true,
-    width: "200px",
-    height: "fit",
+    prelink:'/movies/'
   },
   {
     name:"CONTACT",
     links:["Contact"],
     onecolumn:true,
-    width: "200px",
-    height: "fit",
+    prelink:'/'
   }
 ];
 
@@ -101,7 +94,8 @@ import Navlink from "./Navlink";
 export default function Navbar({}: Props) {
   const scrolled = useScrollPosition();
   const [isOpen, setIsOpen] = useState({ type: "", state: false });
-
+  const [search,setSearch] = useState(false)
+  const [query,setQuery]=useState('')
   const [display, setDisplay] = useState<RefType>({ display: false, open: "" });
 
   const handleClick = (key: String) => {
@@ -133,10 +127,28 @@ export default function Navbar({}: Props) {
           <Navlink LinkData={LinkData} />
           
         </ul>
-
+        <div className="relative">
+          <div
+         className={`absolute top-[100%] mt-6 ${
+          search 
+            ? "scale-100 animate-fade-up animate-duration-[2000ms]"
+            : "scale-0 animate-fade animate-duration-[2000ms]"
+        } p-2 rounded-md bg-[#0b1a2a] flex flex-row z-20`}
+        > 
+        
+          <input type="search" onChange={(e)=>setQuery(e.target.value)} value={query} name="query" className="border border-blue-400 mr-2 rounded-md min-w-[130px]"/>
+          <Link href={`/search?query=${query}`} >
+            <button className="rounded-md text-sm p-2">search</button>
+          </Link>
+        </div>
+        </div>
+        
         <div className="flex  text-2xl">
+
           <div className="hidden md:flex justify-between items-center gap-6">
-            <button className="p-0 bg-transparent hover:text-red-600">
+            <button 
+               onClick={()=>setSearch(!search)}
+              className="p-0 bg-transparent hover:text-red-600">
               <FaSearch />
             </button>
             <button className="p-0 bg-transparent hover:text-red-600">
@@ -176,8 +188,8 @@ export default function Navbar({}: Props) {
             >
               Close
             </button>
-        
       </ul>
+
     </nav>
   );
 }
