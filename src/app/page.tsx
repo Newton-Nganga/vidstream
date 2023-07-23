@@ -7,22 +7,37 @@ import Navbar from "@/components/Navbar/Navbar";
 import TopMovies from "@/components/TopMovies";
 import Trending from "@/components/Trending";
 import VidstreamPage from "@/components/VidstreamPage";
-import Image from "next/image";
+import PopularShows from "@/components/movieCarouselItems/PopularShows";
+import SuggestedShows from "@/components/movieCarouselItems/SuggestedShows";
+import TopRatedMovies from "@/components/movieCarouselItems/TopRatedMovies";
+import UpcomingMovies from "@/components/movieCarouselItems/UpcomingMovies";
+
 
 export default function Home() {
   return (
     <VidstreamPage>
-      <Hero />
+      
       {/* hero section */}
-      {/* <MoviesCarousel title="Favorite Movies" />
-      <MoviesCarousel title="Upcoming Movies" /> */}
-      <TopMovies />
-      {/* Top movies */}
-      {/* <MoviesCarousel title="Suggested For You" />*/}
-      {/* <FeaturedMovie />  */}
+      <Hero />
+
+      {/* Popular Shows */}
+      <PopularShows/>
+
+      {/* upcoming movies */}
+      <UpcomingMovies/>
+
+       {/* Top movies */}
+      <TopRatedMovies/>
+     
+      {/* Discover shows */}
+      <SuggestedShows/>
+
       {/* featured movie */}
+      {/* <FeaturedMovie />  */}
+      
+       {/* trending */}
       <Trending title="Trending" />
-      {/* trending */}
+     
       {/* <MoviesCarousel title="Tv Thrillers" /> */}
     </VidstreamPage>
   );
