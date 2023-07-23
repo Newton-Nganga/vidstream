@@ -7,22 +7,27 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import topmovie from "../../public/04.jpg";
 import { FaPlay } from "react-icons/fa";
-import { FaAngleDown, FaAngleUp,FaAngleLeft,FaAngleRight } from "react-icons/fa6";
+import {
+  FaAngleDown,
+  FaAngleUp,
+  FaAngleLeft,
+  FaAngleRight,
+} from "react-icons/fa6";
+import Link from "next/link";
 
-interface Movies{
+interface Movies {
   title: string;
   id: number;
   backdrop_path: string;
-  poster_path:string
+  poster_path: string;
   release_date: any;
 }
 
 type Props = {
-  movies:Movies[] | null
+  movies: Movies[] | null;
 };
 
-export default function TopMovies({}: Props) {
-
+export default function TopMovies({ movies }: Props) {
   const [nav1, setNav1] = useState<Slider | any | null>(null);
   const [nav2, setNav2] = useState<Slider | any | null>(null);
   const slider1Ref = useRef<Slider | null>(null);
@@ -66,16 +71,17 @@ export default function TopMovies({}: Props) {
     dots: false,
     slidesToShow: 4,
     slidesToScroll: 1,
-    vertical:true,
+    vertical: true,
     verticalSwiping: true,
     beforeChange: handleBeforeChange,
   };
 
-
   return (
     <section className="section">
       <section className="inner-section">
-        <h4 className="md:hidden py-2 text-xl hover:text-red-500">Top Movies</h4>
+        <h4 className="md:hidden py-2 text-xl hover:text-red-500">
+          Top Movies
+        </h4>
         <div className="relative w-full h-[500px] md:h-[600px] rounded-xl border-[3px] border-white overflow-clip">
           <div className="absolute w-full h-full top-[50%] -translate-y-[50%]">
             <Slider
@@ -89,157 +95,95 @@ export default function TopMovies({}: Props) {
               slidesToScroll={1}
               swipeToSlide={false}
             >
-              <div className="relative w-full h-[500px] md:h-[600px]">
-                <Image src={topmovie} alt="top movie" className="w-full h-full object-cover"/>
-              </div>
-              <div className="relative w-full h-[500px] md:h-[600px]">
-                <Image src={topmovie} alt="top movie" className="w-full h-full object-cover"/>
-              </div>
-              <div className="relative w-full h-[500px] md:h-[600px">
-                <Image src={topmovie} alt="top movie" className="w-full h-full object-cover"/>
-              </div>
+              {movies?.map((movie: Movies, index: number) => (
+                <div
+                  key={index}
+                  className="relative w-full h-[500px] md:h-[600px]"
+                >
+                  <Image
+                    fill={true}
+                    src={`https://image.tmdb.org/t/p/original${
+                      movie?.backdrop_path
+                        ? movie?.backdrop_path
+                        : movie?.poster_path
+                    }`}
+                    alt="top movie"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              ))}
             </Slider>
           </div>
           <div className="block md:hidden absolute top-[40%] -translae-y-[40%] w-full z-10">
             <div className="flex justify-between items-center w-full">
-            <button 
-             onClick={previous}
-            className="h-10 w-10  p-0 flex justify-center items-center text-xl">
-                <FaAngleLeft/>
+              <button
+                onClick={previous}
+                className="h-10 w-10  p-0 flex justify-center items-center text-xl"
+              >
+                <FaAngleLeft />
               </button>
-              <button 
-              onClick={next}
-              className="h-10 w-10 p-0  flex justify-center items-center text-xl">
-                <FaAngleRight/>
+              <button
+                onClick={next}
+                className="h-10 w-10 p-0  flex justify-center items-center text-xl"
+              >
+                <FaAngleRight />
               </button>
-
             </div>
           </div>
 
           <div className="hidden md:block absolute w-[230px] h-full left-[8%] bg-transparent py-4">
             <h4>Top Movies</h4>
             <div className="h-[550px] w-full flex flex-col">
-            <Slider {...sliderSettings}>
-              <div
-                className={`${
-                  activeSlide === 0 ? "topmovie-active-slide " : "border-white"
-                } !w-[200px] !h-[110px] overflow-clip my-2  slide-item group`}
-              >
-                <Image
-                  src={topmovie}
-                  alt="trending"
-                  className="absolute h-full w-full"
-                />
-                <div className="hidden group-[.topmovie-active-slide]:flex group-[.topmovie-active-slide]:flex-col justify-between bg-black/50 px-3 py-1 absolute h-full w-full">
-                  <p>John Wick</p>
-                  <div className="flex gap-2 items-center">
-                    <span className="px-1 rounded-md bg-gray-400">26+</span>2h
-                    10min
+              <Slider {...sliderSettings}>
+                {movies?.map((movie: Movies, index: number) => (
+                  <div
+                    key={movie?.id}
+                    className={`${
+                      activeSlide === index
+                        ? "topmovie-active-slide "
+                        : "border-white"
+                    } !w-[200px] !h-[110px] overflow-clip my-2  slide-item group`}
+                  >
+                    <Image
+                      fill={true}
+                      src={`https://image.tmdb.org/t/p/original${
+                        movie?.backdrop_path
+                          ? movie?.backdrop_path
+                          : movie?.poster_path
+                      }`}
+                      alt="trending"
+                      className="absolute h-full w-full"
+                    />
+                    <div className="hidden group-[.topmovie-active-slide]:flex group-[.topmovie-active-slide]:flex-col justify-between bg-black/50 px-3 py-1 absolute h-full w-full">
+                      <p>{movie?.title}</p>
+                      <div className="flex gap-2 items-center">
+                        {movie.release_date}
+                      </div>
+                      <Link href={`/movies/${movie?.id}`}>
+                        <button className="btn">
+                          <FaPlay className="" />
+                          Play Now
+                        </button>
+                      </Link>
+                    </div>
                   </div>
-                  <button className="btn">
-                    <FaPlay className=""/>
-                    Play Now
-                  </button>
-                </div>
-              </div>
-              <div
-                className={`${
-                  activeSlide === 1 ? "topmovie-active-slide " : "border-white"
-                } !w-[200px] !h-[110px] overflow-clip my-2  slide-item group`}
-              >
-                <Image
-                  src={topmovie}
-                  alt="trending"
-                  className="absolute h-full w-full"
-                />
-                <div className="hidden group-[.topmovie-active-slide]:flex group-[.topmovie-active-slide]:flex-col justify-between bg-black/50 px-3 py-1 absolute h-full w-full">
-                  <p>John Wick</p>
-                  <div className="flex gap-2 items-center">
-                    <span className="px-1 rounded-md bg-gray-400">26+</span>2h
-                    10min
-                  </div>
-                  <button className="btn">
-                    <FaPlay />
-                    Play Now
-                  </button>
-                </div>
-              </div>
-              <div
-                className={`${
-                  activeSlide === 2 ? "topmovie-active-slide  active" : "border-white"
-                } !w-[200px] !h-[110px] overflow-clip my-2  slide-item group`}
-              >
-                <Image
-                  src={topmovie}
-                  alt="trending"
-                  className="absolute h-full w-full"
-                />
-                <div className="hidden group-[.topmovie-active-slide]:flex group-[.topmovie-active-slide]:flex-col justify-between bg-black/50 px-3 py-1 absolute h-full w-full">
-                  <p>John Wick</p>
-                  <div className="flex gap-2 items-center">
-                    <span className="px-1 rounded-md bg-gray-400">26+</span>2h
-                    10min
-                  </div>
-                  <button className="btn">
-                    <FaPlay />
-                    Play Now
-                  </button>
-                </div>
-              </div>
-              <div
-                className={`${
-                  activeSlide === 3 ? "topmovie-active-slide  active" : "border-white"
-                } !w-[200px] !h-[110px] overflow-clip my-2  slide-item group`}
-              >
-                <Image
-                  src={topmovie}
-                  alt="trending"
-                  className="absolute h-full w-full"
-                />
-                 <div className="hidden group-[.topmovie-active-slide]:flex group-[.topmovie-active-slide]:flex-col justify-between bg-black/50 px-3 py-1 absolute h-full w-full">
-                  <p>John Wick</p>
-                  <div className="flex gap-2 items-center">
-                    <span className="px-1 rounded-md bg-gray-400">26+</span>2h
-                    10min
-                  </div>
-                  <button className="btn">
-                    <FaPlay />
-                    Play Now
-                  </button>
-                </div>
-              </div>
-              <div
-                className={`${
-                  activeSlide === 4 ? "topmovie-active-slide  active" : "border-white"
-                } !w-[200px] !h-[110px] overflow-clip my-2  slide-item group`}
-              >
-                <Image
-                  src={topmovie}
-                  alt="trending"
-                  className="absolute h-full w-full"
-                />
-                <div className="hidden group-[.topmovie-active-slide]:flex group-[.topmovie-active-slide]:flex-col justify-between bg-black/50 px-3 py-1 absolute h-full w-full">
-                  <p>John Wick</p>
-                  <div className="flex gap-2 items-center">
-                    <span className="px-1 rounded-md bg-gray-400">26+</span>2h
-                    10min
-                  </div>
-                  <button className="btn">
-                    <FaPlay />
-                    Play Now
-                  </button>
-                </div>
-              </div>
-            </Slider>
+                ))}
+              </Slider>
             </div>
-            
+
             <center className="z-10 absolute bottom-0 left-[45%] -translate-x-[50%] gap-4 flex flex-col text-5xl ">
-              <button onClick={previous} className="bg-transparent p-0 rounded-none">
-                <FaAngleUp/>
+              <button
+                onClick={previous}
+                className="bg-transparent p-0 rounded-none"
+              >
+                <FaAngleUp />
               </button>
-              <button onClick={next} className="bg-transparent p-0 rounded-none">
-                <FaAngleDown/>
-                </button>
+              <button
+                onClick={next}
+                className="bg-transparent p-0 rounded-none"
+              >
+                <FaAngleDown />
+              </button>
             </center>
           </div>
         </div>

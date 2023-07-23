@@ -33,12 +33,12 @@ export default function Home() {
       <SuggestedShows/>
 
       {/* featured movie */}
-      {/* <FeaturedMovie />  */}
-      
+      <FeaturedMovie /> 
+
        {/* trending */}
       <Trending title="Trending" />
      
-      {/* <MoviesCarousel title="Tv Thrillers" /> */}
+      
     </VidstreamPage>
   );
 }

@@ -1,3 +1,4 @@
+"use client"
 import Movie from '@/components/Movie'
 import InnerPage from '@/components/Pages/InnerPages'
 import { useSearchParams } from 'next/navigation'
