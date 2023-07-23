@@ -6,21 +6,33 @@ import upcoming from "../../public/01.jpg";
 
 import { FaPlay } from "react-icons/fa6";
 import { RiAddLine, RiHeartFill, RiVolumeMuteFill } from "react-icons/ri";
-type Props = {};
+interface Movie{
+  title: string;
+  id: number;
+  backdrop_path: string;
+  poster_path:string
+  release_date: any;
+}
+type Props = {
+  data:Movie
+};
 
-export default function Movie({}: Props) {
+export default function Movie({data}: Props) {
+
+
+
   return (
+    <Link href={`/movies/${data.id}`}>
     <div className="relative my-5 w-full h-[160px] sm:w-[40vw] md:w-[28vw] lg:w-[22vw] xl:w-[270px] lg:h-[160px]  flex hover:z-10 hover:scale-[1.20] duration-[0.2s] group rounded-xl  border-[3px] border-white overflow-clip ">
       <div className="absolute  w-full h-full flex">
-        <Image src={upcoming} alt="upcoming" className="w-fit h-fit" />
+        <Image src={`https://image.tmdb.org/t/p/original${data?.backdrop_path ? data?.backdrop_path :data?.poster_path}`} fill={true} alt="upcoming" className="w-fit h-fit" />
       </div>
 
       <div className="absolute w-full h-full text-sm  opacity-0 group-hover:opacity-100 duration-1000 ease-in-out px-2 flex bg-black/70  items-center justify-between">
         <div className="flex flex-col text-left gap-3 text-white font-semibold">
-          <p className="text-xl">Sherlock Holmes</p>
+          <p className="">{data.title}</p>
           <p className="font-normal">
-            <span className="p-1 rounded-lg bg-gray-300/25 mr-3 ">02+</span>1h
-            45min
+            {data.release_date}
           </p>
           <button className="btn">
             <FaPlay />
@@ -46,5 +58,6 @@ export default function Movie({}: Props) {
         </div>
       </div>
     </div>
+    </Link>
   );
 }

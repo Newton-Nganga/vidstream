@@ -10,11 +10,19 @@ import Movie from "./Movie";
 // const movies: React.FC[] = [
 //  Movie,Movie,Movie,Movie,Movie,Movie,
 // ];
-type Props ={
-  title:String
+interface Movies {
+  title: string;
+  id: number;
+  backdrop_path: string;
+  poster_path:string
+  release_date: any;
+}
+type Props={
+  title:string
+  movies:Movies[] | null
 }
 
-export default function MoviesCarousel({title}:Props) {
+export default function MoviesCarousel({title,movies}:Props) {
   const sliderRef = useRef<Slider | null>(null);
 
   const next = () => {
@@ -22,7 +30,7 @@ export default function MoviesCarousel({title}:Props) {
       sliderRef.current.slickNext();
     }
   };
-
+   console.log('movies carousel',movies)
   const previous = () => {
     if (sliderRef.current) {
       sliderRef.current.slickPrev();
@@ -86,11 +94,9 @@ export default function MoviesCarousel({title}:Props) {
         </div>
       </div>
       <Slider ref={sliderRef} {...settings}>
-        <Movie key={1} />
-        <Movie key={2} />
-        <Movie key={3} />
-        <Movie key={4} />
-        <Movie key={5} />
+        {movies?.map((movie,index:number)=>{
+          return <Movie key={index} data={movie}/>
+        })}
       </Slider>
     </div>
     </section>

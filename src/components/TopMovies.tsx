@@ -9,9 +9,20 @@ import topmovie from "../../public/04.jpg";
 import { FaPlay } from "react-icons/fa";
 import { FaAngleDown, FaAngleUp,FaAngleLeft,FaAngleRight } from "react-icons/fa6";
 
-type Props = {};
+interface Movies{
+  title: string;
+  id: number;
+  backdrop_path: string;
+  poster_path:string
+  release_date: any;
+}
+
+type Props = {
+  movies:Movies[] | null
+};
 
 export default function TopMovies({}: Props) {
+
   const [nav1, setNav1] = useState<Slider | any | null>(null);
   const [nav2, setNav2] = useState<Slider | any | null>(null);
   const slider1Ref = useRef<Slider | null>(null);
