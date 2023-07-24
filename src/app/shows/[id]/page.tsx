@@ -181,7 +181,7 @@ export default function Page({ params }: { params: { id: number } }) {
       <iframe
         width="100%"
         height="500"
-        src={`https://www.youtube.com/embed${
+        src={`https://www.youtube.com/embed/${
           (trailerData && trailerData.length > 0 )&& trailerData[trailerData.length -1]
         }`}
         title="YouTube video player"
