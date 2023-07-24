@@ -16,6 +16,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <meta http-equiv="Content-Security-Policy"
+      content="default-src 'self'; img-src https://*; child-src 'none'; frame-src youtube.com https://www.youtube.com;"></meta>
       <body className={inter.className} suppressHydrationWarning={true} >{children}</body>
     </html>
   )
