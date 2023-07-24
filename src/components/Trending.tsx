@@ -26,6 +26,7 @@ interface Movies {
   media_type: string;
   vote_average: number;
   popularity: number;
+  name:string
 }
 export default function Trending({ title = "Trending" }: Props) {
   const [trending, setTrending] = useState<Movies[] | null>(null);
@@ -63,6 +64,7 @@ export default function Trending({ title = "Trending" }: Props) {
             media_type,
             overview,
             release_date,
+            name,
             ...others
           }: any) => {
             return {
@@ -76,6 +78,7 @@ export default function Trending({ title = "Trending" }: Props) {
               overview,
               poster_path,
               release_date,
+              name,
             } as Movies;
           }
         );
@@ -223,7 +226,10 @@ export default function Trending({ title = "Trending" }: Props) {
                   <div className="w-fit sm:w-[255px] p-3 pr-4 mb-8 mr-auto bg-red-600/40 border-r-4 border-l-4 border-red-600">
                     <Image src={logo} alt="logo" className="w-[130px]" />
                   </div>
-                  <h1 className="texture my-4 w-fit mr-auto">{movie?.title}</h1>
+                  <h1 className="texture my-4 w-fit mr-auto">
+                    
+                  {movie?.title ? movie?.title : movie?.name}</h1>
+
                   <div className="mb-8">
                     <div className="flex items-center gap-4 text-sm md:text-xl font-normal">
                       Type: {movie?.media_type}
@@ -245,12 +251,6 @@ export default function Trending({ title = "Trending" }: Props) {
                   </div>
                   <div>
                     <div className="text-sm md:text-lg">
-                      <p>
-                        <span className="text-red-600 font-semibold">
-                          Actor:
-                        </span>{" "}
-                        Josh Duhamel,Bruce Willis,Rosario Dawson
-                      </p>
                       <p>
                         <span className="text-red-600 font-semibold">
                           Genres:

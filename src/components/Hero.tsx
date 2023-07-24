@@ -136,7 +136,7 @@ export default function Hero({}: Props) {
                         <Image src={logo} alt="logo" className="w-[130px]" />
                       </div>
                       <h1 className="texture trending-title">
-                        {trending?.title}
+                        {trending?.title ? trending?.title : trending?.name}
                       </h1>
                       <div className="mb-8">
                         <div className="flex items-center gap-4 text-sm lg:text-xl font-normal">
