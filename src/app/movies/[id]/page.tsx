@@ -140,7 +140,7 @@ export default function Page({ params }: { params: { id: number } }) {
        
         <section className="section">
           <div className="inner-section flex flex-col border-slice py-4 gap-4">
-            <h4 className="texture my-4 w-fit mr-auto text-2xl font-extrabold">
+            <h4 className="texture my-4 w-fit mr-auto text-2xl font-extrabold leading-[1.2]">
               {movieData?.title}
             </h4>
             <p>{movieData?.overview}</p>
@@ -157,13 +157,9 @@ export default function Page({ params }: { params: { id: number } }) {
             <div>
               <div className="text-sm md:text-lg">
                 <p>
-                  <span className="text-red-600 font-semibold">Actor:</span>{" "}
-                  Josh Duhamel,Bruce Willis,Rosario Dawson
-                </p>
-                <p>
                   <span className="text-red-600 font-semibold">Genres:</span>{" "}
                   {movieData?.genres.map((genre) => (
-                    <span key={genre.id}>{genre.name}</span>
+                    <span key={genre.id}> {genre.name} </span>
                   ))}
                 </p>
                 <p>
@@ -174,7 +170,7 @@ export default function Page({ params }: { params: { id: number } }) {
                   <span className="text-red-600 font-semibold">Duration:</span>{" "}
                   {`${new Date(movieData?.runtime).getHours()}Hrs ${new Date(
                     movieData?.runtime
-                  ).getMinutes()}Min}`}
+                  ).getMinutes()}Min`}
                 </p>
                 <p>
                   <span className="text-red-600 font-semibold">Quality:</span>
