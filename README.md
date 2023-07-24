@@ -1,3 +1,12 @@
+# vidstream
+A simple web application to preview series and movie trailers,search mmovies and shows,get the latest,trending and popular shows and movies.  
+## Technologies
+⛓️: Nextjs 13 - App Router 
+⛓️: NextAuth Library  
+⛓️: Typescript    
+⛓️: Tailwind CSS   
+⛓️: TMDs(The Movies Database) movies Api  
+⛓️: Slider  
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
