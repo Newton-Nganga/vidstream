@@ -130,7 +130,7 @@ export default function Page({ params }: { params: { id: number } }) {
         width="100%"
         height="500"
         src={`https://www.youtube.com/embed/${
-          (trailerData && trailerData.length > 0 )&& trailerData[trailerData.length -1]
+          (trailerData && trailerData.length > 0 )&& trailerData[trailerData.length -1].key
         }`}
         title="YouTube video player"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture,full-screen"

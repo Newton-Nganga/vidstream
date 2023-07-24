@@ -6,6 +6,7 @@ import { BsStarFill, BsStar } from "react-icons/bs";
 import { RiHeartFill, RiShareLine, RiVolumeMuteFill } from "react-icons/ri";
 import MoviesCarousel from "@/components/MoviesCarousel";
 import axios, { AxiosRequestConfig } from "axios";
+import YouTube, { YouTubePlayer } from "react-youtube";
 type Props = {};
 
 //movie details
@@ -178,11 +179,14 @@ export default function Page({ params }: { params: { id: number } }) {
   return (
     <InnerPage>
       <section>
+        {/* <YouTube
+         videoId={(trailerData && trailerData.length > 0 )&& trailerData[trailerData.length -1].key}
+        /> */}
       <iframe
         width="100%"
         height="500"
         src={`https://www.youtube.com/embed/${
-          (trailerData && trailerData.length > 0 )&& trailerData[trailerData.length -1]
+          (trailerData && trailerData.length > 0 )&& trailerData[trailerData.length -1].key
         }`}
         title="YouTube video player"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture,full-screen"
