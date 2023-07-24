@@ -52,9 +52,7 @@ export default function PopularShows({  }: Props) {
   },[])
 
 
-//   if (popular && popular.length > 0) {
-//     console.log("popular ->", popular);
-//   }
+
 
   return <MoviesCarousel title={"Popular Shows"} movies={popular} />;
 }
