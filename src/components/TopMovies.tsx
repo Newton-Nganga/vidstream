@@ -155,7 +155,7 @@ export default function TopMovies({ movies }: Props) {
                         : "https://fontawesome.com/social/film?f=classic&s=&v=5"
                       }`}
                       alt="trending"
-                      className="relative h-full w-full"
+                      className="h-full w-full"
                     />
                     <div className="hidden group-[.topmovie-active-slide]:flex group-[.topmovie-active-slide]:flex-col justify-between bg-black/50 px-3 py-1 absolute h-full w-full">
                       <p>{movie?.title}</p>

@@ -111,7 +111,7 @@ export default function FeaturedMovie({}: Props) {
             }`}
             fill={true}
             alt="featured"
-            className="w-full h-[400px]"
+            className="relative w-full h-[400px]"
           />
         </div>
       </div>
