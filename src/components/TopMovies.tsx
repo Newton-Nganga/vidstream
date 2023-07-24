@@ -112,6 +112,7 @@ export default function TopMovies({ movies }: Props) {
                     alt="top movie"
                     className="w-full h-full object-cover"
                   />
+                  <span className="absolute block w-full h-full bg-black/25"></span>
                 </div>
               ))}
             </Slider>
