@@ -119,9 +119,9 @@ export default function Page({ params }: { params: { id: number } }) {
     getTrending();
     //eslint-disable-next-line
   }, []);
-  if(trailerData && trailerData.length > 0){
-    console.log("data",trailerData[trailerData.length-1])
-  }
+  // if(trailerData && trailerData.length > 0){
+  //   console.log("data",trailerData[trailerData.length-1])
+  // }
   
   return (
     <InnerPage>
@@ -133,7 +133,9 @@ export default function Page({ params }: { params: { id: number } }) {
           (trailerData && trailerData.length > 0 )&& trailerData[trailerData.length -1].key
         }`}
         title="YouTube video player"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture,full-screen"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture,fullscreen"
+        allowFullScreen
+        
       ></iframe>
        
         <section className="section">

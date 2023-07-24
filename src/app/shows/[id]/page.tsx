@@ -189,8 +189,9 @@ export default function Page({ params }: { params: { id: number } }) {
           (trailerData && trailerData.length > 0 )&& trailerData[trailerData.length -1].key
         }`}
         title="YouTube video player"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture,full-screen"
-      ></iframe>
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture,fullscreen"
+        allowFullScreen
+        ></iframe>
         <section className="section">
           <div className="inner-section flex flex-col border-slice py-4 gap-4">
             <h4 className="texture my-4 w-fit mr-auto text-2xl font-extrabold">
