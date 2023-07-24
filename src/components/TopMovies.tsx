@@ -5,7 +5,7 @@ import Slider from "react-slick";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import topmovie from "../../public/04.jpg";
+import defaultPoster from "../../public/04.jpg";
 import { FaPlay } from "react-icons/fa";
 import {
   FaAngleDown,
@@ -102,10 +102,12 @@ export default function TopMovies({ movies }: Props) {
                 >
                   <Image
                     fill={true}
-                    src={`https://image.tmdb.org/t/p/original${
-                      movie?.backdrop_path
-                        ? movie?.backdrop_path
+                    src={`${
+                        movie?.backdrop_path
+                        ? "https://image.tmdb.org/t/p/original"+movie?.backdrop_path
                         : movie?.poster_path
+                        ? "https://image.tmdb.org/t/p/original"+movie?.poster_path
+                        : "https://fontawesome.com/social/film?f=classic&s=&v=5"
                     }`}
                     alt="top movie"
                     className="w-full h-full object-cover"
@@ -146,10 +148,11 @@ export default function TopMovies({ movies }: Props) {
                   >
                     <Image
                       fill={true}
-                      src={`https://image.tmdb.org/t/p/original${
-                        movie?.backdrop_path
-                          ? movie?.backdrop_path
-                          : movie?.poster_path
+                      src={`${movie?.backdrop_path
+                        ? "https://image.tmdb.org/t/p/original"+movie?.backdrop_path
+                        : movie?.poster_path
+                        ? "https://image.tmdb.org/t/p/original"+movie?.poster_path
+                        : "https://fontawesome.com/social/film?f=classic&s=&v=5"
                       }`}
                       alt="trending"
                       className="absolute h-full w-full"

@@ -28,17 +28,17 @@ export default function SimilarMovies({ id }: Props) {
   
   useEffect(()=>{
     async function getSimilar() {
-    console.log('similar function started')
+    //console.log('similar function started')
     try {
-      console.log("trying ...")
+     // console.log("trying ...")
       const similarResponse = await axios.request(similarOptions);
-      console.log("similar response", similarResponse);
+      // console.log("similar response", similarResponse);
       const similar_data: Movies[] = similarResponse.data.results.map(
         ({ title, id, backdrop_path,poster_path, release_date, ...others }: any) => {
           return { title, id,backdrop_path , poster_path, release_date } as Movies;
         }
       );
-      console.log("similar_data",similar_data);
+      // console.log("similar_data",similar_data);
       
 
       setSimilarMovies(similar_data);
@@ -51,9 +51,9 @@ export default function SimilarMovies({ id }: Props) {
   },[])
 
 
-  if (similarMovies && similarMovies.length > 0) {
-    console.log("similar ->", similarMovies);
-  }
+  // if (similarMovies && similarMovies.length > 0) {
+  //   console.log("similar ->", similarMovies);
+  // }
 
   return <MoviesCarousel title={"Similar Movies"} movies={similarMovies} />;
 }

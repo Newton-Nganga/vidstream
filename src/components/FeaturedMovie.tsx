@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-// import featured from "../../public/07.jpg";
+import defaultPoster from "../../public/07.jpg";
 import Link from "next/link";
 import axios, { AxiosRequestConfig } from "axios";
 
@@ -75,7 +75,7 @@ export default function FeaturedMovie({}: Props) {
     <section className={`w-full bg-black/70`}>
       <div className="flex flex-col lg:flex-row my-16 text-white items-center justify-between gap-5 bg-transparent inner-section m-auto">
         <div className="lg:w-1/3">
-          <h1 className="texture">{featured && featured.length > 0 && featured[Math.floor(featured.length / 2)].title}</h1>
+          <h1 className="texture leading-[1.2]">{featured && featured.length > 0 && featured[Math.floor(featured.length / 2)].title}</h1>
           <div className="flex items-center gap-4 my-3">
             <p className="flex gap-1 text-red-600">
               <BsStarFill />
@@ -93,17 +93,21 @@ export default function FeaturedMovie({}: Props) {
             <button className="p-3 px-7 btn">Play Now</button>
             <Link
               href={`/movies/${
-                featured && featured.length > 0 && featured[Math.floor(featured.length / 2)].id
+                featured && featured.length > 0 && featured[Math.floor(featured.length / 3)].id
               }`}
             >
               <p className="hover:text-red-600">More Details</p>
             </Link>
           </div>
         </div>
-        <div className="w-full lg:w-2/3 rounded-xl overflow-clip">
+        <div className="relative w-full lg:w-2/3 rounded-xl overflow-clip">
           <Image
-            src={`https://image.tmdb.org/t/p/original${
-              featured && featured.length > 0 && featured[Math.floor(featured.length / 2)].backdrop_path
+            src={`${
+              featured && featured.length > 0 && featured[Math.floor(featured.length / 3)].backdrop_path ?
+              "https://image.tmdb.org/t/p/original"+featured[Math.floor(featured.length / 3)].backdrop_path : 
+              featured && featured[Math.floor(featured.length / 3)].poster_path ?
+              "https://image.tmdb.org/t/p/original"+featured[Math.floor(featured?.length / 3)].poster_path :
+              "https://fontawesome.com/social/film?f=classic&s=&v=5"
             }`}
             fill={true}
             alt="featured"

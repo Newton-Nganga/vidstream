@@ -119,10 +119,10 @@ export default function Hero({}: Props) {
           centerPadding={"0px"}
           ref={sliderRef}
         >
-          {movieData?.map((trending) => {
+          {movieData?.reverse().map((trending) => {
             return (
              
-                <div key={trending?.id} className="relative  w-full h-[680px]  rounded-xl overflow-clip">
+                <div key={trending?.id} className="relative  w-full h-[680px] overflow-clip">
                   <Image
                     src={`https://image.tmdb.org/t/p/original${trending?.backdrop_path}`}
                     alt={trending?.title}

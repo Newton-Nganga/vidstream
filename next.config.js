@@ -14,6 +14,17 @@ const nextConfig = {
             port: '',
             pathname: '/t/p/original/**',
           },
+          {
+            protocol: 'https',
+            hostname: 'fontawesome.com',
+            port: '',
+            pathname: '/social/film/**',
+          },{
+            protocol:'https',
+            hostname:"m.media-amazon.com",
+            port:'',
+            pathname:'/images/**'
+          }
         ],
       },
 }

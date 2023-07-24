@@ -38,7 +38,7 @@ export default function TopRatedMovies({ }: Props) {
           return { title, id,backdrop_path , poster_path, release_date } as Movies;
         }
       );
-      console.log("toprated_data",toprated_data);
+     //console.log("toprated_data",toprated_data);
       
 
       setTopMovies(toprated_data);
@@ -51,9 +51,9 @@ export default function TopRatedMovies({ }: Props) {
   },[])
 
 
-  if (topMovies && topMovies.length > 0) {
-    console.log("similar ->", topMovies);
-  }
+  // if (topMovies && topMovies.length > 0) {
+  //   console.log("similar ->", topMovies);
+  // }
 
   return <TopMovies movies={topMovies} />;
 }

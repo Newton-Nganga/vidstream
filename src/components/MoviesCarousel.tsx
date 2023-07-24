@@ -7,9 +7,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
 import Movie from "./Movie";
-// const movies: React.FC[] = [
-//  Movie,Movie,Movie,Movie,Movie,Movie,
-// ];
+
 interface Movies {
   title: string;
   id: number;
@@ -30,7 +28,8 @@ export default function MoviesCarousel({title,movies}:Props) {
       sliderRef.current.slickNext();
     }
   };
-   console.log('movies carousel',movies)
+  //eslint-disable-next-line
+   //console.log('movies carousel',movies)
   const previous = () => {
     if (sliderRef.current) {
       sliderRef.current.slickPrev();

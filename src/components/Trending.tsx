@@ -4,7 +4,7 @@ import Slider from "react-slick";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-// import trending from "../../public/05.jpg";
+import defaultPoster from "../../public/05.jpg";
 import logo from "../../public/logo.png";
 
 import { FaPlay, FaAngleLeft, FaAngleRight } from "react-icons/fa";
@@ -175,10 +175,11 @@ export default function Trending({ title = "Trending" }: Props) {
               } slide-item`}
             >
               <Image
-                src={`https://image.tmdb.org/t/p/original${
-                  movie?.backdrop_path
-                    ? movie?.backdrop_path
-                    : movie?.poster_path
+                src={`${movie?.backdrop_path
+                ? "https://image.tmdb.org/t/p/original"+movie?.backdrop_path
+                : movie?.poster_path
+                ? "https://image.tmdb.org/t/p/original"+movie?.poster_path
+                : "https://fontawesome.com/social/film?f=classic&s=&v=5"
                 }`}
                 alt="trending"
                 fill={true}
@@ -206,10 +207,13 @@ export default function Trending({ title = "Trending" }: Props) {
               className="relative my-4 w-full h-[650px] rounded-xl overflow-clip"
             >
               <Image
-                src={`https://image.tmdb.org/t/p/original${
+                fill={true}
+                src={`${
                   movie?.backdrop_path
-                    ? movie?.backdrop_path
-                    : movie?.poster_path
+                ? "https://image.tmdb.org/t/p/original"+movie?.backdrop_path
+                : movie?.poster_path
+                ? "https://image.tmdb.org/t/p/original"+movie?.poster_path
+                : "https://fontawesome.com/social/film?f=classic&s=&v=5"
                 }`}
                 alt="trending"
                 className="absolute h-full w-full"

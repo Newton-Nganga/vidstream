@@ -1,10 +1,7 @@
 import FeaturedMovie from "@/components/FeaturedMovie";
-import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
-import Movie from "@/components/Movie";
-import MoviesCarousel from "@/components/MoviesCarousel";
-import Navbar from "@/components/Navbar/Navbar";
-import TopMovies from "@/components/TopMovies";
+
+
 import Trending from "@/components/Trending";
 import VidstreamPage from "@/components/VidstreamPage";
 import PopularShows from "@/components/movieCarouselItems/PopularShows";
