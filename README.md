@@ -4,8 +4,8 @@ A simple web application to preview series and movie trailers,search mmovies and
 ## Visit
  Get the view of the site at [vidstream.vercel.app](https://vidstream.vercel.app)
 ## Technologies
-⛓️: Nextjs 13 - App Router 
-⛓️: ~~NextAuth Library~~ (coming up)
+⛓️: Nextjs 13 - App Router  
+⛓️: ~~NextAuth Library~~ (coming up)  
 ⛓️: Typescript    
 ⛓️: Tailwind CSS   
 ⛓️: TMDs(The Movies Database) movies Api  
