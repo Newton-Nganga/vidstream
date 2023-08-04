@@ -135,15 +135,20 @@ export default function Page({ params }: { params: { id: number } }) {
         height="500"
         src={option === 'trailer' ? `https://www.youtube.com/embed/${
           (trailerData && trailerData.length > 0 )&& trailerData[trailerData.length -1].key
-        }` :`https://www.2embed.cc/${params.id}`}
+        }` :`https://www.2embed.cc/embed/${params.id}`}
         title="YouTube video player"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture,fullscreen"
         allowFullScreen
         
       ></iframe>
       <div>
-        <Link href={`/movies/${params.id}?op=${option ==="stream" ? "stream":"trailer"}`}  className="w-fit">
-          {option === "stream" ? "Trailer" : "Stream"}
+        <Link 
+        className='my-3'
+        href={`/movies/${params.id}?op=${option ==="stream" ? "stream":"trailer"}`}
+        >
+          <button className="w-fit">
+            {option === "stream" ? "Trailer" : "Stream"}
+          </button>
         </Link>
       </div>
         </div>
