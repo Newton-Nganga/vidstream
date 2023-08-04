@@ -14,8 +14,7 @@ export default function Footer(props: IAppProps) {
          <Image src={logo} alt="logo" className='w-[200px] md:w-[300px] lg:w-[75%]'/> 
         </div>
         <p>
-          It is a long established fact that a reader will be distracted by the
-          readable content of a page when looking at its layout.
+          A movie search ngine to find the trending, popular, top, upcoming and search for movies and Tv shows.Also get to view the available trailers for the movies and shows.
         </p>
         <div className="flex gap-3  items-center">
           <div className="footer-social-btn">
@@ -53,7 +52,7 @@ export default function Footer(props: IAppProps) {
        </ul>
       </div>
       <div className="w-full flex flex-col gap-4 lg:w-1/4">
-      <h4 className="footer-title">Important Link</h4>
+      <h4 className="footer-title">Our Contacts</h4>
       <p>Subscribe our newsletter to get latest update & news.</p>
       <form className="flex flex-col w-full gap-4">
         <input type="email" placeholder="Enter email"/>
@@ -62,7 +61,7 @@ export default function Footer(props: IAppProps) {
       </div>
     </div>
     <div className="py-3 text-center border-t-2 mt-4 border-blue-500 border-dashed">
-      <p>VIDSTREAM -{new Date().getFullYear()}<span className="text-sm"> All Rights Reserved </span></p>
+      <p>VIDSTREAM - {new Date().getFullYear()}<span className="text-sm"> All Rights Reserved </span></p>
     </div>
    </div>
     </section>

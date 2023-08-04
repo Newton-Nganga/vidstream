@@ -1,9 +1,8 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Image from "next/image";
-import defaultPoster from "../../public/07.jpg";
 import Link from "next/link";
-import axios, { AxiosRequestConfig } from "axios";
+
 
 type Props = {};
 
@@ -16,60 +15,12 @@ interface Movies {
   overview: string;
 }
 import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
+import useFeaturedMovie from "../../Utils/useFeaturedMovie";
 
 export default function FeaturedMovie({}: Props) {
-  const [featured, setSuggested] = useState<Movies[] | null>(null);
-  const featuredShowsOptions: AxiosRequestConfig = {
-    method: "GET",
-    url: `${process.env.BASE_ENDPOINT}discover/tv`,
-    headers: {
-      accept: "application/json",
-      Authorization: process.env.API_AUTHORIZATION_TOKEN,
-    },
-  };
 
-  useEffect(() => {
-    async function getSimilar() {
-      // console.log('popular function started')
-      try {
-        //   console.log("trying ...")
-        const featuredResponse = await axios.request(featuredShowsOptions);
-
-        //   console.log("popular response", popularResponse);
-        const featured_data: Movies[] = featuredResponse.data.results.map(
-          ({
-            name: title,
-            id,
-            backdrop_path,
-            overview,
-            poster_path,
-            release_date,
-            ...others
-          }: any) => {
-            return {
-              title,
-              id,
-              backdrop_path,
-              overview,
-              poster_path,
-              release_date,
-            } as Movies;
-          }
-        );
-        //console.log("popular shows",popular_data);
-
-        setSuggested(featured_data);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    getSimilar();
-    //eslint-disable-next-line
-  }, []);
-
-  //   if (popular && popular.length > 0) {
-  //     console.log("popular ->", popular);
-  //   }
+  const featured = useFeaturedMovie()
+ 
 
   return (
     <section className={`w-full bg-black/70`}>

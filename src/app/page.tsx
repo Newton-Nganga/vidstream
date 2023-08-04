@@ -10,7 +10,9 @@ import TopRatedMovies from "@/components/movieCarouselItems/TopRatedMovies";
 import UpcomingMovies from "@/components/movieCarouselItems/UpcomingMovies";
 
 
+
 export default function Home() {
+
   return (
     <VidstreamPage>
       

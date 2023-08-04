@@ -4,6 +4,7 @@ import InnerPage from '@/components/Pages/InnerPages'
 import { useSearchParams } from 'next/navigation'
 import React,{useState,useEffect} from 'react'
 import axios,{AxiosRequestConfig} from 'axios'
+import MoviesCarousel from '@/components/MoviesCarousel'
 
 
 type Props = {}
@@ -21,10 +22,11 @@ export default function Page({}: Props) {
       const searchParams = useSearchParams()
     //path /query/s="movies"
       const search = searchParams.get('query')
-    const [results,setResults] = useState<Movies[] | null>(null)
+    const [movieresults,setMovieResults] = useState<Movies[] | null>(null)
+    const [showresults,setShowResults] = useState<Movies[] | null>(null)
     const quryMovieOptions: AxiosRequestConfig = {
       method: "GET",
-      url: `${process.env.BASE_ENDPOINT}movie?query=${search}`,
+      url: `${process.env.BASE_ENDPOINT}movie?query=${search}&include_adult=true&language=en-US&page=1`,
       headers: {
         accept: "application/json",
         Authorization: process.env.API_AUTHORIZATION_TOKEN,
@@ -32,7 +34,7 @@ export default function Page({}: Props) {
     };
   const quryShowOptions: AxiosRequestConfig = {
     method: "GET",
-    url: `${process.env.BASE_ENDPOINT}tv?query=${search}`,
+    url: `${process.env.BASE_ENDPOINT}tv?query=${search}&include_adult=true&language=en-US&page=1`,
     headers: {
       accept: "application/json",
       Authorization: process.env.API_AUTHORIZATION_TOKEN,
@@ -57,8 +59,9 @@ export default function Page({}: Props) {
               return { title, id, backdrop_path, release_date } as Movies;
             }
           );
-          const combinedData: Movies[] = qmovie_data.concat(qshow_data);
-          setResults(combinedData);
+          //const combinedData: Movies[] = qmovie_data.concat(qshow_data);
+          setMovieResults(qmovie_data);
+          setShowResults(qshow_data);
         } catch (error) {
           console.log(error);
         }
@@ -73,12 +76,14 @@ export default function Page({}: Props) {
     <InnerPage>
         <section className='section'>
             <div className='inner-section'>
-               <h2>search results for string</h2>
+               <h2>search results for {search}</h2>
                {/* map through the movies */}
                <div className='flex flex-wrap gap-4 w-full '>
-               {results?.map((movie:Movies,index:number)=>(
-      <Movie key={index} data={movie}/>
-     ))}
+               {/* {results?.map((movie:Movies,index:number)=>(
+                 <Movie key={index} data={movie}/>
+                ))} */}
+                <MoviesCarousel title="Movies" movies={movieresults}/>
+                <MoviesCarousel title="Tv Shows" movies={showresults}/>
                </div>
             </div>
         </section>
