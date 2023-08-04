@@ -118,7 +118,7 @@ export default function Page({ params }: { params: { id: number } }) {
     <InnerPage>
       <section>
         <div className="section">
-          <div className="inner-section">
+          <div className="inner-section flex-col">
             {trailer ? (
               <ReactPlayer
                 url={`https://www.youtube.com/watch?v=${trailerData&& trailerData.length > 0 && trailerData[trailerData.length-1].key}`}
@@ -138,12 +138,12 @@ export default function Page({ params }: { params: { id: number } }) {
 
             <div>
               <button
-                className="w-fit my-3"
+                className="w-fit my-3 "
                 onClick={() => setTrailer(!trailer)}
               >
                 {trailer ? "Stream" : "Trailer"}
               </button>
-              <i className="italic max-w-[400px]">
+              <i className="italic max-w-[400px] text-[11px]">
                 The streaming option may not be available for some movies.Also
                 its offered by non-affiliated third party providers therefore it
                 may contain ads.
