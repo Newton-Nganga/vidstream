@@ -20,8 +20,8 @@ export default function Search({ movie }: Prop) {
         movie.media_type === "tv" ? `/shows/${movie.id}` : `/movies/${movie.id}`
       }
     >
-      <div className="min-w-[150px] w-1/2 md:w-1/3 lg:w-[200px] flex flex-col sm:m-3">
-        <div className="relative w-full h-[200px] rounded-md overflow-clip">
+      <div className="min-w-[150px] group w-1/2 md:w-1/3 lg:w-[180px] flex flex-col sm:m-3">
+        <div className="relative w-full h-[200px]  rounded-md overflow-clip">
           <Image
             src={`https://image.tmdb.org/t/p/original${movie?.poster_path
                 ? movie?.poster_path
@@ -29,12 +29,13 @@ export default function Search({ movie }: Prop) {
             }`}
             alt={movie.name}
             fill={true}
+            className="group-hover:scale-110"
           />
         </div>
 
         <div className="w-full my-2">
           <p className="text-sm uppercase font-semibold">{movie?.name}</p>
-          <p className="flex justify-between items-center">
+          <p className="flex justify-between items-center text-xs pt-3">
             {movie.release}
             <span className="bg-gray-700 rounded-md px-1 p-[2px]">
               {movie.media_type}
