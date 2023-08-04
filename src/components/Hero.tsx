@@ -153,13 +153,13 @@ export default function Hero({}: Props) {
                       </div>
                       <div className="mb-8">
                         <div className="flex gap-4 items-center w-fit">
-                          <Link href={`/movies/${trending?.id}`}>
+                          <Link href={`/movies/${trending?.id}?op="trailer"`}>
                           <button className="md:px-6 md:p-3 gap-2 btn">
                             <FaPlay />
                             <span>Play Now</span>
                           </button>
                           </Link>
-                          <Link href={`/movies/${trending?.id}`}>
+                          <Link href={`/movies/${trending?.id}?op="trailer"`}>
                             <p className="text-lg hover:text-red-600">+My List</p>
                           </Link>
                         </div>

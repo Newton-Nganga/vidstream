@@ -19,7 +19,7 @@ type Props = {
 
 export default function Movie({ data }: Props) {
   return (
-    <Link href={`/movies/${data.id}`}>
+    <Link href={`/movies/${data.id}?op="trailer"`}>
       <div className="relative my-5 w-full h-[160px] sm:w-[40vw] md:w-[28vw] lg:w-[22vw] xl:w-[270px] lg:h-[160px]  flex hover:z-10 hover:scale-[1.20] duration-[0.2s] group rounded-xl  border-[3px] border-white overflow-clip">
         <div className="absolute  w-full h-full flex">
           <Image

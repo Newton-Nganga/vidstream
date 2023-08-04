@@ -7,7 +7,7 @@ import Image from "next/image";
 import titlecover from "../../../../public/title.jpg";
 //import useBreadcrumb from "../../../../Utils/useBreadCrumb";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 
 import InnerPage from "@/components/Pages/InnerPages";
 import { BsStarFill, BsStar } from "react-icons/bs";
@@ -54,13 +54,14 @@ interface Movies {
 }
 
 export default function Page({ params }: { params: { id: number } }) {
-  //const breadcrumb = useBreadcrumb();
-  const pathname = usePathname();
-  //console.log(params.id);
+   //get the query parameter
+   const searchParams = useSearchParams();
+   //path /query/s="movies"
+   const option = searchParams.get("op");
 
   const [movieData, setMovieData] = useState<MovieData | null>(null);
   const [trailerData, setTrailerData] = useState<TrailerData[]|null>(null);
-  const [option,setOption] = useState<string>('trailer')
+ 
 
   const options: AxiosRequestConfig = {
     method: "GET",
@@ -127,7 +128,8 @@ export default function Page({ params }: { params: { id: number } }) {
   return (
     <InnerPage>
       <section>
-        <div>
+        <div className="section">
+          <div className="inner-section">
           <iframe
         width="100%"
         height="500"
@@ -140,11 +142,13 @@ export default function Page({ params }: { params: { id: number } }) {
         
       ></iframe>
       <div>
-        <button onClick={()=>setOption('stream')}>
-          {option}
-        </button>
+        <Link href={`/movies/${params.id}?op=${option ==="stream" ? "stream":"trailer"}`}  className="w-fit">
+          {option === "stream" ? "Trailer" : "Stream"}
+        </Link>
       </div>
         </div>
+        </div>
+        
         
        
         <section className="section">

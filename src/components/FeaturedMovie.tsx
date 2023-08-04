@@ -45,7 +45,7 @@ export default function FeaturedMovie({}: Props) {
             <Link
               href={`/movies/${
                 featured && featured.length > 0 && featured[Math.floor(featured.length / 3)].id
-              }`}
+              }?op="trailer"`}
             >
               <p className="hover:text-red-600">More Details</p>
             </Link>
