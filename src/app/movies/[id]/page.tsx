@@ -55,13 +55,11 @@ interface Movies {
 
 export default function Page({ params }: { params: { id: number } }) {
    //get the query parameter
-   const searchParams = useSearchParams();
-   //path /query/s="movies"
-   const option = searchParams.get("op");
+
 
   const [movieData, setMovieData] = useState<MovieData | null>(null);
   const [trailerData, setTrailerData] = useState<TrailerData[]|null>(null);
- 
+  const [trailer,setTrailer] = useState<boolean>(true)
 
   const options: AxiosRequestConfig = {
     method: "GET",
@@ -127,7 +125,7 @@ export default function Page({ params }: { params: { id: number } }) {
       <section>
         <div className="section">
           <div className="inner-section">
-            {option === "trailer" ?
+            {trailer ?
              <iframe
         width="100%"
         height="500"
@@ -142,14 +140,10 @@ export default function Page({ params }: { params: { id: number } }) {
       <iframe src={`https://www.2embed.cc/embed/${params.id}`} width="100%" height="500" allow="fullscreen"></iframe>}
          
       <div>
-        <Link 
-        className='my-3'
-        href={`/movies/${params.id}?op=${option ==="stream" ? "stream":"trailer"}`}
-        >
-          <button className="w-fit">
-            {option === "stream" ? "Trailer" : "Stream"}
+          <button className="w-fit my-3" onClick={()=>setTrailer(!trailer)}>
+            {trailer? "Trailer" : "Stream"}
           </button>
-        </Link>
+          <i className="italic max-w-[400px]">The streaming option may not be available for some movies.Also its offered by non-affiliated third party providers therefore it may contain ads.</i>
       </div>
         </div>
         </div>
