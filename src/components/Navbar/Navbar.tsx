@@ -99,7 +99,7 @@ setQuery:any
 const SearchEl =({search,query,setQuery}:searchelProp)=>{
   return(
     <div
-         className={`absolute top-[100%] mt-6 ${
+         className={`absolute top-[100%] right-[40px] mt-6 ${
           search 
             ? "scale-100 animate-fade-up animate-duration-[2000ms]"
             : "scale-0 animate-fade animate-duration-[2000ms]"

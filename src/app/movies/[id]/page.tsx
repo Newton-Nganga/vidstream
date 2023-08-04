@@ -150,7 +150,7 @@ export default function Page({ params }: { params: { id: number } }) {
                 {trailer ? "Stream" : "Trailer"}
               </button>
               <p className="italic pt-2  text-[11px]">
-                The streaming its offered by non-affiliated third party
+                The streaming service is offered by non-affiliated third party
                 providers therefore some movies and shows may be unavailable and
                 the available ones may contain ads- (use Brave browser to get rid of ads).
               </p>
