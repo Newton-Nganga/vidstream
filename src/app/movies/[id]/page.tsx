@@ -121,7 +121,11 @@ export default function Page({ params }: { params: { id: number } }) {
           <div className="inner-section flex-col">
             {trailer ? (
               <ReactPlayer
-                url={`https://www.youtube.com/watch?v=${trailerData&& trailerData.length > 0 && trailerData[trailerData.length-1].key}`}
+                url={`https://www.youtube.com/watch?v=${
+                  trailerData &&
+                  trailerData.length > 0 &&
+                  trailerData[trailerData.length - 1].key
+                }`}
                 width="100%"
                 height="500px"
                 controls={true}
@@ -136,18 +140,18 @@ export default function Page({ params }: { params: { id: number } }) {
               ></iframe>
             )}
 
-            <div>
+            <div className="flex flex-col">
               <button
                 className="w-fit my-3 "
                 onClick={() => setTrailer(!trailer)}
               >
                 {trailer ? "Stream" : "Trailer"}
               </button>
-              <i className="italic max-w-[400px] text-[11px]">
-                The streaming option may not be available for some movies.Also
-                its offered by non-affiliated third party providers therefore it
-                may contain ads.
-              </i>
+              <p className="italic max-w-[400px] text-[11px]">
+                The streaming its offered by non-affiliated third party
+                providers therefore some movies and shows may be unavailable and
+                the available ones may contain ads- (use Brave browser to get rid of ads).
+              </p>
             </div>
           </div>
         </div>
