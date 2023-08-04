@@ -121,26 +121,26 @@ export default function Page({ params }: { params: { id: number } }) {
     getTrending();
     //eslint-disable-next-line
   }, []);
-  // if(trailerData && trailerData.length > 0){
-  //   console.log("data",trailerData[trailerData.length-1])
-  // }
-  
+
   return (
     <InnerPage>
       <section>
         <div className="section">
           <div className="inner-section">
-          <iframe
+            {option === "trailer" ?
+             <iframe
         width="100%"
         height="500"
-        src={option === 'trailer' ? `https://www.youtube.com/embed/${
+        src={`https://www.youtube.com/embed/${
           (trailerData && trailerData.length > 0 )&& trailerData[trailerData.length -1].key
-        }` :`https://www.2embed.cc/embed/${params.id}`}
+        }`}
         title="YouTube video player"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture,fullscreen"
         allowFullScreen
         
-      ></iframe>
+      ></iframe>:
+      <iframe src={`https://www.2embed.cc/embed/${params.id}`} width="100%" height="500" allow="fullscreen"></iframe>}
+         
       <div>
         <Link 
         className='my-3'
