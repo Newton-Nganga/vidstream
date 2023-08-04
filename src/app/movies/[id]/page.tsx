@@ -138,7 +138,7 @@ export default function Page({ params }: { params: { id: number } }) {
                 height="500"
                 allowFullScreen
                 allow="fullscreen"
-                className="border-2 border-white md:rounded-lg"
+                className="border-2 border-white rounded-[8px]"
               ></iframe>
             )}
 
