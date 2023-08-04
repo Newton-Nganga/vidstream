@@ -122,7 +122,7 @@ export default function Navbar({}: Props) {
   const handleClick = (key: String) => {
     setDisplay({ display: !display.display, open: key });
   };
-  //console.log(display)
+
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-20 ${
@@ -148,7 +148,7 @@ export default function Navbar({}: Props) {
           <Navlink LinkData={LinkData} />
           
         </ul>
-        <div className="relative">
+        <div className="hidden md:block relative">
           <SearchEl query={query} search={search} setQuery={setQuery}/>
         </div>
         
@@ -174,14 +174,15 @@ export default function Navbar({}: Props) {
             </Link>
           </div>
           <button
-            onClick={() => setIsOpen({ type: "right", state: !isOpen.state })}
+            onClick={() => {setIsOpen({ type: "right", state: !isOpen.state });setSearch(!search)}}
             className="flex px-2 rounded-none bg-transparent md:hidden"
           >
-            <BsThreeDots />
+            <FaSearch />
+          </button>
             {isOpen.state && isOpen.type === "right" && (
               <SearchEl query={query} search={search} setQuery={setQuery}/>
             )} 
-          </button>
+         
         </div>
       </div>
        

@@ -53,7 +53,7 @@ export default function Page({}: Props) {
     getSearch();
     //eslint-disable-next-line
   }, []);
-
+//console.log("movie results",movieresults);
   return (
     <InnerPage>
       <section className="section">
