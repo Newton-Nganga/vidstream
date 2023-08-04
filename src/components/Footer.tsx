@@ -14,7 +14,7 @@ export default function Footer(props: IAppProps) {
          <Image src={logo} alt="logo" className='w-[200px] md:w-[300px] lg:w-[75%]'/> 
         </div>
         <p>
-          A movie search ngine to find the trending, popular, top, upcoming and search for movies and Tv shows.Also get to view the available trailers for the movies and shows.
+         A free HD streaming and search engine for movies, shows, trailers.No acount creation is required!
         </p>
         <div className="flex gap-3  items-center">
           <div className="footer-social-btn">

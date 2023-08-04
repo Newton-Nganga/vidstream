@@ -24,7 +24,7 @@ export default function Page({}: Props) {
   const [showresults, setShowResults] = useState<Movies[] | null>(null);
   const quryMovieOptions: AxiosRequestConfig = {
     method: "GET",
-    url: `${process.env.BASE_ENDPOINT}movie?query=${search}&include_adult=true&language=en-US&page=1`,
+    url: `${process.env.BASE_ENDPOINT}search/movie?query=${search}&include_adult=true&language=en-US&page=1`,
     headers: {
       accept: "application/json",
       Authorization: process.env.API_AUTHORIZATION_TOKEN,
@@ -32,7 +32,7 @@ export default function Page({}: Props) {
   };
   const quryShowOptions: AxiosRequestConfig = {
     method: "GET",
-    url: `${process.env.BASE_ENDPOINT}tv?query=${search}&include_adult=true&language=en-US&page=1`,
+    url: `${process.env.BASE_ENDPOINT}search/tv?query=${search}&include_adult=true&language=en-US&page=1`,
     headers: {
       accept: "application/json",
       Authorization: process.env.API_AUTHORIZATION_TOKEN,
@@ -61,7 +61,6 @@ export default function Page({}: Props) {
             return { title, id, backdrop_path, release_date } as Movies;
           }
         );
-        //const combinedData: Movies[] = qmovie_data.concat(qshow_data);
         setMovieResults(qmovie_data);
         setShowResults(qshow_data);
       } catch (error) {
@@ -78,12 +77,9 @@ export default function Page({}: Props) {
         <div className="inner-section">
           <h2>search results for {search}</h2>
           {/* map through the movies */}
-          <div className="flex flex-wrap gap-4 w-full ">
-            {/* {results?.map((movie:Movies,index:number)=>(
-                 <Movie key={index} data={movie}/>
-                ))} */}
-            <MoviesCarousel title="Movies" movies={movieresults} />
-            <MoviesCarousel title="Tv Shows" movies={showresults} />
+          <div className="flex flex-wrap gap-4 w-full "> 
+          {movieresults?.map(movie=> <Movie key={movie.id} data={movie}/>)}
+          {showresults?.map(movie=> <Movie key={movie.id} data={movie}/>)}
           </div>
         </div>
       </section>
