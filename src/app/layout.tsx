@@ -19,6 +19,7 @@ export default function RootLayout({
       {/* <meta httpEquiv="Content-Security-Policy"
       content="default-src 'self'; img-src https://*; child-src 'none'; frame-src youtube.com https://www.youtube.com;"></meta> */}
       <meta httpEquiv="Content-Security-Policy" content="frame-src https://www.youtube.com;"/>
+      <meta httpEquiv="Content-Security-Policy" content="frame-src https://www.2embed.cc;"/>
       <body className={inter.className} suppressHydrationWarning={true} >{children}</body>
     </html>
   )
