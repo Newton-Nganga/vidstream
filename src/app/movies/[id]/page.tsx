@@ -60,6 +60,7 @@ export default function Page({ params }: { params: { id: number } }) {
 
   const [movieData, setMovieData] = useState<MovieData | null>(null);
   const [trailerData, setTrailerData] = useState<TrailerData[]|null>(null);
+  const [option,setOption] = useState<string>('trailer')
 
   const options: AxiosRequestConfig = {
     method: "GET",
@@ -126,17 +127,25 @@ export default function Page({ params }: { params: { id: number } }) {
   return (
     <InnerPage>
       <section>
-        <iframe
+        <div>
+          <iframe
         width="100%"
         height="500"
-        src={`https://www.youtube.com/embed/${
+        src={option === 'trailer' ? `https://www.youtube.com/embed/${
           (trailerData && trailerData.length > 0 )&& trailerData[trailerData.length -1].key
-        }`}
+        }` :`https://www.2embed.cc/${params.id}`}
         title="YouTube video player"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture,fullscreen"
         allowFullScreen
         
       ></iframe>
+      <div>
+        <button onClick={()=>setOption('stream')}>
+          {option}
+        </button>
+      </div>
+        </div>
+        
        
         <section className="section">
           <div className="inner-section flex flex-col border-slice py-4 gap-4">
