@@ -1,6 +1,21 @@
 /** @type {import('next').NextConfig} */
+const contextSecurityPolicy =`
+default-src 'self;
+script-src 'self' 'unsafe-inline' https://www.youtube.com/ https://www.multiembed.mov/ https://www.2embed.cc;
+frame-src https://www.youtube.com/ https://www.multiembed.mov/ https://www.2embed.cc;
+img-src https://www.youtube.com/ https://www.multiembed.mov/ https://www.2embed.cc;
+style-src 'self' 'unsafe-inline';
+`
 
 const nextConfig = {
+  async Headers(){
+     return [
+      { source: '/*', headers: [{ 
+        key: "Content-Security-Policy",
+        value:`${contextSecurityPolicy.replace(/\s{2,}/g,' ').trim()}`
+      }]}
+     ]
+  },
     env:{
         BASE_ENDPOINT:"https://api.themoviedb.org/3/",
         API_AUTHORIZATION_TOKEN:"Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxNGZjMWE0YjA3Y2EzYWVhMmNmODY5ZGRlZGMwOTBjNyIsInN1YiI6IjY0Yjk5NTNmMTEzODZjMDEwYzE4MmU3ZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.n64MkwcoV6EAm-aDu9YzOzf7twtBmfKOPTzivUi9Ikc",

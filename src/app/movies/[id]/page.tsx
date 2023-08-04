@@ -123,22 +123,10 @@ export default function Page({ params }: { params: { id: number } }) {
               <ReactPlayer
                 url={`https://www.youtube.com/watch?v=${trailerData&& trailerData.length > 0 && trailerData[trailerData.length-1].key}`}
                 width="100%"
-                height="100%"
+                height="500px"
                 controls={true}
               />
             ) : (
-              // <iframe
-              //   width="100%"
-              //   height="500"
-              //   src={`https://www.youtube.com/embed/${
-              //     trailerData &&
-              //     trailerData.length > 0 &&
-              //     trailerData[trailerData.length - 1].key
-              //   }`}
-              //   title="YouTube video player"
-              //   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture,fullscreen"
-              //   allowFullScreen
-              // ></iframe>
               <iframe
                 src={`https://multiembed.mov/?video_id=${params.id}&tmdb=1`}
                 width="100%"
