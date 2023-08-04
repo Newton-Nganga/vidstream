@@ -45,7 +45,7 @@ export default function Page({}: Props) {
         const qMovieResponse = await axios.request(quryMovieOptions);
         const qShowResponse = await axios.request(quryShowOptions);
 
-        const qshow_data: Movies[] = qShowResponse.data.response.map(
+        const qshow_data: Movies[] = qShowResponse.data.results.map(
           ({
             name: title,
             id,
@@ -56,11 +56,12 @@ export default function Page({}: Props) {
             return { title, id, backdrop_path, release_date } as Movies;
           }
         );
-        const qmovie_data: Movies[] = qMovieResponse.data.response.map(
+        const qmovie_data: Movies[] = qMovieResponse.data.results.map(
           ({ title, id, backdrop_path, release_date, ...others }: any) => {
             return { title, id, backdrop_path, release_date } as Movies;
           }
         );
+        
         setMovieResults(qmovie_data);
         setShowResults(qshow_data);
       } catch (error) {
