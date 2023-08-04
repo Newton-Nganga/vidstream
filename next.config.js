@@ -10,7 +10,7 @@ style-src 'self' 'unsafe-inline';
 const nextConfig = {
   async headers(){
      return [
-      { source: '/movie/*', headers: [{ 
+      { source: '/*', headers: [{ 
         key: "Content-Security-Policy",
         value:`default-src 'self; script-src 'self' 'unsafe-inline' https://www.youtube.com/ https://www.multiembed.mov/ https://www.2embed.cc; frame-src https://www.youtube.com/ https://www.multiembed.mov/ https://www.2embed.cc; style-src 'self' 'unsafe-inline';`
       }]}
