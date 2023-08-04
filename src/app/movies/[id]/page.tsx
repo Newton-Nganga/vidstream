@@ -54,12 +54,11 @@ interface Movies {
 }
 
 export default function Page({ params }: { params: { id: number } }) {
-   //get the query parameter
-
+  //get the query parameter
 
   const [movieData, setMovieData] = useState<MovieData | null>(null);
-  const [trailerData, setTrailerData] = useState<TrailerData[]|null>(null);
-  const [trailer,setTrailer] = useState<boolean>(true)
+  const [trailerData, setTrailerData] = useState<TrailerData[] | null>(null);
+  const [trailer, setTrailer] = useState<boolean>(false);
 
   const options: AxiosRequestConfig = {
     method: "GET",
@@ -100,13 +99,12 @@ export default function Page({ params }: { params: { id: number } }) {
           revenue,
           ...rest
         }: any = response.data;
-      
+
         const movieData: MovieData = rest;
         const trailer_data: TrailerData[] = trailerResponse.data.results.filter(
           (data: any) =>
             // data.name === "Official Trailer" &&
-            data.official &&
-            data.site === "YouTube"
+            data.official && data.site === "YouTube"
         );
 
         setMovieData(movieData);
@@ -125,31 +123,45 @@ export default function Page({ params }: { params: { id: number } }) {
       <section>
         <div className="section">
           <div className="inner-section">
-            {trailer ?
-             <iframe
-        width="100%"
-        height="500"
-        src={`https://www.youtube.com/embed/${
-          (trailerData && trailerData.length > 0 )&& trailerData[trailerData.length -1].key
-        }`}
-        title="YouTube video player"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture,fullscreen"
-        allowFullScreen
-        
-      ></iframe>:
-      <iframe src={`https://www.2embed.cc/embed/${params.id}`} width="100%" height="500" allow="fullscreen"></iframe>}
-         
-      <div>
-          <button className="w-fit my-3" onClick={()=>setTrailer(!trailer)}>
-            {trailer? "Trailer" : "Stream"}
-          </button>
-          <i className="italic max-w-[400px]">The streaming option may not be available for some movies.Also its offered by non-affiliated third party providers therefore it may contain ads.</i>
-      </div>
+            {trailer ? (
+              <iframe
+                width="100%"
+                height="500"
+                src={`https://www.youtube.com/embed/${
+                  trailerData &&
+                  trailerData.length > 0 &&
+                  trailerData[trailerData.length - 1].key
+                }`}
+                title="YouTube video player"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture,fullscreen"
+                allowFullScreen
+              ></iframe>
+            ) : (
+              <iframe
+                src={`https://multiembed.mov/?video_id=${params.id}&tmdb=1`}
+                width="100%"
+                height="500"
+                allowFullScreen
+                allow="fullscreen"
+              ></iframe>
+            )}
+
+            <div>
+              <button
+                className="w-fit my-3"
+                onClick={() => setTrailer(!trailer)}
+              >
+                {trailer ? "Stream" : "Trailer"}
+              </button>
+              <i className="italic max-w-[400px]">
+                The streaming option may not be available for some movies.Also
+                its offered by non-affiliated third party providers therefore it
+                may contain ads.
+              </i>
+            </div>
+          </div>
         </div>
-        </div>
-        
-        
-       
+
         <section className="section">
           <div className="inner-section flex flex-col border-slice py-4 gap-4">
             <h4 className="texture my-4 w-fit mr-auto text-2xl font-extrabold leading-[1.2]">

@@ -16,7 +16,7 @@ export default function UpcomingMovies({}: Props) {
   const [upcomingMovies, setUpcomingMovies] = useState<Movies[] | null>(null);
   const requestOptions: AxiosRequestConfig = {
     method: "GET",
-    url: `${process.env.BASE_ENDPOINT}movie/upcoming`,
+    url: `${process.env.BASE_ENDPOINT}tv/upcoming`,
     headers: {
       accept: "application/json",
       Authorization: process.env.API_AUTHORIZATION_TOKEN,
@@ -42,5 +42,5 @@ export default function UpcomingMovies({}: Props) {
     //eslint-disable-next-line
   }, []);
   
-  return <MoviesCarousel title={"Upcoming Movies"} movies={upcomingMovies} />;
+  return <MoviesCarousel title={"Upcoming Tv Shows"} movies={upcomingMovies} />;
 }
