@@ -19,7 +19,7 @@ export default function TopRatedMovies({ }: Props) {
   const [topMovies, setTopMovies] = useState<Movies[] | null>(null);
   const topMovieOptions: AxiosRequestConfig = {
     method: "GET",
-    url: `${process.env.BASE_ENDPOINT}movie/top_rated`,
+    url: `${process.env.BASE_ENDPOINT}movie/now_playing`,
     headers: {
       accept: "application/json",
       Authorization: process.env.API_AUTHORIZATION_TOKEN,
@@ -38,9 +38,6 @@ export default function TopRatedMovies({ }: Props) {
           return { title, id,backdrop_path , poster_path, release_date } as Movies;
         }
       );
-     //console.log("toprated_data",toprated_data);
-      
-
       setTopMovies(toprated_data);
     } catch (error) {
       console.log(error);
@@ -50,10 +47,6 @@ export default function TopRatedMovies({ }: Props) {
   //eslint-disable-next-line
   },[])
 
-
-  // if (topMovies && topMovies.length > 0) {
-  //   console.log("similar ->", topMovies);
-  // }
 
   return <TopMovies movies={topMovies} />;
 }
