@@ -1,12 +1,8 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import axios, { AxiosRequestConfig } from "axios";
-import VidstreamPage from "@/components/VidstreamPage";
-import Image from "next/image";
+import ReactPlayer from "react-player/youtube";
 
-import titlecover from "../../../../public/title.jpg";
-//import useBreadcrumb from "../../../../Utils/useBreadCrumb";
-import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 
 import InnerPage from "@/components/Pages/InnerPages";
@@ -124,19 +120,25 @@ export default function Page({ params }: { params: { id: number } }) {
         <div className="section">
           <div className="inner-section">
             {trailer ? (
-              <iframe
+              <ReactPlayer
+                url={`https://www.youtube.com/watch?v=${trailerData&& trailerData.length > 0 && trailerData[trailerData.length-1].key}`}
                 width="100%"
-                height="500"
-                src={`https://www.youtube.com/embed/${
-                  trailerData &&
-                  trailerData.length > 0 &&
-                  trailerData[trailerData.length - 1].key
-                }`}
-                title="YouTube video player"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture,fullscreen"
-                allowFullScreen
-              ></iframe>
+                height="100%"
+                controls={true}
+              />
             ) : (
+              // <iframe
+              //   width="100%"
+              //   height="500"
+              //   src={`https://www.youtube.com/embed/${
+              //     trailerData &&
+              //     trailerData.length > 0 &&
+              //     trailerData[trailerData.length - 1].key
+              //   }`}
+              //   title="YouTube video player"
+              //   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture,fullscreen"
+              //   allowFullScreen
+              // ></iframe>
               <iframe
                 src={`https://multiembed.mov/?video_id=${params.id}&tmdb=1`}
                 width="100%"
