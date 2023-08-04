@@ -19,7 +19,7 @@ export default function TopRatedMovies({ }: Props) {
   const [topMovies, setTopMovies] = useState<Movies[] | null>(null);
   const topMovieOptions: AxiosRequestConfig = {
     method: "GET",
-    url: `${process.env.BASE_ENDPOINT}movie/now_playing`,
+    url: `${process.env.BASE_ENDPOINT}movie/popular`,
     headers: {
       accept: "application/json",
       Authorization: process.env.API_AUTHORIZATION_TOKEN,
