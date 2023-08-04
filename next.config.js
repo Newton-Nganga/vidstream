@@ -8,11 +8,11 @@ style-src 'self' 'unsafe-inline';
 `
 
 const nextConfig = {
-  async Headers(){
+  async headers(){
      return [
-      { source: '/*', headers: [{ 
+      { source: '/movie/*', headers: [{ 
         key: "Content-Security-Policy",
-        value:`${contextSecurityPolicy.replace(/\s{2,}/g,' ').trim()}`
+        value:`default-src 'self; script-src 'self' 'unsafe-inline' https://www.youtube.com/ https://www.multiembed.mov/ https://www.2embed.cc; frame-src https://www.youtube.com/ https://www.multiembed.mov/ https://www.2embed.cc; style-src 'self' 'unsafe-inline';`
       }]}
      ]
   },

@@ -16,7 +16,7 @@ export default function UpcomingMovies({}: Props) {
   const [upcomingMovies, setUpcomingMovies] = useState<Movies[] | null>(null);
   const requestOptions: AxiosRequestConfig = {
     method: "GET",
-    url: `${process.env.BASE_ENDPOINT}tv/upcoming`,
+    url: `${process.env.BASE_ENDPOINT}tv/top_rated`,
     headers: {
       accept: "application/json",
       Authorization: process.env.API_AUTHORIZATION_TOKEN,
