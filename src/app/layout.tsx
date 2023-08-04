@@ -15,11 +15,11 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const nounce = randomBytes(128).toString('base64')
+  // const nounce = randomBytes(128).toString('base64')
   return (
     <html lang="en">
       <meta httpEquiv="Content-Security-Policy" content="frame-src https://www.youtube.com;"/>
-      <meta httpEquiv="Content-Security-Policy" content={`default-src 'self'; http: https: 'nounce-${nounce}' frame-src 'self'https://www.youtube.com/ https://www.multiembed.mov/ https://www.2embed.cc;`}/>
+      <meta httpEquiv="Content-Security-Policy" content={`default-src 'self'; frame-src 'self' https://www.youtube.com/ https://www.multiembed.mov/ https://www.2embed.cc;`}/>
       <body className={inter.className} suppressHydrationWarning={true} >{children}</body>
     </html>
   )
