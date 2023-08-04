@@ -91,6 +91,27 @@ import {
 import Link from "next/link";
 import Navlink from "./Navlink";
 
+type searchelProp ={
+search:boolean
+query:string
+setQuery:any
+}
+const SearchEl =({search,query,setQuery}:searchelProp)=>{
+  return(
+    <div
+         className={`absolute top-[100%] mt-6 ${
+          search 
+            ? "scale-100 animate-fade-up animate-duration-[2000ms]"
+            : "scale-0 animate-fade animate-duration-[2000ms]"
+        } p-2 rounded-md bg-[#0b1a2a] flex flex-row z-20`}
+        > 
+          <input type="search" onChange={(e)=>setQuery(e.target.value)} value={query} name="query" className="border border-blue-400 mr-2 rounded-md min-w-[130px]"/>
+          <Link href={`/search?query=${query}`} >
+            <button className="rounded-md text-sm p-2">search</button>
+          </Link>
+    </div>
+  )
+}
 export default function Navbar({}: Props) {
   const scrolled = useScrollPosition();
   const [isOpen, setIsOpen] = useState({ type: "", state: false });
@@ -128,19 +149,7 @@ export default function Navbar({}: Props) {
           
         </ul>
         <div className="relative">
-          <div
-         className={`absolute top-[100%] mt-6 ${
-          search 
-            ? "scale-100 animate-fade-up animate-duration-[2000ms]"
-            : "scale-0 animate-fade animate-duration-[2000ms]"
-        } p-2 rounded-md bg-[#0b1a2a] flex flex-row z-20`}
-        > 
-        
-          <input type="search" onChange={(e)=>setQuery(e.target.value)} value={query} name="query" className="border border-blue-400 mr-2 rounded-md min-w-[130px]"/>
-          <Link href={`/search?query=${query}`} >
-            <button className="rounded-md text-sm p-2">search</button>
-          </Link>
-        </div>
+          <SearchEl query={query} search={search} setQuery={setQuery}/>
         </div>
         
         <div className="flex  text-2xl">
@@ -169,6 +178,9 @@ export default function Navbar({}: Props) {
             className="flex px-2 rounded-none bg-transparent md:hidden"
           >
             <BsThreeDots />
+            {isOpen.state && isOpen.type === "right" && (
+              <SearchEl query={query} search={search} setQuery={setQuery}/>
+            )} 
           </button>
         </div>
       </div>
@@ -189,7 +201,7 @@ export default function Navbar({}: Props) {
               Close
             </button>
       </ul>
-
+      
     </nav>
   );
 }

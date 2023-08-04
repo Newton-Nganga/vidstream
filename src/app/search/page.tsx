@@ -78,7 +78,7 @@ export default function Page({}: Props) {
         <div className="inner-section">
           <h2>search results for {search}</h2>
           {/* map through the movies */}
-          <div className="flex flex-wrap gap-4 w-full "> 
+          <div className="flex flex-wrap gap-4 w-full justify-center "> 
           {movieresults?.map(movie=> <Movie key={movie.id} data={movie}/>)}
           {showresults?.map(movie=> <Movie key={movie.id} data={movie}/>)}
           </div>
