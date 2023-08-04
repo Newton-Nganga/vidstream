@@ -1,18 +1,13 @@
-/** @type {import('next').NextConfig} */
-const contextSecurityPolicy =`
-default-src 'self;
-script-src 'self' 'unsafe-inline' https://www.youtube.com/ https://www.multiembed.mov/ https://www.2embed.cc;
-frame-src https://www.youtube.com/ https://www.multiembed.mov/ https://www.2embed.cc;
-img-src https://www.youtube.com/ https://www.multiembed.mov/ https://www.2embed.cc;
-style-src 'self' 'unsafe-inline';
-`
+const { randomBytes } = require('crypto')
 
+/** @type {import('next').NextConfig} */
+const nounce = randomBytes(128).toString('base64')
 const nextConfig = {
   async headers(){
      return [
       { source: '/movie/:id*', headers: [{ 
         key: "Content-Security-Policy",
-        value:`default-src 'self; script-src 'self' 'unsafe-inline' https://www.youtube.com/ https://www.multiembed.mov/ https://www.2embed.cc; frame-src https://www.youtube.com/ https://www.multiembed.mov/ https://www.2embed.cc; style-src 'self' 'unsafe-inline';`
+        value:`default-src 'self; script-src 'self' 'unsafe-inline' 'nounce-${nounce}' https://www.youtube.com/ https://www.multiembed.mov/ https://www.2embed.cc; frame-src https://www.youtube.com/ https://www.multiembed.mov/ https://www.2embed.cc; style-src 'self' 'unsafe-inline';`
       }]}
      ]
   },
