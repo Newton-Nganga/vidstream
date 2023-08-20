@@ -4,8 +4,8 @@ import InnerPage from "@/components/Pages/InnerPages";
 import { useSearchParams } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import axios, { AxiosRequestConfig } from "axios";
-import MoviesCarousel from "@/components/MoviesCarousel";
-import Search from "@/components/Search";
+import MoviesCarousel from "@/components/movieCarouselItems/MoviesCarousel";
+import Search from "@/components/Search/Search";
 
 type Props = {};
 interface Movies {
@@ -14,7 +14,7 @@ interface Movies {
   backdrop_path: string;
   poster_path: string;
   release: any;
-  media_type:string 
+  media_type: string;
 }
 
 export default function Page({}: Props) {
@@ -36,16 +36,34 @@ export default function Page({}: Props) {
     async function getSearch() {
       try {
         const qMovieResponse = await axios.request(quryMovieOptions);
-       
-       const filteredResults = qMovieResponse.data.results.filter((m_data:any) => m_data.media_type !== "person")
+
+        const filteredResults = qMovieResponse.data.results.filter(
+          (m_data: any) => m_data.media_type !== "person"
+        );
         const qmovie_data: Movies[] = filteredResults.map(
-          ({ name,title, id, backdrop_path,media_type,first_air_date,poster_path,release_date, ...others }: any) => {
-            return {name:name ? name: title, id, backdrop_path,media_type,release:first_air_date ? first_air_date :release_date,poster_path} as Movies;
+          ({
+            name,
+            title,
+            id,
+            backdrop_path,
+            media_type,
+            first_air_date,
+            poster_path,
+            release_date,
+            ...others
+          }: any) => {
+            return {
+              name: name ? name : title,
+              id,
+              backdrop_path,
+              media_type,
+              release: first_air_date ? first_air_date : release_date,
+              poster_path,
+            } as Movies;
           }
         );
-        
+
         setMovieResults(qmovie_data);
-   
       } catch (error) {
         console.log(error);
       }
@@ -53,16 +71,18 @@ export default function Page({}: Props) {
     getSearch();
     //eslint-disable-next-line
   }, []);
-//console.log("movie results",movieresults);
+  //console.log("movie results",movieresults);
   return (
     <InnerPage>
       <section className="section">
         <div className="inner-section">
           <h2>search results for &apos; {search} &apos;</h2>
           {/* map through the movies results */}
-          <div className="flex flex-wrap gap-4 w-full justify-center "> 
-          {movieresults?.map(el => <Search key={el.id} movie={el}/>)}
-        </div>
+          <div className="flex flex-wrap gap-4 w-full justify-center ">
+            {movieresults?.map((el) => (
+              <Search key={el.id} movie={el} />
+            ))}
+          </div>
         </div>
       </section>
     </InnerPage>

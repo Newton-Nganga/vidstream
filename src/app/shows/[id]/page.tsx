@@ -4,9 +4,11 @@ import { usePathname } from "next/navigation";
 import InnerPage from "@/components/Pages/InnerPages";
 import { BsStarFill, BsStar } from "react-icons/bs";
 import { RiHeartFill, RiShareLine, RiVolumeMuteFill } from "react-icons/ri";
-import MoviesCarousel from "@/components/MoviesCarousel";
+import MoviesCarousel from "@/components/movieCarouselItems/MoviesCarousel";
 import axios, { AxiosRequestConfig } from "axios";
 import YouTube, { YouTubePlayer } from "react-youtube";
+import ReactPlayer from "react-player";
+
 type Props = {};
 
 //movie details
@@ -163,7 +165,7 @@ export default function Page({ params }: { params: { id: number } }) {
         setMovieData(movieData);
         setTrailerData(trailer_data);
         setSuggested(suggested_data);
-        setUpcomingMovies(upcomingMovies)
+        setUpcomingMovies(upcomingMovies);
       } catch (error) {
         console.log(error);
       }
@@ -179,27 +181,55 @@ export default function Page({ params }: { params: { id: number } }) {
   return (
     <InnerPage>
       <section>
-        {/* <YouTube
-         videoId={(trailerData && trailerData.length > 0 )&& trailerData[trailerData.length -1].key}
-        /> */}
-      <iframe
-        width="100%"
-        height="500"
-        src={`https://www.youtube.com/embed/${
-          (trailerData && trailerData.length > 0 )&& trailerData[trailerData.length -1].key
-        }`}
-        title="YouTube video player"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture,fullscreen"
-        allowFullScreen
-        ></iframe>
+        <div className="section">
+          <div className="inner-section flex-col">
+            {trailer ? (
+              <ReactPlayer
+                url={`https://www.youtube.com/watch?v=${
+                  trailerData &&
+                  trailerData.length > 0 &&
+                  trailerData[trailerData.length - 1].key
+                }`}
+                width="100%"
+                height="500px"
+                controls={true}
+                style={{ border: "2px solid white", borderRadius: "8px" }}
+              />
+            ) : (
+              <iframe
+                src={`https://multiembed.mov/?video_id=${params.id}&tmdb=1`}
+                width="100%"
+                height="500"
+                allowFullScreen
+                allow="fullscreen"
+                loading="lazy"
+                className="border-2 border-white rounded-[8px]"
+              ></iframe>
+            )}
+
+            <div className="flex flex-col">
+              <button
+                className="w-fit my-3 "
+                onClick={() => setTrailer(!trailer)}
+              >
+                {trailer ? "Stream" : "Trailer"}
+              </button>
+              <p className="italic pt-2  text-[11px]">
+                The streaming service is offered by non-affiliated third party
+                providers therefore some movies and shows may be unavailable and
+                the available ones may contain ads- (use Brave browser to get
+                rid of ads).
+              </p>
+            </div>
+          </div>
+        </div>
+
         <section className="section">
           <div className="inner-section flex flex-col border-slice py-4 gap-4">
             <h4 className="texture my-4 w-fit mr-auto text-2xl font-extrabold">
               {movieData?.title}
             </h4>
-            <p>
-              {movieData?.overview}
-            </p>
+            <p>{movieData?.overview}</p>
             <div className="flex items-center gap-4 my-3">
               <p className="flex gap-1 text-red-600">
                 <BsStarFill />
@@ -214,7 +244,7 @@ export default function Page({ params }: { params: { id: number } }) {
               <div className="text-sm md:text-lg">
                 <p>
                   <span className="text-red-600 font-semibold">Tagline:</span>{" "}
-                 {movieData?.tagline}
+                  {movieData?.tagline}
                 </p>
                 <p>
                   <span className="text-red-600 font-semibold">Duration:</span>{" "}
@@ -222,8 +252,12 @@ export default function Page({ params }: { params: { id: number } }) {
                   {new Date(movieData?.runtime).getMinutes()}Min
                 </p>
                 <p>
-                  <span className="text-red-600 font-semibold">Popularity:</span>
-                  <span className="px-2 bg-red-500 rounded-md">{movieData?.popularity}</span>
+                  <span className="text-red-600 font-semibold">
+                    Popularity:
+                  </span>
+                  <span className="px-2 bg-red-500 rounded-md">
+                    {movieData?.popularity}
+                  </span>
                 </p>
               </div>
             </div>

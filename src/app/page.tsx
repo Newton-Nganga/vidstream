@@ -1,5 +1,5 @@
 import FeaturedMovie from "@/components/FeaturedMovie";
-import Hero from "@/components/Hero";
+import Hero from "@/components/Hero/Hero";
 
 
 import Trending from "@/components/Trending";

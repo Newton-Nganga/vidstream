@@ -136,8 +136,9 @@ export default function Page({ params }: { params: { id: number } }) {
                 src={`https://multiembed.mov/?video_id=${params.id}&tmdb=1`}
                 width="100%"
                 height="500"
-                allowFullScreen
-                allow="fullscreen"
+                allowFullScreen={true}
+                allow="fullscreen; picture-in-picture;"
+                loading="lazy"
                 className="border-2 border-white rounded-[8px]"
               ></iframe>
             )}
