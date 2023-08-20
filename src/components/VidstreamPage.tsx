@@ -6,7 +6,7 @@ type Props = {
 }
 
 import Navbar from './Navbar/Navbar';
-import Footer from './Footer';
+import Footer from './Footer/Footer';
 import useFeaturedMovie from '../../Utils/useFeaturedMovie';
 
 export default function VidstreamPage({children}: Props) {

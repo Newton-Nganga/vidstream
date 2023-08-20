@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import MoviesCarousel from "../MoviesCarousel";
+import MoviesCarousel from "./MoviesCarousel";
 import axios, { AxiosRequestConfig } from "axios";
 
 type Props = {};
@@ -9,7 +9,7 @@ interface Movies {
   title: string;
   id: number;
   backdrop_path: string;
-  poster_path:string
+  poster_path: string;
   release_date: any;
 }
 export default function UpcomingMovies({}: Props) {
@@ -29,8 +29,21 @@ export default function UpcomingMovies({}: Props) {
         const upcomingResponse = await axios.request(requestOptions);
 
         const upcoming_data: Movies[] = upcomingResponse.data.results.map(
-          ({ title, id, backdrop_path, poster_path,release_date, ...others }: any) => {
-            return { title, id, backdrop_path,poster_path, release_date } as Movies;
+          ({
+            title,
+            id,
+            backdrop_path,
+            poster_path,
+            release_date,
+            ...others
+          }: any) => {
+            return {
+              title,
+              id,
+              backdrop_path,
+              poster_path,
+              release_date,
+            } as Movies;
           }
         );
         setUpcomingMovies(upcoming_data);
@@ -41,6 +54,6 @@ export default function UpcomingMovies({}: Props) {
     getUpcoming();
     //eslint-disable-next-line
   }, []);
-  
+
   return <MoviesCarousel title={"Upcoming Tv Shows"} movies={upcomingMovies} />;
 }

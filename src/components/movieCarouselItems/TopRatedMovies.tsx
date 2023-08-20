@@ -1,21 +1,20 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import MoviesCarousel from "../MoviesCarousel";
+import MoviesCarousel from "./MoviesCarousel";
 import axios, { AxiosRequestConfig } from "axios";
 import TopMovies from "../TopMovies";
 
-type Props = {
-};
+type Props = {};
 
 interface Movies {
   title: string;
   id: number;
   backdrop_path: string;
-  poster_path:string
+  poster_path: string;
   release_date: any;
 }
 
-export default function TopRatedMovies({ }: Props) {
+export default function TopRatedMovies({}: Props) {
   const [topMovies, setTopMovies] = useState<Movies[] | null>(null);
   const topMovieOptions: AxiosRequestConfig = {
     method: "GET",
@@ -25,28 +24,40 @@ export default function TopRatedMovies({ }: Props) {
       Authorization: process.env.API_AUTHORIZATION_TOKEN,
     },
   };
-  
-  useEffect(()=>{
-    async function getSimilar() {
-    //console.log('similar function started')
-    try {
-      //console.log("trying ...")
-      const topResponse = await axios.request(topMovieOptions);
-    //   console.log("top rated response", topResponse);
-      const toprated_data: Movies[] = topResponse.data.results.map(
-        ({ title, id, backdrop_path,poster_path, release_date, ...others }: any) => {
-          return { title, id,backdrop_path , poster_path, release_date } as Movies;
-        }
-      );
-      setTopMovies(toprated_data);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-  getSimilar();
-  //eslint-disable-next-line
-  },[])
 
+  useEffect(() => {
+    async function getSimilar() {
+      //console.log('similar function started')
+      try {
+        //console.log("trying ...")
+        const topResponse = await axios.request(topMovieOptions);
+        //   console.log("top rated response", topResponse);
+        const toprated_data: Movies[] = topResponse.data.results.map(
+          ({
+            title,
+            id,
+            backdrop_path,
+            poster_path,
+            release_date,
+            ...others
+          }: any) => {
+            return {
+              title,
+              id,
+              backdrop_path,
+              poster_path,
+              release_date,
+            } as Movies;
+          }
+        );
+        setTopMovies(toprated_data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getSimilar();
+    //eslint-disable-next-line
+  }, []);
 
   return <TopMovies movies={topMovies} />;
 }

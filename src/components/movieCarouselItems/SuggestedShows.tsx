@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import MoviesCarousel from "../MoviesCarousel";
+import MoviesCarousel from "./MoviesCarousel";
 import axios, { AxiosRequestConfig } from "axios";
 
 type Props = {};
