@@ -9,7 +9,7 @@ import InnerPage from "@/components/Pages/InnerPages";
 import { BsStarFill, BsStar } from "react-icons/bs";
 import { RiHeartFill, RiShareLine, RiVolumeMuteFill } from "react-icons/ri";
 
-import UpcomingMovies from "@/components/HompageSliders/UpcomingMovies";
+import UpcomingMovies from "@/components/Queries/UpcomingMovies";
 import SimilarMovies from "@/components/movieCarouselItems/SimilarMovies";
 
 type Props = {};

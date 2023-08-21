@@ -1,7 +1,6 @@
 // useBreadcrumb.tsx
 
 // "use client"
-import { useMemo } from 'react';
 import { usePathname } from 'next/navigation';
 
 type BreadcrumbItem = {

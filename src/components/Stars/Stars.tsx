@@ -1,7 +1,7 @@
 import React from "react";
 import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
 
-export default function Stars({ vote_average }: Number) {
+export default function Stars(vote_average:any) {
   const calc = 0.5 * vote_average;
   const fullStars = Math.floor(calc);
   const halfstars = calc % 2 !== 0 ? 1 : 0;

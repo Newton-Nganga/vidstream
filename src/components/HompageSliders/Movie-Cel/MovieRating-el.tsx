@@ -1,9 +1,13 @@
+
 import React from "react";
 import { RiAddLine, RiHeartFill, RiVolumeMuteFill } from "react-icons/ri";
+import { useWatchTime } from "../../../../Utils/useWatchTime";
 
-type Props = {};
+type Props = {
 
-export default function MovieAddFavourite({}: Props) {
+};
+
+export default function MovieAddFavourite() {
   return (
     <div className="add-container">
       <div className="add-container_inner-el">
@@ -24,3 +28,4 @@ export default function MovieAddFavourite({}: Props) {
     </div>
   );
 }
+

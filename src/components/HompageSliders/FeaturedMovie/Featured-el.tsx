@@ -1,23 +1,29 @@
 import Stars from "@/components/Stars/Stars";
+import { MovieType } from "@/components/UsefulTypes";
+import WatchTime from "@/components/WatchTime";
 import Image from "next/image"
-import Link
- from "next/link";
-export const FeaturedMovieDetails =({data}:FeaturedMovieDetails)=>{
+import Link from "next/link";
+
+
+export const FeaturedMovieDetails:React.FC<{data: MovieType}> =({data})=>{
     return (
         <div className="lg:w-1/3">
           <h1 className="texture leading-[1.2]">
             {data.title}
           </h1>
-          <Stars vote_average={8.0}/>
+          <Stars vote_average={data.vote_average}/>
+          <p>
+            <span className="px-2 rounded-md bg-gray-400 text-xs">
+              {data.vote_count}+
+            </span>
+          <WatchTime runtime={data.details.runtime}/>
+          </p>
           <p className="my-4">
             {data.overview}
           </p>
           <div className="flex items-center gap-4">
             <button className="p-3 px-7 btn">Play Now</button>
-            <Link
-              href={`/movies/${data.id
-              }`}
-            >
+            <Link href={`/movie/${data.id}`}>
               <p className="hover:text-red-600">More Details</p>
             </Link>
           </div>
@@ -25,11 +31,11 @@ export const FeaturedMovieDetails =({data}:FeaturedMovieDetails)=>{
     )
 }
 
-export const FeaturedMovieImage=({url}:String)=>{
+export const FeaturedMovieImage=(url:any)=>{
     return (
         <div className="relative w-full lg:w-2/3 rounded-xl overflow-clip">
           <Image
-            src={`${url ? url: "https://fontawesome.com/social/film?f=classic&s=&v=5"
+            src={`${url ? `${process.env.IMAGE_PREFIX}url`: "https://fontawesome.com/social/film?f=classic&s=&v=5"
             }`}
             fill={true}
             alt="featured"
