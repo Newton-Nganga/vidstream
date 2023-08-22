@@ -1,5 +1,5 @@
-import { useQuery } from "@apollo/client";
-import gql from "graphql-tag";
+"use client"
+import { useQuery,gql } from "@apollo/client";
 import MoviesCarousel from "../movieCarouselItems/MoviesCarousel";
 
 type Props={}

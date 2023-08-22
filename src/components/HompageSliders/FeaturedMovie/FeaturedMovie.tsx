@@ -11,6 +11,7 @@ query GetFeaturedMovie {
     original_title
     overview
     popularity
+    backdrop_path
     poster_path
     release_date
     title

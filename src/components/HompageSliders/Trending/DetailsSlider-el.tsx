@@ -5,7 +5,7 @@ import Slider from 'react-slick'
 import Image from 'next/image'
 import Link from 'next/link'
 import WatchTime from '@/components/WatchTime'
-import logo from "../../public/logo.png";
+import logo from "../../../../public/logo.png";
 import { FaPlay} from "react-icons/fa";
 
 type DataProps = {

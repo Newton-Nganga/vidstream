@@ -1,7 +1,6 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import MoviesCarousel from "../movieCarouselItems/MoviesCarousel";
-import axios, { AxiosRequestConfig } from "axios";
 import { gql, useQuery } from "@apollo/client";
 type Props ={
   id:number

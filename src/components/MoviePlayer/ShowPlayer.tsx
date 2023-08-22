@@ -6,16 +6,15 @@ type Props = {
   data: FullShowType;
   trailer: boolean;
   setTrailer: React.Dispatch<React.SetStateAction<boolean>>;
+  currentSeasonNumber:number
+  currentEpisodeNumber:number
+  currentSn:FullShowSeason
+  currentEp:FullShowEpisode
+  setCurrentEpisodeNumber:React.Dispatch<React.SetStateAction<number>>
+  setCurrentSeasonNumber:React.Dispatch<React.SetStateAction<number>>
 };
 
-export const ShowPlayer = ({ data, trailer, setTrailer }: Props) => {
- const [currentEpisodeNumber, setCurrentEpisodeNumber] = useState<number>(0);
- const [currentSeasonNumber, setCurrentSeasonNumber] = useState<number>(0);
-
- //The current season and episode objects in play
- const currentSn:FullShowSeason = data.seasons[currentSeasonNumber];
- const currentEp:FullShowEpisode = currentSn.episodes[currentEpisodeNumber];
- 
+export const ShowPlayer = ({ data, trailer, setTrailer,currentEp,currentSn,currentEpisodeNumber,currentSeasonNumber,setCurrentEpisodeNumber,setCurrentSeasonNumber }: Props) => {
  //A filtering function 
  const filterOfficialYouTubeTrailers = (trailers: Trailer[]): Trailer[] =>
     trailers.filter(trailer => trailer.official && trailer.site === 'YouTube');
@@ -25,7 +24,7 @@ export const ShowPlayer = ({ data, trailer, setTrailer }: Props) => {
  const officialYTEpisodeTrailers = filterOfficialYouTubeTrailers(currentEp.trailer); 
 
  //Arrays to help render the buttons to switch btwn the playing sn and ep
- const seasosnArray =  Array.from({ length: data.details.number_of_seasons }, (_, index) => index + 1);
+ const seasonsArray =  Array.from({ length: data.details.number_of_seasons }, (_, index) => index + 1);
  const episodes_count = [...currentSn.episodes].reverse()[0].episode_number 
  const episodesArray = Array.from({ length: episodes_count}, (_, index) => index + 1);
 
@@ -72,7 +71,7 @@ export const ShowPlayer = ({ data, trailer, setTrailer }: Props) => {
         </div>
         <div className="w-full flex flex-col">
            <div className="w-full flex gap-4">
-             {seasosnArray.map((snButton,index) => 
+             {seasonsArray.map((snButton,index) => 
                 <button 
                 key={index} 
                 onClick={()=>setCurrentSeasonNumber(index + 1) } 
@@ -82,7 +81,7 @@ export const ShowPlayer = ({ data, trailer, setTrailer }: Props) => {
             )}
            </div>
            <div className="w-full flex gap-4 flex-wrap">
-             {seasosnArray.map((epButton,index) => 
+             {episodesArray.map((epButton,index) => 
                 <button 
                 key={index} 
                 onClick={()=>setCurrentEpisodeNumber(index + 1)} 

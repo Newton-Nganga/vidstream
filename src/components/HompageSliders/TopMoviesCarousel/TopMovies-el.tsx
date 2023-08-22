@@ -19,9 +19,10 @@ export const TopMoviesBackground =({movies}:Props)=>{
           >
             <Image
               fill={true}
+              sizes=""
               src={
-                `${process.env.IMAGE_PREFIX}${movie?.backdrop_path}` ?? 
-                `${process.env.IMAGE_PREFIX}${movie?.poster_path}` ?? 
+                `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${movie?.backdrop_path}` ?? 
+                `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${movie?.poster_path}` ?? 
                  "https://fontawesome.com/social/film?f=classic&s=&v=5"
               }
               alt={movie.title}
@@ -52,9 +53,10 @@ export const  TopMoviesSlider=({movies,activeSlide}:SliderType)=>{
       >
         <Image
           fill={true}
+          sizes=""
           src={
-            `${process.env.IMAGE_PREFIX}${movie?.backdrop_path}` ?? 
-            `${process.env.IMAGE_PREFIX}${movie?.poster_path}` ?? 
+            `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${movie?.backdrop_path}` ?? 
+            `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${movie?.poster_path}` ?? 
              "https://fontawesome.com/social/film?f=classic&s=&v=5"
           }
           alt={movie.title}
@@ -66,7 +68,7 @@ export const  TopMoviesSlider=({movies,activeSlide}:SliderType)=>{
             <span>{movie.vote_count}+</span>
            <WatchTime runtime={movie.details.runtime}/>
           </div>
-          <Link href={`/movies/${movie?.id}`}>
+          <Link href={`/movie/${movie?.id}`}>
             <button className="btn">
               <FaPlay className="" />
               Play Now

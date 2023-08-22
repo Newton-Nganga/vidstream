@@ -3,34 +3,35 @@ import Hero from "@/components/Hero/Hero";
 
 import Trending from "@/components/HompageSliders/Trending/Trending";
 import VidstreamPage from "@/components/VidstreamPage/VidstreamPage";
-import PopularShows from "@/components/HomepageSliders/PopularShows";
-import SuggestedShows from "@/components/HomepageSliders/SuggestedShows";
-import TopRatedMovies from "@/components/HomepageSliders/TopRatedMovies";
 import UpcomingMovies from "@/components/Queries/UpcomingMovies";
+import TopRatedShows from "@/components/Queries/TopRatedShows";
+import TopRatedMovies from "@/components/Queries/TopRatedMovies";
+import TvMysteries from "@/components/Queries/TvMysteries";
 
 export default function Home() {
   return (
     <VidstreamPage>
       {/* hero section */}
-      <Hero />
+      {/* <Hero /> */}
 
       {/* Popular Shows */}
-      <PopularShows />
+      {/* <TopRatedShows/> */}
 
       {/* upcoming movies */}
-      <UpcomingMovies />
+      {/* <UpcomingMovies /> */}
 
       {/* Top movies */}
-      <TopRatedMovies />
+      <TopRatedMovies/>
 
       {/* Discover shows */}
-      <SuggestedShows />
+      {/* <TvMysteries/> */}
 
       {/* featured movie */}
-      <FeaturedMovie />
+      {/* <FeaturedMovie /> */}
 
       {/* trending */}
-      <Trending title="Trending" />
+      {/* <Trending title="Trending" /> */}
+
     </VidstreamPage>
   );
 }

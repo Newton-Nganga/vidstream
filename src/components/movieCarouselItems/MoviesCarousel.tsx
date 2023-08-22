@@ -1,4 +1,4 @@
-
+"use client"
 import React, { useRef } from "react";
 import Slider from "react-slick";
 
@@ -7,13 +7,6 @@ import CarouselControls from "./CarouselControls";
 import Carousel from "./Carousel";
 import { MovieType } from "../UsefulTypes";
 
-interface Movies {
-  title: string;
-  id: number;
-  backdrop_path: string;
-  poster_path: string;
-  release_date: any;
-}
 type Props = {
   title: string;
   movies: MovieType[];

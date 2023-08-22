@@ -1,12 +1,15 @@
-"use client";
+
+import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
 import TopMovies from "../HompageSliders/TopMoviesCarousel/TopMovies";
-import { gql, useQuery } from "@apollo/client";
+import { gql } from "@apollo/client";
 import { MovieType } from "../UsefulTypes";
+import { getClient } from "@/app/lib/client";
+
 
 type Props = {};
 
 const GET_TOP_MOVIES = gql`
-uery GetTopRatedMovie {
+query GetTopRatedMovie {
   topMovies {
     id
     media_type
@@ -25,8 +28,11 @@ uery GetTopRatedMovie {
     }
   }
 }`;
-export default function TopRatedMovies({}: Props) {
-  const { loading, error, data } = useQuery(GET_TOP_MOVIES);
-  
-  return <TopMovies movies={data} />;
+interface Response{
+  topMovies:MovieType[]
+  }
+export default async function TopRatedMovies({}: Props) {
+  const {data:{topMovies}} = await getClient().query<Response>({query:GET_TOP_MOVIES})
+  //const {data,error} = useSuspenseQuery<Response>(GET_TOP_MOVIES)
+  return <TopMovies movies={topMovies} />;
 }
