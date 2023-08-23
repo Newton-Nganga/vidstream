@@ -1,14 +1,17 @@
-import React from "react";
+"use client"
+export const dynamic="force-dynamic"
+import React, { useState } from "react";
 import ReactPlayer from "react-player";
 import { FullMovieType } from "../UsefulTypes";
 
 type Props = {
   data: FullMovieType;
-  trailer: boolean;
-  setTrailer: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export const MoviePlayer = ({ data, trailer, setTrailer }: Props) => {
+export function MoviePlayer({ data}: Props){
+
+  const [trailer,setTrailer]= useState(false)
+
  const oficialYTTrailers= data.trailer.filter(trailer => trailer.official && trailer.site === 'YouTube')
   return (
     <div className="section">

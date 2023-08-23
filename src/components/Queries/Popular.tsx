@@ -1,8 +1,9 @@
-"use client";
-import { gql, useQuery } from "@apollo/client";
-import { ShowType, MovieType } from "../UsefulTypes";
 
-const GET_POPULAR = gql`
+import { gql } from "@apollo/client";
+import { ShowType, MovieType } from "../UsefulTypes";
+import { getClient } from "@/app/lib/client";
+
+export const GET_POPULAR = gql`
   query GetPopular {
     popularShows {
       name
@@ -38,9 +39,14 @@ const GET_POPULAR = gql`
     }
   }
 `;
-export default function PopularShowsAndMovies(): (MovieType | ShowType)[] {
-  const { loading, error, data } = useQuery(GET_POPULAR);
-  const popular = [...data.popularMovies, ...data.popularShows];
+interface Results{
+  popularShows:ShowType[]
+  popularMovies:MovieType[]
+}
+export default async function PopularShowsAndMovies(): Promise<(MovieType | ShowType)[]> {
+
+  const {data:{popularShows,popularMovies}}= await getClient().query<Results>({query:GET_POPULAR})
+  const popular = [...popularMovies, ...popularShows];
 
   for (let i = popular.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));

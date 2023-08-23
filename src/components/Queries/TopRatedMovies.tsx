@@ -1,5 +1,4 @@
 
-import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
 import TopMovies from "../HompageSliders/TopMoviesCarousel/TopMovies";
 import { gql } from "@apollo/client";
 import { MovieType } from "../UsefulTypes";

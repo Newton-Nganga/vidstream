@@ -1,9 +1,11 @@
-"use client"
+
 import {gql, useQuery} from '@apollo/client'
 import MoviesCarousel from "../movieCarouselItems/MoviesCarousel";
+import { getClient } from '@/app/lib/client';
+import { MovieType } from '../UsefulTypes';
 
 type Props={}
-const GET_POPULAR_MOVIES=gql`
+export const GET_POPULAR_MOVIES=gql`
 query GetPopularMovies{
     popularMovies{
     id
@@ -24,7 +26,11 @@ query GetPopularMovies{
   }
 }
 `
-export default function PopularMovies({}: Props) {
-    const {loading,error,data} = useQuery(GET_POPULAR_MOVIES)
-    return <MoviesCarousel title={"Popular Movies"} movies={data} />;
+interface Response{
+  popularMovies:MovieType[]
+}
+export default async function PopularMovies({}: Props) {
+    const {data:{popularMovies}} = await getClient().query<Response>({query:GET_POPULAR_MOVIES})
+
+    return <MoviesCarousel title={"Popular Movies"} movies={popularMovies} />;
 }

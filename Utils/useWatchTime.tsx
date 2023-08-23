@@ -1,4 +1,3 @@
-"use client"
 
 export function useWatchTime(runtime: number): string {
     const hours = Math.floor(runtime / 60);

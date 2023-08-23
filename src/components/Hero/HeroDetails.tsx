@@ -24,8 +24,8 @@ function HeroDetails({ trending,children }: Props) {
 
             <Image
               src={
-                `${process.env.IMAGE_PREFIX}${trending?.backdrop_path}` ??
-                `${process.env.IMAGE_PREFIX}${trending?.poster_path}` ??
+                `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${trending?.backdrop_path}` ??
+                `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${trending?.poster_path}` ??
                 "https://fontawesome.com/social/film?f=classic&s=&v=5"
               }
               alt={"title" in trending ? trending.title : trending.name}

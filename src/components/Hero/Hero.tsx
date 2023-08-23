@@ -1,12 +1,11 @@
 "use client";
-
-import React, { useEffect, useRef, useState } from "react";
+export const dynamic="force-dynamic"
+import React,{useRef} from "react";
 import Slider from "react-slick";
-import Image from "next/image";
-import { useQuery, gql } from "@apollo/client";
+
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import trending from "../../public/05.jpg";
+
 
 type Props = {};
 
@@ -31,6 +30,7 @@ export default function Hero({}: Props) {
   };
 
   const trending = TrendingShowsAndMovies();
+  
   return (
     <section className="bg-black">
       <section className="">

@@ -80,7 +80,7 @@ function ShowDetails({
               fill={true}
               alt={`Episode ${currentEp.episode_number}`}
               src={`
-                  ${process.env.IMAGE_PREFIX}
+                  ${process.env.NEXT_PUBLIC_IMAGE_PREFIX}
                   ${
                     currentEp.still_path
                       ? currentEp.still_path

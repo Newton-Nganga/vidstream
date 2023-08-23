@@ -1,7 +1,8 @@
-"use client"
+
 import {gql} from '@apollo/client'
+
 export const GET_SHOW=gql`
-query GetShow($showId: Int!) {
+query Show($showId: Int!){
   show(id: $showId) {
   name
   id
@@ -14,34 +15,34 @@ query GetShow($showId: Int!) {
   details {
     genres {
       name
-    }[]
+    }
     created_by {
       name
-    }[]
+    }
     last_air_date
     media_type
     number_of_episodes
     number_of_seasons
     production_companies {
       name
-    }[]
+    }
   }
   trailer {
     key
     name
     official
     site
-  }[]
+  }
   backdrop_path
   credits {
     crew {
       job
       name
-    }[]
+    }
     cast {
       character
       name
-    }[]
+    }
   }
   seasons {
   name
@@ -52,7 +53,7 @@ query GetShow($showId: Int!) {
     name
     official
     site
-  }[]
+  }
   poster_path
   overview
   air_date 
@@ -60,11 +61,11 @@ query GetShow($showId: Int!) {
     crew {
       job 
       name 
-    }[]
+    }
     cast {
       name 
       character 
-    }[]
+    }
   }
   episodes {
   air_date
@@ -82,19 +83,21 @@ query GetShow($showId: Int!) {
     name
     official
     site
-  }[]
+  }
   credits {
     crew {
       job
       name
-    }[]
+    }
     cast {
       name
       character
-    }[]
+    }
   }
-  }[]
-  }[]
+  }
+  }
   }
 }
 `
+
+

@@ -1,7 +1,9 @@
-"use client";
+
 import React from "react";
 import MoviesCarousel from "../movieCarouselItems/MoviesCarousel";
 import { gql, useQuery } from "@apollo/client";
+import { getClient } from "@/app/lib/client";
+import { ShowType } from "../UsefulTypes";
 type Props ={
   id:number
 }
@@ -24,12 +26,15 @@ query GetSuggestedShows($suggestedShowsId: Int!) {
   }
 }`
 
-export default function SuggestedShows({id}:Props) {
-  const {loading,error,data} = useQuery(GET_SUGGESTED_SHOWS,{
-    variables:{suggestedShowsId:id}
-  })
+interface Results{
+  recommendedShows:ShowType[]
+}
+
+export default async function SuggestedShows({id}:Props) {
+  const {data:{recommendedShows}} = await  getClient().query<Results>({query:GET_SUGGESTED_SHOWS,variables:{suggestedShowsId:id}})
+  
 
   return (
-    <MoviesCarousel title={"Suggested Shows For You"} movies={data} />
+    <MoviesCarousel title={"Suggested Shows For You"} movies={recommendedShows} />
   );
 }

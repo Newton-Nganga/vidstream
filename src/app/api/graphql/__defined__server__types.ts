@@ -118,7 +118,7 @@ export type Movie = {
   /** The url to the poster path */
   poster_path?: Maybe<Scalars['String']['output']>;
   /** The date of release */
-  release_date?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  release_date?: Maybe<Scalars['String']['output']>;
   /** The title of the movie */
   title?: Maybe<Scalars['String']['output']>;
   /** An object with trailerData */
@@ -545,7 +545,7 @@ export type MovieResolvers<ContextType = DataSourceContext, ParentType extends R
   overview?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   popularity?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   poster_path?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  release_date?: Resolver<Maybe<Array<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>;
+  release_date?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   trailer?: Resolver<Array<ResolversTypes['Trailer']>, ParentType, ContextType>;
   vote_average?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;

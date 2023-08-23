@@ -14,7 +14,16 @@ type Props = {
   setCurrentSeasonNumber:React.Dispatch<React.SetStateAction<number>>
 };
 
-export const ShowPlayer = ({ data, trailer, setTrailer,currentEp,currentSn,currentEpisodeNumber,currentSeasonNumber,setCurrentEpisodeNumber,setCurrentSeasonNumber }: Props) => {
+export const ShowPlayer = ({
+   data,
+   trailer,
+   setTrailer,
+   currentEp,
+   currentSn,
+   currentEpisodeNumber,
+   currentSeasonNumber,
+   setCurrentEpisodeNumber,
+   setCurrentSeasonNumber }: Props) => {
  //A filtering function 
  const filterOfficialYouTubeTrailers = (trailers: Trailer[]): Trailer[] =>
     trailers.filter(trailer => trailer.official && trailer.site === 'YouTube');
@@ -69,13 +78,13 @@ export const ShowPlayer = ({ data, trailer, setTrailer,currentEp,currentSn,curre
             ads).
           </p>
         </div>
-        <div className="w-full flex flex-col">
+        <div className="w-full flex flex-col py-4">
            <div className="w-full flex gap-4">
              {seasonsArray.map((snButton,index) => 
                 <button 
                 key={index} 
                 onClick={()=>setCurrentSeasonNumber(index + 1) } 
-                className="p-2 px-4 rounded-md bg-blue-500 text-black">
+                className={`${currentSeasonNumber === index +1 ? 'bg-red-500': 'bg-blue-500'} px-4 rounded-md  text-black`}>
                     {index + 1}
                 </button>
             )}
@@ -85,7 +94,7 @@ export const ShowPlayer = ({ data, trailer, setTrailer,currentEp,currentSn,curre
                 <button 
                 key={index} 
                 onClick={()=>setCurrentEpisodeNumber(index + 1)} 
-                className="p-2 px-4 rounded-md bg-blue-500 text-black">
+                className={`${currentEpisodeNumber === index +1 ? 'bg-red-500': 'bg-blue-500'} px-4 rounded-md  text-black`}>
                     {index + 1}
                 </button>
             )}

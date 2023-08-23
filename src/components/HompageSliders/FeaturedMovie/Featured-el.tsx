@@ -35,7 +35,7 @@ export const FeaturedMovieImage=(url:any)=>{
     return (
         <div className="relative w-full lg:w-2/3 rounded-xl overflow-clip">
           <Image
-            src={`${url ? `${process.env.IMAGE_PREFIX}url`: "https://fontawesome.com/social/film?f=classic&s=&v=5"
+            src={`${url ? `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${url}`: "https://fontawesome.com/social/film?f=classic&s=&v=5"
             }`}
             fill={true}
             alt="featured"

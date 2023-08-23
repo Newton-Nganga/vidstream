@@ -12,8 +12,8 @@ interface Props{
 
 export default function Movie({data}:Props){
   const imagePath =
-    `${process.env.IMAGE_PREFIX}${data?.backdrop_path}` ?? 
-    `${process.env.IMAGE_PREFIX}${data?.poster_path}` ?? 
+    `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${data?.backdrop_path}` ?? 
+    `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${data?.poster_path}` ?? 
     "https://fontawesome.com/social/film?f=classic&s=&v=5";
 
   const mediaType = "media_type" in data ? data.media_type : data.details.media_type;

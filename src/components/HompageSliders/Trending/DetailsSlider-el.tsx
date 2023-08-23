@@ -24,8 +24,8 @@ export function DetailsTopSlider({trending,activeSlide}:DataProps){
         >
           <Image
             src={
-            `${process.env.IMAGE_PREFIX}${movie?.backdrop_path}` ?? 
-            `${process.env.IMAGE_PREFIX}${movie?.poster_path}` ?? 
+            `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${movie?.backdrop_path}` ?? 
+            `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${movie?.poster_path}` ?? 
              "https://fontawesome.com/social/film?f=classic&s=&v=5"
             }
             alt={"name" in movie ? movie.name : movie.title}
@@ -48,8 +48,8 @@ export default function DetailsSlider({trending,activeSlide}: DataProps) {
         <Image
           fill={true}
           src={
-            `${process.env.IMAGE_PREFIX}${movie?.backdrop_path}` ?? 
-            `${process.env.IMAGE_PREFIX}${movie?.poster_path}` ?? 
+            `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${movie?.backdrop_path}` ?? 
+            `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${movie?.poster_path}` ?? 
              "https://fontawesome.com/social/film?f=classic&s=&v=5"
           }
           alt={"name" in movie ? movie.name: movie.title}
@@ -74,8 +74,8 @@ export default function DetailsSlider({trending,activeSlide}: DataProps) {
                     }
                 </span>
                 {"release_date" in movie 
-                ? new Date(movie.release_date).getFullYear()
-                :new Date(movie.details.last_air_date).getFullYear()}
+                ? new Date(movie?.release_date).getFullYear()
+                :new Date(movie.details?.last_air_date).getFullYear()}
               </div>
             </div>
             <div>

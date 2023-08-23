@@ -1,32 +1,30 @@
-"use client";
+"use client"
+export const dynamic="force-dynamic"
 import React, { useState} from "react";
-import { usePathname } from "next/navigation";
 import InnerPage from "@/components/Pages/InnerPages";
 import { ShowPlayer } from "@/components/MoviePlayer/ShowPlayer";
-import { FullShowEpisode, FullShowSeason } from "@/components/UsefulTypes";
-import { useQuery } from "@apollo/client";
-import { GET_SHOW } from "@/components/Queries/Show_id";
+import { FullShowEpisode, FullShowSeason, FullShowType } from "@/components/UsefulTypes";
+import { GET_SHOW} from "@/components/Queries/Show_id";
 import ShowDetails from "./ShowDetails";
 import SimilarShows from "@/components/Queries/SimilarShows";
 import SuggestedShows from "@/components/Queries/SuggestedShows";
+import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
 
 type Props = {};
 
+interface Response{
+  show:FullShowType
+}
 
-
-export default function Page({ params }: { params: { id: number } }) {
+export default  function Page({ params }: { params: { id: number } }) {
   const [trailer,setTrailer]=useState<boolean>(false)
-  //const breadcrumb = useBreadcrumb();
-  const pathname = usePathname();
   //console.log(params.id);
-  const {loading,error,data}= useQuery(GET_SHOW,{
-    variables:{showId:params.id}
-  })
+  const {data:{show}} = useSuspenseQuery<Response>(GET_SHOW)
   const [currentEpisodeNumber, setCurrentEpisodeNumber] = useState<number>(0);
   const [currentSeasonNumber, setCurrentSeasonNumber] = useState<number>(0);
 
  //The current season and episode objects in play
-  const currentSn:FullShowSeason = data.seasons[currentSeasonNumber];
+  const currentSn:FullShowSeason = show.seasons[currentSeasonNumber];
   const currentEp:FullShowEpisode = currentSn.episodes[currentEpisodeNumber];
  
 
@@ -41,7 +39,7 @@ export default function Page({ params }: { params: { id: number } }) {
        currentEpisodeNumber={currentEpisodeNumber} 
        setCurrentSeasonNumber={setCurrentSeasonNumber}
        setCurrentEpisodeNumber={setCurrentEpisodeNumber}
-       data={data} 
+       data={show} 
        trailer={trailer} 
        setTrailer={setTrailer}
        
@@ -52,7 +50,7 @@ export default function Page({ params }: { params: { id: number } }) {
        currentSn={currentSn}
        currentEpisodeNumber={currentEpisodeNumber}
        currentSeasonNumber={currentSeasonNumber}
-       genres={data.details.genres}
+       genres={show.details.genres}
        />
 
        {/* similar shows like the current one in play */}

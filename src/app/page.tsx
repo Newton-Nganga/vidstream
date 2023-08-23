@@ -12,25 +12,25 @@ export default function Home() {
   return (
     <VidstreamPage>
       {/* hero section */}
-      {/* <Hero /> */}
+      <Hero />
 
       {/* Popular Shows */}
-      {/* <TopRatedShows/> */}
+      <TopRatedShows/>
 
       {/* upcoming movies */}
-      {/* <UpcomingMovies /> */}
+      <UpcomingMovies />
 
       {/* Top movies */}
       <TopRatedMovies/>
 
       {/* Discover shows */}
-      {/* <TvMysteries/> */}
+      <TvMysteries/>
 
       {/* featured movie */}
       {/* <FeaturedMovie /> */}
 
       {/* trending */}
-      {/* <Trending title="Trending" /> */}
+      <Trending title="Trending" />
 
     </VidstreamPage>
   );

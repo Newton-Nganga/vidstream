@@ -1,9 +1,11 @@
-"use client"
-import {gql, useQuery} from '@apollo/client'
+
+import {gql} from '@apollo/client'
 import MoviesCarousel from "../movieCarouselItems/MoviesCarousel";
+import { getClient } from '@/app/lib/client';
+import { ShowType } from '../UsefulTypes';
 
 type Props={}
-const GET_TOP_SHOWS=gql`
+export const GET_TOP_SHOWS=gql`
 query GetTopShows{
     topShows{
     name
@@ -22,7 +24,10 @@ query GetTopShows{
  }
 }
 `
-export default function TopRatedShows({}: Props) {
-    const {loading,error,data} = useQuery(GET_TOP_SHOWS)
-    return <MoviesCarousel title={"Top Shows"} movies={data} />;
+interface Response{
+  topShows:ShowType[]
+}
+export default async function TopRatedShows({}: Props) {
+    const {data:{topShows}} = await getClient().query<Response>({query:GET_TOP_SHOWS})
+    return <MoviesCarousel title={"Top Shows"} movies={topShows} />;
 }

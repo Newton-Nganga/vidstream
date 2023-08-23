@@ -1,6 +1,8 @@
-"use client"
-import {gql, useQuery} from '@apollo/client'
+
+import {gql} from '@apollo/client'
 import MoviesCarousel from "../movieCarouselItems/MoviesCarousel";
+import { MovieType } from '../UsefulTypes';
+import { getClient } from '@/app/lib/client';
 
 type Props={}
 const GET_UPCOMING_MOVIES=gql`
@@ -24,7 +26,12 @@ query GetUpcomingMovies{
   }
 }
 `
-export default function UpcomingMovies({}: Props) {
-    const {loading,error,data} = useQuery(GET_UPCOMING_MOVIES)
-    return <MoviesCarousel title={"Popular Movies"} movies={data} />;
+interface Response{
+  upcomingMovies:MovieType[]
+}
+
+export default async function UpcomingMovies({}: Props) {
+  const {data:{upcomingMovies}} = await getClient().query<Response>({query:GET_UPCOMING_MOVIES})
+
+    return <MoviesCarousel title={"Popular Movies"} movies={upcomingMovies} />;
 }

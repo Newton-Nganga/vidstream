@@ -47,7 +47,7 @@ export function ApolloWrapper({ children }: React.PropsWithChildren) {
   return (
     <ApolloNextAppProvider
       makeClient={makeClient}
-      //makeSuspenseCache={makeSuspenseCache}
+      
       >
       {children}
     </ApolloNextAppProvider>

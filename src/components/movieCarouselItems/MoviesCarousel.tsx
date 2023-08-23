@@ -5,11 +5,11 @@ import Slider from "react-slick";
 import Movie from "../HompageSliders/Movie-Cel/Movie";
 import CarouselControls from "./CarouselControls";
 import Carousel from "./Carousel";
-import { MovieType } from "../UsefulTypes";
+import { MovieType, ShowType } from "../UsefulTypes";
 
 type Props = {
   title: string;
-  movies: MovieType[];
+  movies: MovieType[]|ShowType[];
 };
 
 export default function MoviesCarousel({ title, movies }: Props) {
@@ -26,7 +26,7 @@ export default function MoviesCarousel({ title, movies }: Props) {
         </div>
         <Carousel sliderRef={sliderRef}>
           {/* pass in the data as required */}
-           {movies?.map((movie:MovieType) => {
+           {movies?.map((movie) => {
             return <Movie key={movie.id} data={movie} />;
           })}
         </Carousel>

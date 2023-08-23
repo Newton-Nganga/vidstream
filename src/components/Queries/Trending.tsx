@@ -1,6 +1,9 @@
 "use client"
+export const dynamic="force-dynamic"
 import {gql, useQuery} from '@apollo/client'
 import { ShowType,MovieType } from '../UsefulTypes';
+
+import { useSuspenseQuery } from '@apollo/experimental-nextjs-app-support/ssr';
 
 
 const GET_TRENDING=gql`
@@ -56,14 +59,20 @@ query GetTrending{
     }
   }
 }`
-export default function TrendingShowsAndMovies(): (MovieType | ShowType)[]{
-const {loading,error,data} = useQuery(GET_TRENDING)
-const trending = [...data.movies, ...data.shows];
+interface Response{
+  trending:{
+    shows:ShowType[]
+    movies:MovieType[]
+  }
+}
+export default function TrendingShowsAndMovies():(MovieType | ShowType)[]{
+const {data:{trending}} = useSuspenseQuery<Response>(GET_TRENDING)
+const trendingData = [...trending.movies, ...trending.shows];
 
-for (let i = trending.length - 1; i > 0; i--) {
+for (let i = trendingData.length - 1; i > 0; i--) {
   const j = Math.floor(Math.random() * (i + 1));
-  [trending[i], trending[j]] = [trending[j], trending[i]];
+  [trendingData[i], trendingData[j]] = [trendingData[j], trendingData[i]];
 }
 
-return trending;
+return trendingData;
 }

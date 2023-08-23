@@ -1,6 +1,8 @@
-"use client";
+
+import { getClient } from "@/app/lib/client";
+import { ShowType } from "../UsefulTypes";
 import MoviesCarousel from "../movieCarouselItems/MoviesCarousel";
-import {gql,useQuery} from '@apollo/client';
+import {gql} from '@apollo/client';
 
 type Props={
   id:number
@@ -26,9 +28,11 @@ query GetSimilarShows($similarShowsID:Int){
     vote_count
   }
 }`
-export default function SimilarShows({id }:Props) {
-  const {loading,error,data} = useQuery(GET_SIMILAR_SHOWS,{
-    variables:{similarShowsID:id}
-  })
-  return <MoviesCarousel title={"Similar Shows"} movies={data} />;
+interface Response{
+  similarShows:ShowType[]
+}
+export default async function SimilarShows({id }:Props) {
+  const {data:{similarShows}} = await getClient().query<Response>({query:GET_SIMILAR_SHOWS,variables:{similarShowsId:id}})
+
+  return <MoviesCarousel title={"Similar Shows"} movies={similarShows} />;
 }

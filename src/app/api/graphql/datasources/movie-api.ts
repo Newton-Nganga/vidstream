@@ -43,7 +43,7 @@ export class MovieAPI extends RESTDataSource{
    }
   
    async getTopMovies(){
-      const topMovies = await this.get<result>(`movie/top_rated${this.appendApiKey}`)
+      const topMovies = await this.get<result>(`movie/popular${this.appendApiKey}`)
       const top_ratedMovies = topMovies.results.map(({media_type,...rest}) => ({media_type:"movie",...rest}))
       return top_ratedMovies
    }

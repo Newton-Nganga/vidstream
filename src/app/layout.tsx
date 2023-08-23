@@ -4,9 +4,13 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { ApolloWrapper } from './lib/apollo-provider'
 
+// Make the slider styles accessible 
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const inter = Inter({ subsets: ['latin'] })
 
+//The Aplications metadata
 export const metadata: Metadata = {
   title: 'Vidstream',
   description: 'Get Movies and Shows',

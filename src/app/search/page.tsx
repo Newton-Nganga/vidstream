@@ -1,86 +1,42 @@
-"use client";
-import Movie from "@/components/Movie";
+"use client"
+export const dynamic="force-dynamic"
+import MovieCard from "@/components/MovieCards";
 import InnerPage from "@/components/Pages/InnerPages";
-import { useSearchParams } from "next/navigation";
-import React, { useState, useEffect } from "react";
-import axios, { AxiosRequestConfig } from "axios";
-import MoviesCarousel from "@/components/movieCarouselItems/MoviesCarousel";
-import Search from "@/components/Search/Search";
+import SearchShowsOrMovies from "@/components/Queries/Search";
+import { MovieType, ShowType } from "@/components/UsefulTypes";
+import { useState } from "react";
+
 
 type Props = {};
-interface Movies {
-  name: string;
-  id: number;
-  backdrop_path: string;
-  poster_path: string;
-  release: any;
-  media_type: string;
-}
 
-export default function Page({}: Props) {
-  //get the query parameter
-  const searchParams = useSearchParams();
-  //path /query/s="movies"
-  const search = searchParams.get("query");
-  const [movieresults, setMovieResults] = useState<Movies[] | null>(null);
-  const quryMovieOptions: AxiosRequestConfig = {
-    method: "GET",
-    url: `${process.env.BASE_ENDPOINT}search/multi?query=${search}&include_adult=true&language=en-US&page=2`,
-    headers: {
-      accept: "application/json",
-      Authorization: process.env.API_AUTHORIZATION_TOKEN,
-    },
-  };
-
-  useEffect(() => {
-    async function getSearch() {
-      try {
-        const qMovieResponse = await axios.request(quryMovieOptions);
-
-        const filteredResults = qMovieResponse.data.results.filter(
-          (m_data: any) => m_data.media_type !== "person"
-        );
-        const qmovie_data: Movies[] = filteredResults.map(
-          ({
-            name,
-            title,
-            id,
-            backdrop_path,
-            media_type,
-            first_air_date,
-            poster_path,
-            release_date,
-            ...others
-          }: any) => {
-            return {
-              name: name ? name : title,
-              id,
-              backdrop_path,
-              media_type,
-              release: first_air_date ? first_air_date : release_date,
-              poster_path,
-            } as Movies;
-          }
-        );
-
-        setMovieResults(qmovie_data);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    getSearch();
-    //eslint-disable-next-line
-  }, []);
-  //console.log("movie results",movieresults);
+export default  function Page({}: Props) {
+  const [keyword,setKeyword] = useState<String>('')
+   let movieResults:(MovieType|ShowType)[]=[]
+   
+   const handleSearch=async ()=>{
+   const movieResults = await SearchShowsOrMovies(keyword)
+   return movieResults
+  }
+ 
   return (
     <InnerPage>
       <section className="section">
         <div className="inner-section">
-          <h2>search results for &apos; {search} &apos;</h2>
+          <div className="relative w-full rounded-[30px] text-base">
+            <input 
+            type="search" 
+            onChange={(e)=>setKeyword(e.target.value)}
+            placeholder="Search for movies or shows by their titles"
+            className="bg-transparent py-3 w-full relative"/>
+            <button 
+            onClick={handleSearch}
+            className="p-3 rounded-[30px] absolute right-0 shadow">Search</button>
+          </div>
+          <h2>search results for &apos; {keyword} &apos;</h2>
           {/* map through the movies results */}
           <div className="flex flex-wrap gap-4 w-full justify-center ">
-            {movieresults?.map((el) => (
-              <Search key={el.id} movie={el} />
+            {movieResults?.map((el) => (
+              <MovieCard data={el} key={el.id}/>
             ))}
           </div>
         </div>

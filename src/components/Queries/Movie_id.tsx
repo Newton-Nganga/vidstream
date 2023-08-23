@@ -1,5 +1,7 @@
-"use client"
+
 import {gql} from '@apollo/client'
+import { FullMovieType } from '../UsefulTypes'
+import { getClient } from '@/app/lib/client'
 
 export const GET_MOVIE=gql`
 query GetMovie($movieId: Int!) {
@@ -41,3 +43,10 @@ query GetMovie($movieId: Int!) {
     backdrop_path
   }
 }`
+interface Response{
+  movie:FullMovieType
+}
+export async function getSpecificMovie(id:number):Promise<FullMovieType>{
+  const {data:{movie}} = await getClient().query<Response>({query:GET_MOVIE,variables:{movieId:id}})
+  return movie
+}

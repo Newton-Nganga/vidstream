@@ -80,7 +80,7 @@ type Movie{
     "The media type"
     media_type:String
     "The date of release"
-    release_date:[String]
+    release_date:String
     "The movie/shows original title"
     original_title:String!
     "Movie/Tv 's original language"

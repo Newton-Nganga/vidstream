@@ -1,17 +1,21 @@
 "use client"
+export const dynamic="force-dynamic"
 import React, { useRef, useState } from "react";
 import Slider from "react-slick";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import DetailsSlider, { DetailsTopSlider } from "./DetailsSlider-el";
-import gql from "graphql-tag";
-import TrendingShowsAndMovies from "@/components/Queries/Trending";
-import PopularShowsAndMovies from "@/components/Queries/Popular";
+import  { GET_POPULAR } from "@/components/Queries/Popular";
+import { MovieType, ShowType } from "@/components/UsefulTypes";
+import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
 
 type Props = {
   title: String;
 };
 
-
+interface Response{
+  popularShows:ShowType[]
+  popularMovies:MovieType[]
+}
 
 export default function Trending({ title = "Trending" }: Props) {
   const [nav1, setNav1] = useState<Slider | any | null>(null);
@@ -76,8 +80,15 @@ export default function Trending({ title = "Trending" }: Props) {
       },
     ],
   };
-  
-  const data = PopularShowsAndMovies()
+  const {data:{popularMovies,popularShows}} = useSuspenseQuery<Response>(GET_POPULAR)
+
+  const popular = [...popularMovies, ...popularShows];
+
+  for (let i = popular.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [popular[i], popular[j]] = [popular[j], popular[i]];
+  }
+
   return (
     <section className="section">
       <section className="relative inner-section h-auto m-auto">
@@ -99,7 +110,7 @@ export default function Trending({ title = "Trending" }: Props) {
           </div>
         </div>
         <Slider {...sliderSettings}>
-          <DetailsTopSlider trending={data} activeSlide={activeSlide}/>
+          <DetailsTopSlider trending={popular} activeSlide={activeSlide}/>
         </Slider>
         <Slider
           fade={true}
@@ -114,7 +125,7 @@ export default function Trending({ title = "Trending" }: Props) {
           centerMode={true}
           centerPadding={"0px"}
         >
-          <DetailsSlider trending={data} activeSlide={activeSlide}/>
+          <DetailsSlider trending={popular} activeSlide={activeSlide}/>
         </Slider>
       </section>
     </section>

@@ -1,6 +1,8 @@
-"use client";
+
+import { getClient } from "@/app/lib/client";
 import MoviesCarousel from "../movieCarouselItems/MoviesCarousel";
 import { gql, useQuery } from "@apollo/client";
+import { MovieType } from "../UsefulTypes";
 type Props ={
   id:number
 }
@@ -23,12 +25,14 @@ query GetSuggestedMovies($suggestedMoviesId: Int!) {
   }
 }`
 
-export default function SuggestedMovies({id}:Props) {
-  const {loading,error,data} = useQuery(GET_SUGGESTED_MOVIES,{
-    variables:{suggestedMoviesId:id}
-  })
+interface Response{
+  recommendedMovies:MovieType[]
+}
+export default async function SuggestedMovies({id}:Props) {
+  //fetch using the getClient method @SSR components
+  const {data:{recommendedMovies}} = await getClient().query<Response>({query:GET_SUGGESTED_MOVIES,variables:{suggestedMoviesId:id}})
 
   return (
-    <MoviesCarousel title={"Suggested Movies For You"} movies={data} />
+    <MoviesCarousel title={"Suggested Movies For You"} movies={recommendedMovies} />
   );
 }
