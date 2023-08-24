@@ -1,0 +1,37 @@
+{
+  "name": "vidstream-server",
+  "version": "1.0.0",
+  "description": "The Official vidstream server for service provinsion.",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "compile": "tsc",
+    "dev": "ts-node-dev --respawn ./src/index.ts",
+    "start": "npm run compile && nodemon ./dist/index.js",
+    "start:dev": "npm run compile && node ./dist/index.js",
+    "generate": "graphql-codegen"
+  },
+  "author": "Newton_Nganga",
+  "license": "ISC",
+  "dependencies": {
+    "@apollo/datasource-rest": "^6.0.1",
+    "@apollo/server": "^4.9.1",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "graphql": "^16.8.0"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "^5.0.0",
+    "@graphql-codegen/typescript": "^4.0.1",
+    "@graphql-codegen/typescript-resolvers": "^4.0.1",
+    "@types/body-parser": "^1.19.2",
+    "@types/cors": "^2.8.13",
+    "@types/express": "^4.17.17",
+    "@types/node": "^20.5.3",
+    "dotenv": "^16.3.1",
+    "nodemon": "^3.0.1",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.1.6"
+  }
+}
