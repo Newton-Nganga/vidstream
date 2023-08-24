@@ -24,7 +24,7 @@ await server.start();
 
 app.use(
   '/vidstream-server/graphql',
-  cors<cors.CorsRequest>({ origin: ['https://vidstream.vercel.app', 'https://studio.apollographql.com'] }),
+  cors<cors.CorsRequest>({ origin: ['https://vidstream.vercel.app', 'https://studio.apollographql.com','*'] }),
   json(),
   expressMiddleware(server,{
     context: async () => {
@@ -40,6 +40,7 @@ app.use(
       }
   }),
 );
+const PORT = process.env.PORT || 4000
 
-await new Promise<void>((resolve) => httpServer.listen({ port: 3000 }, resolve));
-console.log(`🚀 Server ready at http://localhost:3000/vidstream-server/graphql`);
+await new Promise<void>((resolve) => httpServer.listen({ port: PORT }, resolve));
+console.log(`🚀 Server ready at :${PORT}/vidstream-server/graphql`);

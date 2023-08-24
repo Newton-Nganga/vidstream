@@ -11,7 +11,7 @@ import { ShowAPI } from "./datasources/show-api.js";
 import { SearchAPI } from "./datasources/search-api.js";
 import { MovieOrShowAPI } from "./datasources/movieorshow-api.js";
 import cors from 'cors';
-const { json }= bs
+const {json} = bs
 const app = express();
 const httpServer = http.createServer(app);
 const server = new ApolloServer({
@@ -20,7 +20,7 @@ const server = new ApolloServer({
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
 });
 await server.start();
-app.use('/vidstream-server/graphql', cors({ origin: ['https://vidstream.vercel.app', 'https://studio.apollographql.com'] }), json(), expressMiddleware(server, {
+app.use('/vidstream-server/graphql', cors({ origin: ['https://vidstream.vercel.app', 'https://studio.apollographql.com', '*'] }), json(), expressMiddleware(server, {
     context: async () => {
         const { cache } = server;
         return {
@@ -33,5 +33,6 @@ app.use('/vidstream-server/graphql', cors({ origin: ['https://vidstream.vercel.a
         };
     }
 }));
-await new Promise((resolve) => httpServer.listen({ port: 3000 }, resolve));
-console.log(`🚀 Server ready at http://localhost:3000/vidstream-server/graphql`);
+const PORT = process.env.PORT || 4000;
+await new Promise((resolve) => httpServer.listen({ port: PORT }, resolve));
+console.log(`🚀 Server ready at :${PORT}/vidstream-server/graphql`);
