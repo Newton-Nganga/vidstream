@@ -61,9 +61,8 @@ type Crew ={
 type CastOrCrew={
     created_by:[Cast|Crew]
 }
-export type MovieOrShowModel={
-    movieOrShow:[MovieModel|ShowModel]
-}
+//union MovieOrShowModel= MovieModel|ShowModel
+
 //show response from the api endpoint
 export type ShowModel={
     id:number

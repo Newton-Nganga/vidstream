@@ -2,6 +2,7 @@ import {gql} from 'graphql-tag'
 
 export const typeDefs=gql`
 union MovieOrShow = Movie |Show
+
 "The entry point to our schema"
 type Query{
     movie(id:Int!):Movie!
@@ -72,19 +73,19 @@ type Movie{
     "The date of release"
     release_date:String
     "The movie/shows original title"
-    original_title:String!
+    original_title:String
     "Movie/Tv 's original language"
-    original_language:String!
+    original_language:String
     "The url to the poster path"
     poster_path:String
     "url to the backdrop path"  
     backdrop_path:String
     "A description of movie or show"
-    overview:String!
+    overview:String
     "Vote average according to IMDB"
-    vote_average:Float!
+    vote_average:Float
     "Total vote count by IMDB"
-    vote_count:Int! 
+    vote_count:Int
     "Details of the movie"
     details:MovieDetails!
     "An object with trailerData"
@@ -94,8 +95,8 @@ type Movie{
 }
 type CastAndCrew{
     id:ID!
-    cast:[Cast!]!
-    crew:[Crew!]!
+    cast:[Cast!]
+    crew:[Crew!]
 }
 type MovieDetails{
     id:ID!

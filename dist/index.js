@@ -11,7 +11,7 @@ import { ShowAPI } from "./datasources/show-api.js";
 import { SearchAPI } from "./datasources/search-api.js";
 import { MovieOrShowAPI } from "./datasources/movieorshow-api.js";
 import cors from 'cors';
-const {json} = bs
+const { json } = bs
 const app = express();
 const httpServer = http.createServer(app);
 const server = new ApolloServer({

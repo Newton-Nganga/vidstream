@@ -1,5 +1,5 @@
+import { MovieModel, ShowModel } from './../models';
 import {RESTDataSource} from "@apollo/datasource-rest"
-import { MovieModel, ShowModel } from "../models"
 
 type queryResult={
     page:number

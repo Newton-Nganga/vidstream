@@ -1,4 +1,7 @@
 export const resolvers = {
+    MovieOrShow: {
+        __resolveType: obj => "title" in obj ? 'Movie' : 'Show'
+    },
     Query: {
         //get specific movie by its id
         movie: (_, { id }, { dataSources }) => {
