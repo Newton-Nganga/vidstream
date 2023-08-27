@@ -6,7 +6,7 @@ import { TopMoviesBackground, TopMoviesSlider } from "./TopMovies-el";
 import {TopMoviesControls,TopMoviesControlsLargeScreen} from "./TopMoviesControls";
 import { useQuery,gql } from "@apollo/client";
 
-
+import { MovieType } from "@/__generated_types/UsefulTypes";
 
 
 
@@ -43,7 +43,6 @@ export default function TopMovies() {
   }, []);
 
   //console.log("The acttive slide is :", activeSlide);
-
   const next = () => {
     if (slider1Ref.current) {
       slider1Ref.current.slickNext();
@@ -61,6 +60,7 @@ export default function TopMovies() {
       slider2Ref.current.slickPrev();
     }
   };
+ 
   const handleBeforeChange = (current: number, next: number) => {
     setActiveSlide(next);
   };
@@ -105,21 +105,26 @@ export default function TopMovies() {
               slidesToScroll={1}
               swipeToSlide={false}
             >
-              <TopMoviesBackground movies={data.topMovies}/>
+               {data.topMovies?.map((movie:MovieType) => (
+                 <TopMoviesBackground movie={movie}/>
+               ))}
+             
             </Slider>
           </div>
           <div className="block md:hidden absolute top-[40%] -translae-y-[40%] w-full z-10">
-           <TopMoviesControlsLargeScreen previous={previous} next={next}/>
+           <TopMoviesControlsLargeScreen next={next} previous={previous}/>
           </div>
 
           <div className="hidden md:block absolute w-[230px] h-full left-[8%] bg-transparent py-4">
             <h4>Top Movies</h4>
             <div className="h-[550px] w-full flex flex-col">
               <Slider {...sliderSettings}>
-                <TopMoviesSlider activeSlide={activeSlide} movies={data.topMovies}/>
+              {data.topMovies.map((movie:MovieType,index:number)=>(
+                <TopMoviesSlider activeSlide={activeSlide} index={index} movie={movie}/>
+              ))}
               </Slider>
             </div>
-            <TopMoviesControls previous={previous} next={next}/>
+            <TopMoviesControls next={next} previous={previous}/>
           </div>
         </div>
       </section>

@@ -3,7 +3,7 @@ import Slider from "react-slick";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
+import { MovieType,ShowType } from "@/__generated_types/UsefulTypes";
 
 
 import HeroSlider from "./HeroSlider";
@@ -67,7 +67,15 @@ const GET_TRENDING=gql`
 `
 
 export default function Hero() {
-  const sliderRef = useRef<Slider | null>(null);
+  const {loading,error,data} = useQuery(GET_TRENDING)
+ const sliderRef = useRef<Slider | null>(null);
+  if(loading){
+    return<p>Loading ...</p>
+  }
+  if(error){
+    return <p>Error : {error.message}</p>
+  }
+ 
 
   const next = () => {
     if (sliderRef.current) {
@@ -81,20 +89,17 @@ export default function Hero() {
     }
   };
 
- const {loading,error,data}=useQuery(GET_TRENDING)
-  if(loading){
-    return<p>Loading ...</p>
-  }
-  if(error){
-    return <p>Error : {error.message}</p>
-  }
+ 
+  console.log(data.trending[5])
   return (
     <section className="bg-black">
       <section className="">
         <HeroSlider sliderRef={sliderRef}>
-          <HeroDetails trending={data.trending}>
+          {data.trending.map((trendingMovie:MovieType|ShowType)=>(
+            <HeroDetails trending={trendingMovie}>
             <HeroSliderConrols previous={previous} next={next} />
           </HeroDetails>
+          ))}
         </HeroSlider>
       </section>
     </section>

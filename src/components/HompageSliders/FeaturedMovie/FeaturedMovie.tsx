@@ -38,12 +38,14 @@ export default  function FeaturedMovie() {
  if(error){
   return <p>Error {error.message}</p>
  }
+ 
+ const featuredMovieUrl= data.featuredMovie.backdrop_path ? data.featuredMovie.backdrop_path : data.featuredMovie.poster_path
   return (
     <section className={`w-full bg-black/70`}>
       <div className="flex flex-col lg:flex-row my-16 text-white items-center justify-between gap-5 bg-transparent inner-section m-auto">
         <FeaturedMovieDetails data={data.featuredMovie}/>
         {/* pass the url enpoint */}
-        <FeaturedMovieImage url={data.featuredMovie.backdrop_path ? data.featuredMovie.backdrop_path : data.featuredMovie.poster_path}/>
+        <FeaturedMovieImage url={featuredMovieUrl}/>
       </div>
     </section>
   );

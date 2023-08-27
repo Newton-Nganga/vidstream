@@ -17,26 +17,20 @@ type Props = {
   children: any;
 };
 
-
-
 export default function VidstreamPage({ children }: Props) {
-  const {
-    loading,
-    error,
-    data,
-  } = useQuery(GET_FEATURED_MOVIE);
-
-  const featuredMovieUrl = `${process.env.NEXT_PUBLIC_IMAGE_URL}${
-    data.featuredMovie.backdrop_path
-      ? data.featuredMovie.backdrop_path
-      : data.featuredMovie.poster_path
-  }`;
+  const { loading, error, data } = useQuery(GET_FEATURED_MOVIE);
   if (loading) {
     return <p>Loading ...</p>;
   }
   if (error) {
     console.log(error);
   }
+  //console.log("featured Movie data:", data.featuredMovie);
+  const featuredMovieUrl =`${import.meta.env.VITE_PUBLIC_IMAGE_PREFIX}`+
+    `${data.featuredMovie.backdrop_path
+      ? data.featuredMovie.backdrop_path
+      : data.featuredMovie.poster_path}`
+
   return (
     <main
       className={` flex  flex-col bg-cover bg-no-repeat bg-center bg-fixed h-auto `}

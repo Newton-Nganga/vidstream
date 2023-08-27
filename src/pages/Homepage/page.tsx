@@ -8,22 +8,23 @@ import TvMysteries from "@/components/HompageSliders/TvMysteries/TvMysteries";
 import TopRatedShows from "@/components/HompageSliders/TopRatedShow/TopShow";
 
 export default function HomePage() {
+  console.log("prefix env var", import.meta.env.VITE_PUBLIC_IMAGE_PREFIX);
   return (
     <VidstreamPage>
       {/* hero section */}
       <Hero />
 
       {/* Popular Shows */}
-      <TopRatedShows/>
+      <TopRatedShows />
 
       {/* upcoming movies */}
       {/* <UpcomingMovies /> */}
-      <UpcomingMovies/>
+      <UpcomingMovies />
       {/* Top movies */}
       {/* <TopRatedMovies/> */}
-      <TopMovies/>
+      <TopMovies />
       {/* Discover shows */}
-      <TvMysteries/>
+      <TvMysteries />
 
       {/* featured movie */}
       <FeaturedMovie />

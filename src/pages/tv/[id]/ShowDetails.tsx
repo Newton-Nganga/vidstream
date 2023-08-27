@@ -1,5 +1,8 @@
 import Stars from "@/components/Stars/Stars";
-import { FullShowEpisode,FullShowSeason } from "@/__generated_types/UsefulTypes";
+import {
+  FullShowEpisode,
+  FullShowSeason,
+} from "@/__generated_types/UsefulTypes";
 import React from "react";
 import { RiHeartFill, RiShareLine, RiVolumeMuteFill } from "react-icons/ri";
 
@@ -76,7 +79,7 @@ function ShowDetails({
             <img
               alt={`Episode ${currentEp.episode_number}`}
               src={`
-                  ${process.env.NEXT_PUBLIC_IMAGE_PREFIX}
+                  ${import.meta.env.VITE_PUBLIC_IMAGE_PREFIX}
                   ${
                     currentEp.still_path
                       ? currentEp.still_path

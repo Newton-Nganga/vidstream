@@ -4,6 +4,7 @@ import Slider from "react-slick";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import DetailsSlider, { DetailsTopSlider } from "./DetailsSlider-el";
 import { useQuery,gql } from "@apollo/client";
+import { MovieType, ShowType } from "@/__generated_types/UsefulTypes";
 
 type Props = {
   title: string;
@@ -113,7 +114,13 @@ export default function Trending({ title = "Trending" }: Props) {
   };
   const {loading,error,data} = useQuery(GET_POPULAR)
 
-
+if(error){
+    return <p>Error: {error.message}</p>
+  }
+  if(loading){
+    return <p>Loading ...</p>
+  }
+  console.log(data.popularMovies[0]);
   const popular = [...data.popularMovies, ...data.popularShows];
 
   for (let i = popular.length - 1; i > 0; i--) {
@@ -121,12 +128,7 @@ export default function Trending({ title = "Trending" }: Props) {
     [popular[i], popular[j]] = [popular[j], popular[i]];
   }
 
-  if(error){
-    return <p>Error: {error.message}</p>
-  }
-  if(loading){
-    return <p>Loading ...</p>
-  }
+  
   return (
     <section className="section">
       <section className="relative inner-section h-auto m-auto">
@@ -148,7 +150,9 @@ export default function Trending({ title = "Trending" }: Props) {
           </div>
         </div>
         <Slider {...sliderSettings}>
-          <DetailsTopSlider trending={popular} activeSlide={activeSlide}/>
+        {popular?.map((movie:MovieType|ShowType, index:number) => (
+         <DetailsTopSlider key={movie.id} index={index} movie={movie} activeSlide={activeSlide}/>
+        ))}
         </Slider>
         <Slider
           fade={true}
@@ -163,7 +167,9 @@ export default function Trending({ title = "Trending" }: Props) {
           centerMode={true}
           centerPadding={"0px"}
         >
-          <DetailsSlider trending={popular} activeSlide={activeSlide}/>
+          {popular?.map((movie:MovieType|ShowType, index:number) => (
+            <DetailsSlider key={movie.id} index={index} movie={movie} activeSlide={activeSlide}/>
+          ))}
         </Slider>
       </section>
     </section>
