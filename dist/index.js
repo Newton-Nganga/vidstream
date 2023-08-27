@@ -20,7 +20,11 @@ const server = new ApolloServer({
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
 });
 await server.start();
-app.use('/vidstream-server/graphql', cors({ origin: ['https://vidstream.vercel.app', 'https://studio.apollographql.com', '*'] }), json(), expressMiddleware(server, {
+app.use('/vidstream-server/graphql', cors({
+     origin: ['https://vidstream.vercel.app', 
+     'https://studio.apollographql.com',
+     'http://localhost:5173/','*'] })
+     , json(), expressMiddleware(server, {
     context: async () => {
         const { cache } = server;
         return {
