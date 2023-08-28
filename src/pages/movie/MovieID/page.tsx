@@ -51,8 +51,9 @@ const GET_MOVIE = gql`
 export default function MoviePage() {
   //get the query parameter
 const {id} = useParams()
-
-const {loading,error,data} = useQuery(GET_MOVIE,{variables:{movieId:id}})
+const movieId = id ? parseInt(id) : null
+console.log("id",typeof(movieId))
+const {loading,error,data} = useQuery(GET_MOVIE,{variables:{movieId:movieId}})
 
  if(loading){
     return <p>Loading ...</p>
@@ -65,16 +66,16 @@ const {loading,error,data} = useQuery(GET_MOVIE,{variables:{movieId:id}})
     <InnerPage>
       <section>
         {/* The media Player Component */}
-        <MoviePlayer data={data} />
+        <MoviePlayer movieId={movieId} trailerArray={data.movie.trailer} />
 
         {/* The details about the specific movie */}
-        <MovieDetails movie={data} />
+        <MovieDetails movie={data.movie} />
 
         {/* A carousel of recommended movies */}
-        <SuggestedMovies id={id} />
+        <SuggestedMovies id={movieId} />
 
         {/* Movies similar to the one above */}
-        <SimilarMovies id={id} />
+        <SimilarMovies id={movieId} />
       </section>
     </InnerPage>
   );

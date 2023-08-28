@@ -18,9 +18,11 @@ export interface MovieType {
   };
   credits: {
     crew: {
+      id:number
       name: string;
     }[];
     cast: {
+      id:number
       name: string;
     }[];
   };
@@ -42,9 +44,11 @@ export interface ShowType {
   };
   credits: {
     crew: {
+      id:number
       name: string;
     }[];
     cast: {
+      id:number
       name: string;
     }[];
   };

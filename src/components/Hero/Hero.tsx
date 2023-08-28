@@ -96,7 +96,7 @@ export default function Hero() {
       <section className="">
         <HeroSlider sliderRef={sliderRef}>
           {data.trending.map((trendingMovie:MovieType|ShowType)=>(
-            <HeroDetails trending={trendingMovie}>
+            <HeroDetails key={trendingMovie.id} trending={trendingMovie}>
             <HeroSliderConrols previous={previous} next={next} />
           </HeroDetails>
           ))}

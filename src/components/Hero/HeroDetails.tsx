@@ -74,7 +74,7 @@ function HeroDetails({ trending, children }: Props) {
                 href={`/${
                   "media_type" in trending
                     ? trending.media_type
-                    : trending.details.media_type
+                    : "tv"
                 }/${trending?.id}`}
               >
                 <button className="md:px-6 md:p-3 gap-2 btn">
@@ -86,7 +86,7 @@ function HeroDetails({ trending, children }: Props) {
                 href={`/${
                   "media_type" in trending
                     ? trending.media_type
-                    : trending.details.media_type
+                    : "tv"
                 }/${trending?.id}`}
               >
                 <p className="text-lg hover:text-red-600">+My List</p>

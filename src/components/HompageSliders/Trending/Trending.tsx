@@ -1,10 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import Slider from "react-slick";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import DetailsSlider, { DetailsTopSlider } from "./DetailsSlider-el";
-import { useQuery,gql } from "@apollo/client";
+import { useQuery, gql } from "@apollo/client";
 import { MovieType, ShowType } from "@/__generated_types/UsefulTypes";
+import { useShuffle } from "@/utils/useSufflle";
 
 type Props = {
   title: string;
@@ -23,8 +25,20 @@ const GET_POPULAR = gql`
         genres {
           name
         }
+        id
         media_type
         number_of_seasons
+        last_air_date
+      }
+      credits {
+        cast {
+          id
+          name
+        }
+        crew {
+          id
+          name
+        }
       }
     }
     popularMovies {
@@ -35,6 +49,7 @@ const GET_POPULAR = gql`
       poster_path
       title
       vote_average
+      release_date
       vote_count
       backdrop_path
       details {
@@ -43,21 +58,40 @@ const GET_POPULAR = gql`
           name
         }
       }
+      credits {
+        cast {
+          id
+          name
+        }
+        crew {
+          name
+          id
+        }
+      }
     }
   }
 `;
 
-
 export default function Trending({ title = "Trending" }: Props) {
-  const [nav1, setNav1] = useState<Slider | undefined>();
-  const [nav2, setNav2] =useState<Slider |undefined>();
-  const slider1Ref = useRef<Slider | undefined>(undefined);
+  const { loading, error, data } = useQuery(GET_POPULAR);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // const [nav1, setNav1] = useState<Slider | undefined>();
+  // const [nav2, setNav2] =useState<Slider |undefined>();
+  const slider1Ref = useRef<Slider | undefined>();
   const slider2Ref = useRef<Slider | any>(null);
+
+  const setSlider1Ref = useCallback((slider: any) => {
+    slider1Ref.current = slider;
+  }, []);
+  const setSlider2Ref = useCallback((slider: any) => {
+    slider2Ref.current = slider;
+  }, []);
+  // pass setSlider1Ref as ref
+
   const [activeSlide, setActiveSlide] = useState<number>(0);
 
-  setNav1(slider1Ref.current);
-  setNav2(slider2Ref.current);
+  // setNav1(slider1Ref.current);
+  // setNav2(slider2Ref.current);
 
   const next = () => {
     if (slider1Ref.current) {
@@ -75,8 +109,9 @@ export default function Trending({ title = "Trending" }: Props) {
   };
 
   const sliderSettings = {
-    asNavFor: nav2,
-    ref: (slider: Slider ) => (slider1Ref.current = slider),
+    asNavFor: slider2Ref.current,
+    // ref: (slider: Slider ) => (slider1Ref.current = slider),
+    ref: setSlider1Ref,
     centerMode: true,
     centerPadding: "10px",
     arrows: false,
@@ -112,23 +147,19 @@ export default function Trending({ title = "Trending" }: Props) {
       },
     ],
   };
-  const {loading,error,data} = useQuery(GET_POPULAR)
 
-if(error){
-    return <p>Error: {error.message}</p>
+  if (loading) {
+    return <p>Loading ...</p>;
   }
-  if(loading){
-    return <p>Loading ...</p>
-  }
-  console.log(data.popularMovies[0]);
-  const popular = [...data.popularMovies, ...data.popularShows];
-
-  for (let i = popular.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [popular[i], popular[j]] = [popular[j], popular[i]];
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const shuffledPopular = useShuffle(data);
+  if (error) {
+    return <p>Error: {error.message}</p>;
   }
 
-  
+  //console.log("data",data)
+  //console.log("Popular movie",shuffledPopular[0])
+
   return (
     <section className="section">
       <section className="relative inner-section h-auto m-auto">
@@ -150,14 +181,21 @@ if(error){
           </div>
         </div>
         <Slider {...sliderSettings}>
-        {popular?.map((movie:MovieType|ShowType, index:number) => (
-         <DetailsTopSlider key={movie.id} index={index} movie={movie} activeSlide={activeSlide}/>
-        ))}
+          {shuffledPopular.map((movie: MovieType | ShowType, index: number) => (
+            <DetailsTopSlider
+              key={movie.id}
+              index={index}
+              movie={movie}
+              activeSlide={activeSlide}
+            />
+          ))}
         </Slider>
         <Slider
           fade={true}
-          asNavFor={nav1}
-          ref={slider2Ref}
+          asNavFor={slider1Ref.current}
+          //asNavFor={nav1}
+          // ref={slider2Ref}
+          ref={setSlider2Ref}
           arrows={false}
           adaptiveHeight={false}
           dots={false}
@@ -167,8 +205,13 @@ if(error){
           centerMode={true}
           centerPadding={"0px"}
         >
-          {popular?.map((movie:MovieType|ShowType, index:number) => (
-            <DetailsSlider key={movie.id} index={index} movie={movie} activeSlide={activeSlide}/>
+          {shuffledPopular.map((movie: MovieType | ShowType, index: number) => (
+            <DetailsSlider
+              key={movie.id}
+              index={index}
+              movie={movie}
+              activeSlide={activeSlide}
+            />
           ))}
         </Slider>
       </section>

@@ -111,16 +111,12 @@ query GetSpecificShow($showId: Int!){
 
 export default function ShowPage() {
   const {id} = useParams()
+  const showId= id ? parseInt(id) : null
+  const {loading,error,data} = useQuery(GET_SHOW,{variables:{showId:showId}})
 
-const {loading,error,data} = useQuery(GET_SHOW,{variables:{showId:id}})
-  const [trailer, setTrailer] = useState<boolean>(false);
   //console.log(params.id);
-  const [currentEpisodeNumber, setCurrentEpisodeNumber] = useState<number>(0);
-  const [currentSeasonNumber, setCurrentSeasonNumber] = useState<number>(0);
-
-  //The current season and episode objects in play
-  const currentSn: FullShowSeason = data.show.seasons[currentSeasonNumber];
-  const currentEp: FullShowEpisode = currentSn.episodes[currentEpisodeNumber];
+  const [currentEpisodeNumber, setCurrentEpisodeNumber] = useState<number>(1);
+  const [currentSeasonNumber, setCurrentSeasonNumber] = useState<number>(1);
 
 
 
@@ -130,6 +126,10 @@ const {loading,error,data} = useQuery(GET_SHOW,{variables:{showId:id}})
  if(error){
     return <p>Error : {error.message}</p>
  }
+  console.log("show",data)
+  //The current season and episode objects in play
+  const currentSn: FullShowSeason = data.show.seasons[currentSeasonNumber];
+  const currentEp: FullShowEpisode = currentSn.episodes[currentEpisodeNumber];
 
   return (
     <InnerPage>
@@ -143,8 +143,6 @@ const {loading,error,data} = useQuery(GET_SHOW,{variables:{showId:id}})
           setCurrentSeasonNumber={setCurrentSeasonNumber}
           setCurrentEpisodeNumber={setCurrentEpisodeNumber}
           data={data.show}
-          trailer={trailer}
-          setTrailer={setTrailer}
         />
         {/* Details on the current season and episodes */}
         <ShowDetails
@@ -153,13 +151,14 @@ const {loading,error,data} = useQuery(GET_SHOW,{variables:{showId:id}})
           currentEpisodeNumber={currentEpisodeNumber}
           currentSeasonNumber={currentSeasonNumber}
           genres={data.show.details.genres}
+          title={data.show.name}
         />
 
         {/* similar shows like the current one in play */}
-        <SimilarShows id={id} />
+        <SimilarShows id={showId} />
 
         {/* suggestions on movies like the above genre */}
-        <SuggestedShows id={id} />
+        <SuggestedShows id={showId} />
       </section>
     </InnerPage>
   );

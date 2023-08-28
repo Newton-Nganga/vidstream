@@ -19,7 +19,7 @@ type GenericSpanProps={
 const ListingEl=({list_title,children}:ListProp)=>{
     return (
         <p>
-        <span className="text-red-600 font-semibold">{list_title}</span>{" "}
+        <span className="text-red-600 font-semibold">{list_title} :</span>{" "}
         {children}
         </p>
     )
@@ -35,10 +35,10 @@ const IconEl =({icon}:any)=>{
     )
 }
 function GenericSpan({ text }: GenericSpanProps) {
-    return <span>{text}</span>;
+    return <span className="ml-2 text-[15px]">{text}</span>;
   }
 export function MovieDetails({movie}:Props){
-    const actorList = movie.credits.cast.map((actor, index) => (
+    const actorList = movie.credits.cast.slice(0,5).map((actor, index) => (
         <GenericSpan key={index} text={`${actor.name},`} />
       ));
     
@@ -46,7 +46,7 @@ export function MovieDetails({movie}:Props){
         <GenericSpan key={index} text={`${genre.name}`} />
       ));
     
-      const crewList = movie.credits.crew.map((crew, index) => (
+      const crewList = movie.credits.crew.slice(0,5).map((crew, index) => (
         <GenericSpan key={index} text={`${crew.name},`} />
       ));
     
@@ -62,18 +62,19 @@ export function MovieDetails({movie}:Props){
             </div>
             <div>
               <div className="text-sm md:text-lg">
-             <ListingEl list_title="Actors">{actorList}</ListingEl>
+             <ListingEl list_title="Actors">{actorList}...</ListingEl>
              <ListingEl list_title="Genres">{genreList} </ListingEl>
-             <ListingEl list_title="Crew"> {crewList}</ListingEl>
+             <ListingEl list_title="Crew"> {crewList}...</ListingEl>
              <ListingEl list_title="Duration">
                <WatchTime runtime={movie.details.runtime}/>
              </ListingEl>
              <ListingEl list_title="Quality">
-               <span className="px-2 bg-red-500 rounded-md">HD</span>
+               <span className="px-2 ml-2 bg-red-500 rounded-md">HD</span>
              </ListingEl>
               </div>
             </div>
             <div className="flex gap-4">
+              <IconEl><RiVolumeMuteFill/></IconEl>
              {[<RiVolumeMuteFill key={0}/>, <RiHeartFill key={1}/>,<RiShareLine key={3}/>].map(
                  (icon,index) => <IconEl key={index}>{icon}</IconEl>
               )}

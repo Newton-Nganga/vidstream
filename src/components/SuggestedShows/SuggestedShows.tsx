@@ -3,7 +3,7 @@ import MoviesCarousel from "../movieCarouselItems/MoviesCarousel";
 import { gql, useQuery } from "@apollo/client";
 
 type Props = {
-  id: string | undefined;
+ id: number |null
 };
 const GET_SUGGESTED_SHOWS = gql`
   query GetSuggestedShows($suggestedShowsId: Int!) {

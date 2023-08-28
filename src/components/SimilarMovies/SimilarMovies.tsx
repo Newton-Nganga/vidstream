@@ -3,27 +3,27 @@ import MoviesCarousel from "../movieCarouselItems/MoviesCarousel";
 import { gql,useQuery } from "@apollo/client";
 
 type Props = {
-  id: string | undefined;
+  id: number | null;
 };
 
 const GET_SIMILAR_MOVIES = gql`
-  query GetSimilarMovies($similarMoviesID: Int) {
+  query GetSimilarMovies($similarMoviesId: Int!) {
     similarMovies(id: $similarMoviesId) {
-      backdrop_path
-      details {
-        genres {
-          name
-        }
-        runtime
-      }
       id
       media_type
-      overview
       original_title
+      overview
       poster_path
       title
       vote_average
       vote_count
+      backdrop_path
+      details {
+        runtime
+        genres {
+          name
+        }
+      }
     }
   }
 `;

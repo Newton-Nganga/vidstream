@@ -34,6 +34,7 @@ export function DetailsTopSlider({ movie,index, activeSlide }: DataProps) {
   );
 }
 export default function DetailsSlider({ movie}: DataProps) {
+  //console.log("release_date" in movie ? movie.release_date : "no release date");
   return (
         <div
           key={movie.id}
@@ -63,7 +64,7 @@ export default function DetailsSlider({ movie}: DataProps) {
 
               <div className="mb-8">
                 <div className="flex items-center gap-4 text-sm md:text-xl font-normal">
-                  <span>{"vote_count" in movie ? movie.vote_count : 10}+</span>
+                  <span className="bg-slate-400 rounded-md px-2">{"vote_count" in movie ? movie.vote_count : 10}+</span>
                   <span>
                     {"runtime" in movie.details ? (
                       <WatchTime runtime={movie.details.runtime} />
@@ -77,7 +78,7 @@ export default function DetailsSlider({ movie}: DataProps) {
                 </div>
               </div>
               <div>
-                <p className="w-[90%] md:w-[35%] mb-8">{movie?.overview}</p>
+                <p className="w-[90%] md:w-[35%] mb-8 text-[15px]">{movie?.overview.slice(0,300)}...</p>
               </div>
               <div className="mb-8">
                 <div className="flex gap-4 items-center">
@@ -85,12 +86,12 @@ export default function DetailsSlider({ movie}: DataProps) {
                     href={`/${
                       "media_type" in movie
                         ? movie.media_type
-                        : movie.details.media_type
+                        : "tv"
                     }/${movie.id}`}
                   >
                     <button className="px-6 p-3 gap-2 btn">
                       <FaPlay />
-                      <span>Play Now</span>
+                      <span className="text-sm">Play Now</span>
                     </button>
                   </a>
                   <p className="text-lg hover:text-red-600">+My List</p>
@@ -101,24 +102,24 @@ export default function DetailsSlider({ movie}: DataProps) {
                   <p>
                     <span className="text-red-600 font-semibold">Genres:</span>{" "}
                     {movie.details.genres.map(({ name }, index: number) => (
-                      <span key={index}>{name} </span>
+                      <span className="text-sm" key={index}>{name}, </span>
                     ))}
                   </p>
                   <p>
                     <span className="text-red-600 font-semibold">Crew:</span>{" "}
-                    {movie.credits.crew.map(({ name }) => (
-                      <span key={name}>`${name} ,` </span>
-                    ))}
+                    {movie.credits?.crew?.slice(0,3).map(({ name,id }) => (
+                      <span className="text-sm" key={id}>{name} , </span>
+                    ))}...
                   </p>
                   <p>
                     <span className="text-red-600 font-semibold">Actors:</span>{" "}
-                    {movie.credits.cast.map(({ name }) => (
-                      <span key={name}>`${name} ,` </span>
-                    ))}
+                    {movie.credits?.cast?.slice(0,3).map(({ name,id }) => (
+                      <span className="text-sm" key={id}>{name} , </span>
+                    ))}...
                   </p>
                   <p>
                     <span className="text-red-600 font-semibold">Type:</span>
-                    <span className="px-2 bg-red-500 rounded-md">
+                    <span className="p-2 py-1 ml-2 bg-red-500 rounded-md text-sm">
                       {"media_type" in movie
                         ? movie.media_type
                         : movie.details.media_type}

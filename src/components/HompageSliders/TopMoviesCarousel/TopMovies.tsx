@@ -106,7 +106,7 @@ export default function TopMovies() {
               swipeToSlide={false}
             >
                {data.topMovies?.map((movie:MovieType) => (
-                 <TopMoviesBackground movie={movie}/>
+                 <TopMoviesBackground key={movie.id} movie={movie}/>
                ))}
              
             </Slider>
@@ -120,7 +120,7 @@ export default function TopMovies() {
             <div className="h-[550px] w-full flex flex-col">
               <Slider {...sliderSettings}>
               {data.topMovies.map((movie:MovieType,index:number)=>(
-                <TopMoviesSlider activeSlide={activeSlide} index={index} movie={movie}/>
+                <TopMoviesSlider key={movie.id} activeSlide={activeSlide} index={index} movie={movie}/>
               ))}
               </Slider>
             </div>

@@ -3,25 +3,27 @@ import MoviesCarousel from "../movieCarouselItems/MoviesCarousel";
 import { gql, useQuery } from "@apollo/client";
 
 type Props = {
-  id: string | undefined;
+  id: number | null;
 };
 const GET_SUGGESTED_MOVIES = gql`
   query GetSuggestedMovies($suggestedMoviesId: Int!) {
     recommendedMovies(id: $suggestedMoviesId) {
-      name
       id
-      original_name
+      media_type
+      original_title
       overview
       poster_path
+      title
+      vote_average
+      vote_count
       backdrop_path
       details {
+        runtime
         genres {
           name
         }
-        media_type
-        number_of_seasons
       }
-    }
+  }
   }
 `;
 
