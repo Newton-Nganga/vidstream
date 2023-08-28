@@ -1,9 +1,10 @@
 
 
-import { MovieType } from '@/__generated_types/UsefulTypes'
+import { FullShowType} from '@/__generated_types/UsefulTypes'
+import GenreCard from '@/components/GenreCard/GenreCard'
 import InnerPage from '@/components/InnerPages/InnerPages'
-import { useQuerygit ,gql } from '@apollo/client'
-import {HiOutlinePlayCircle} from 'react-icons/hi2'
+import { useQuery,gql } from '@apollo/client'
+
 import { useParams } from 'react-router-dom'
 
 
@@ -44,21 +45,8 @@ export default function TvGenres() {
             <div className='inner-section'>
            <h1>Genre : {genre}</h1>
            <div className='flex flex-wrap justify-center'>
-            {data.genreShows.map((show)=>(
-                <a href={`/tv/${show.id}`} className='m-2 overflow-clip relative rounded-md'>
-                <div className='group relative flex flex-col h-[300px] w-[200px] object-contain overflow-clip'>
-                  <div className='absolute w-full h-full'>
-                   <img src={`${import.meta.env.VITE_PUBLIC_IMAGE_PREFIX}${show.poster_path?show.poster_path:show.backdrop_path}`}/>
-                  </div>
-                  <div className='flex flex-col items-center justify-end mb-4 scale-0 group-hover:scale-100 duration-500 origin-bottom absolute w-full h-full bg-gradient-to-b from-black/30 from-30% via-black/60 via-60% to-black/80 to-99%'>
-                   <div className='text-[6rem]'>
-                     <HiOutlinePlayCircle/>
-                   </div>
-                   <p className='py-3 text-xl font-semibold text-white hover:text-red-600'>{show.name}</p>
-                   <span className='text-base'>{show.details.number_of_seasons} Seasons</span>
-                  </div>
-                </div>
-                </a>
+            {data.genreShows.map((show:FullShowType)=>(
+               <GenreCard data={show}/>
             ))}
             </div>
             </div>
