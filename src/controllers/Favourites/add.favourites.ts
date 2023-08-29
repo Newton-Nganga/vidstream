@@ -27,9 +27,9 @@ export const addUserFavoriteMovie = async (req:Request, res:Response) => {
           backdrop_path,
           movie_title,
           collection: { connect: { id: collectionId } },
-        },
+        } as any,
       });
-  
+      
       res.status(201).json({ message: 'Favorite movie added successfully.', favoriteMovie });
     } catch (error) {
       console.error('Error adding user favorite movie:', error);

@@ -10,9 +10,9 @@ export const fetchUserFavoriteById = async (req:Request, res:Response) => {
   
     try {
       const user = await prisma.user.findUnique({
-        where: { id: userId },
+        where: { clientId: userId },
         include: {
-          collection: {
+          collections: {
             include: {
               favourites: {
                 where: { id: favoriteId },
@@ -25,8 +25,8 @@ export const fetchUserFavoriteById = async (req:Request, res:Response) => {
       if (!user) {
         return res.status(404).json({ message: 'User not found.' });
       }
-    
-      const favorite = user.collection?.favourites[0]; // Assuming the ID is unique, so we select the first found favorite
+      
+      const favorite = user.collections[0]?.favourites[0]; // Assuming the ID is unique, so we select the first found favorite
     
       if (!favorite) {
         return res.status(404).json({ message: 'Favorite not found.' });

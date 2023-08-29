@@ -10,7 +10,7 @@ export const deleteUserFavorite = async (req:Request, res:Response) => {
   
     try {
       const user = await prisma.user.findUnique({
-        where: { id: userId },
+        where: { clientId: userId },
         include: {
           collections: {
             include: {
@@ -23,9 +23,10 @@ export const deleteUserFavorite = async (req:Request, res:Response) => {
       if (!user) {
         return res.status(404).json({ message: 'User not found.' });
       }
-  
-      const collectionsId = user.collections?.id;
-      const favorite = user.collections?.favourites.find((fav) => fav.id === favoriteId);
+    
+      const collectionsId = user.collections[0].id;
+
+      const favorite = user.collections[0]?.favourites.find((fav) => fav.id === favoriteId);
   
       if (!favorite) {
         return res.status(404).json({ message: 'Favorite not found.' });
