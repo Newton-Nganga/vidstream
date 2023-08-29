@@ -1,0 +1,64 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+// A user has a collection object
+// A collection object is mapped to a single user
+// A collection object has an array of favourites and watchlist
+// A favourites and watchlist objects are mappped to a single collection
+// Favourites and Watchlist holds the data of a movie or show
+
+// - The `User` model has a one-to-one relationship with the `Collection` model using the `collection` field.
+
+// - The `Collection` model has a foreign key `userId` to establish the relationship with the `User` model. It also has one-to-many relationships with the `Favourites` and `WatchList` models using the fields `favourites` and `watchList` arrays.
+
+// - The `Favourites` model has a foreign key `collectionId` to establish the relationship with the `Collection` model. It represents a one-to-many relationship between the `Collection` and `Favourites` models.
+
+// - The `WatchList` model also has a foreign key `collectionId` to represent the relationship with the `Collection` model. It represents a one-to-many relationship between the `Collection` and `WatchList` models.
+
+
+model User {
+  id        String      @id @default(auto()) @map("_id") @db.ObjectId
+  clientId  String      @unique
+  username  String
+  email     String      @unique
+  imageUrl  String
+  collection Collection?
+}
+
+model Collection {
+  id         String      @id @default(auto()) @map("_id") @db.ObjectId 
+  userId     String      @db.ObjectId @unique
+  user       User        @relation(fields: [userId], references: [id])
+  favourites Favourites[]
+  watchList  WatchList[]
+}
+
+model Favourites {
+  id             String      @id @default(auto()) @map("_id") @db.ObjectId
+  movie_id       Int         @unique
+  movie_title    String
+  poster_path    String
+  backdrop_path  String
+  collectionId   String      @db.ObjectId
+  collection     Collection  @relation(fields: [collectionId], references: [id])
+}
+
+model WatchList {
+  id             String      @id @default(auto()) @map("_id") @db.ObjectId
+  movie_id       Int         @unique
+  movie_title    String
+  poster_path    String
+  backdrop_path  String
+  collectionId   String      @db.ObjectId
+  collection     Collection  @relation(fields: [collectionId], references: [id])
+}   
+
