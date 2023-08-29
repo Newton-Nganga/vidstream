@@ -15,10 +15,10 @@ export const createUserObject = async(req:Request,res:Response,next:NextFunction
           username,
           email,
           imageUrl,
-          collection: { create: {} }, // instantiate an empty collection object for the new user
+          collections: { create: {} }, // instantiate an empty collection object for the new user
         },
         include: {
-          collection: true,
+          collections: true,
         },
       });
   

@@ -4,7 +4,7 @@ const prisma = new PrismaClient()
 import { Request,Response,NextFunction } from "express";
 
 
-const addUserFavoriteMovie = async (req:Request, res:Response) => {
+export const addUserWatchList = async (req:Request, res:Response) => {
     const userId = req.params.userId;
     const { movie_id, poster_path, backdrop_path, movie_title } = req.body;
   

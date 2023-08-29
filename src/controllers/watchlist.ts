@@ -2,8 +2,7 @@
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient()
 import { Request,Response,NextFunction } from "express";
-
-export const getAllWatchList = async(req:Request,res:Response,next:NextFunction)=>{
+ const getAllWatchList = async(req:Request,res:Response,next:NextFunction)=>{
     // GET /users/:userId/watchlist
 const watchlist = await prisma.watchList.findMany({
     where: {
@@ -17,11 +16,11 @@ const watchlist = await prisma.watchList.findMany({
 }
 
 
-export const addFavourites = async(req:Request,res:Response,next:NextFunction)=>{
+ const addFavourites = async(req:Request,res:Response,next:NextFunction)=>{
     
 }
 
-export const deleteSpecificWatchlist = async(req:Request,res:Response,next:NextFunction)=>{
+ const deleteSpecificWatchlist = async(req:Request,res:Response,next:NextFunction)=>{
     if(!req.params.userId){
         res.status(400).json({message:"A user must be logged in first!"})
     }
@@ -38,7 +37,7 @@ export const deleteSpecificWatchlist = async(req:Request,res:Response,next:NextF
   }
 }
 
-export const deleteAllFavourites = async(req:Request,res:Response,next:NextFunction)=>{
+ const deleteAllFavourites = async(req:Request,res:Response,next:NextFunction)=>{
 
 }
 

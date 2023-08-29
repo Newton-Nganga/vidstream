@@ -4,7 +4,7 @@ const prisma = new PrismaClient()
 import { Request,Response,NextFunction } from "express";
 
 
-const fetchUserFavoriteById = async (req:Request, res:Response) => {
+export const fetchUserFavoriteById = async (req:Request, res:Response) => {
     const userId = req.params.userId;
     const favoriteId = req.params.favoriteId;
   

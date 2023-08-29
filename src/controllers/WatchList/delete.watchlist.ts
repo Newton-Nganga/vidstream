@@ -4,7 +4,7 @@ const prisma = new PrismaClient()
 import { Request,Response,NextFunction } from "express";
 
 
-const deleteUserFavorite = async (req:Request, res:Response) => {
+export const deleteUserWatchList = async (req:Request, res:Response) => {
     const userId = req.params.userId;
     const watchListId = req.params.favoriteId;
   
