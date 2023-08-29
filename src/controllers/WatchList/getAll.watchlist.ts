@@ -9,11 +9,11 @@ export const fetchUserWatchList = async (req:Request, res:Response) => {
   
     try {
       const user = await prisma.user.findUnique({
-        where: { id: userId },
+        where: { clientId: userId },
         include: {
-          collection: {
+          collections: {
             include: {
-              favourites: true,
+              watchlist: true,
             },
           },
         },
@@ -23,12 +23,12 @@ export const fetchUserWatchList = async (req:Request, res:Response) => {
         return res.status(404).json({ message: 'User not found.' });
       }
   
-      const favorites = user.collection?.favourites || [];
+      const moviesInWatchList = user.collections[0]?.watchlist || []; //returns all movies list for the user
   
-      res.status(200).json({ message: 'Favorites fetched successfully.', favorites });
+      res.status(200).json({ message: 'Your watchlist fetched successfully.', moviesInWatchList });
     } catch (error) {
-      console.error('Error fetching user favorites:', error);
-      res.status(500).json({ message: 'An error occurred while fetching user favorites.' });
+      console.error('Error fetching the watchlist:', error);
+      res.status(500).json({ message: 'An error occurred while fetching the watchlist.' });
     }
   };
   

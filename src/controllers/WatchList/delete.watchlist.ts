@@ -10,22 +10,23 @@ export const deleteUserWatchList = async (req:Request, res:Response) => {
   
     try {
       const user = await prisma.user.findUnique({
-        where: { id: userId },
+        where: { clientId: userId },
         include: {
-          collection: {
+          collections: {
             include: {
-              watchList: true,
+              watchlist: true,
             },
           },
         },
       });
-  
+      
       if (!user) {
         return res.status(404).json({ message: 'User not found.' });
       }
   
-      const collectionId = user.collection?.id;
-      const WatchListMovie = user.collection?.watchList.find((fav) => fav.id === watchListId);
+      const collectionId = user.collections[0]?.id;
+      //filer the movie
+      const WatchListMovie = user.collections[0]?.watchlist.find((fav) => fav.id === watchListId);
   
       if (!WatchListMovie) {
         return res.status(404).json({ message: 'WatchList not found.' });
@@ -35,10 +36,10 @@ export const deleteUserWatchList = async (req:Request, res:Response) => {
         where: { id: watchListId },
       });
   
-      res.status(200).json({ message: 'Movie deleted from list successfully.' });
+      res.status(200).json({ message: 'Movie deleted from watchlist successfully.' });
     } catch (error) {
-      console.error('Error deleting movie from users watchlist :', error);
-      res.status(500).json({ message: 'An error occurred while deleting user watchlist.' });
+      console.error('Error deleting movie from  watchlist :', error);
+      res.status(500).json({ message: 'An error occurred while deleting movie from watchlist.' });
     }
   };
   

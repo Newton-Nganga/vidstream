@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient()
 
-import { Request,Response,NextFunction } from "express";
+import { Request,Response } from "express";
 
 
 export const deleteAllUserWatchList = async (req:Request, res:Response) => {
@@ -9,11 +9,11 @@ export const deleteAllUserWatchList = async (req:Request, res:Response) => {
   
     try {
       const user = await prisma.user.findUnique({
-        where: { id: userId },
+        where: { clientId: userId },
         include: {
-          collection: {
+          collections: {
             include: {
-              favourites: true,
+              watchlist: true,
             },
           },
         },
@@ -23,16 +23,17 @@ export const deleteAllUserWatchList = async (req:Request, res:Response) => {
         return res.status(404).json({ message: 'User not found.' });
       }
   
-      const collectionId = user.collection?.id;
+      const collectionId = user.collections[0]?.id;
   
       if (collectionId) {
-        await prisma.favourites.deleteMany({ where: { collectionId } });
+        await prisma.watchList.deleteMany({ where: { collectionId } });
       }
   
-      res.status(200).json({ message: 'All user favorites deleted successfully.' });
+      res.status(200).json({ message: 'All movies in your watchlist deleted successfully.' });
+
     } catch (error) {
-      console.error('Error deleting user favorites:', error);
-      res.status(500).json({ message: 'An error occurred while deleting user favorites.' });
+      console.error('Error deleting movies from watchlist:', error);
+      res.status(500).json({ message: 'An error occurred while deleting movies from watchlist.' });
     }
   };
   

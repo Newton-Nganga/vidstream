@@ -10,15 +10,15 @@ export const addUserWatchList = async (req:Request, res:Response) => {
   
     try {
       const user = await prisma.user.findUnique({
-        where: { id: userId },
-        include: { collection: true },
+        where: { clientId: userId },
+        include: { collections: true },
       });
   
       if (!user) {
         return res.status(404).json({ message: 'User not found.' });
       }
-  
-      const collectionId = user.collection?.id;
+      
+      const collectionId = user.collections[0]?.id;
   
       const watchListMovie = await prisma.watchList.create({
         data: {
@@ -27,13 +27,13 @@ export const addUserWatchList = async (req:Request, res:Response) => {
           backdrop_path,
           movie_title,
           collection: { connect: { id: collectionId } },
-        },
+        } as any,
       });
   
-      res.status(201).json({ message: 'Favorite movie added successfully.', watchListMovie });
+      res.status(201).json({ message: 'Movie added to watchlist successfully.', watchListMovie });
     } catch (error) {
-      console.error('Error adding user favorite movie:', error);
-      res.status(500).json({ message: 'An error occurred while adding user favorite movie.' });
+      console.error('Error adding movie to watchlist:', error);
+      res.status(500).json({ message: 'An error occurred while adding  movie to watchlist.' });
     }
   };
   
