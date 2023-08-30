@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { useCallback, useRef, useState } from "react";
@@ -6,7 +7,7 @@ import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import DetailsSlider, { DetailsTopSlider } from "./DetailsSlider-el";
 import { useQuery, gql } from "@apollo/client";
 import { MovieType, ShowType } from "@/__generated_types/UsefulTypes";
-import { useShuffle } from "@/utils/useSufflle";
+//import { useShuffle } from "@/utils/useSufflle";
 
 type Props = {
   title: string;
@@ -73,7 +74,9 @@ const GET_POPULAR = gql`
 `;
 
 export default function Trending({ title = "Trending" }: Props) {
-  const { loading, error, data } = useQuery(GET_POPULAR);
+ const {loading,error, data } = useQuery(GET_POPULAR);
+  
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   // const [nav1, setNav1] = useState<Slider | undefined>();
   // const [nav2, setNav2] =useState<Slider |undefined>();
@@ -147,19 +150,32 @@ export default function Trending({ title = "Trending" }: Props) {
       },
     ],
   };
+// eslint-disable-next-line react-hooks/rules-of-hooks
+  //const shuffledPopular = useShuffle(data);
 
   if (loading) {
     return <p>Loading ...</p>;
   }
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const shuffledPopular = useShuffle(data);
+  
   if (error) {
     return <p>Error: {error.message}</p>;
   }
 
   //console.log("data",data)
   //console.log("Popular movie",shuffledPopular[0])
-
+  const shuffledPop =() => {
+    const popular = [...data.popularMovies, ...data.popularShows];
+    
+    // Shuffle logic...
+  
+    for (let i = popular.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [popular[i], popular[j]] = [popular[j], popular[i]];
+    }
+    return popular;
+  }
+  const shuffledPopular = shuffledPop()
+  //console.log(shuffledPopular)
   return (
     <section className="section">
       <section className="relative inner-section h-auto m-auto">
@@ -183,7 +199,7 @@ export default function Trending({ title = "Trending" }: Props) {
         <Slider {...sliderSettings}>
           {shuffledPopular.map((movie: MovieType | ShowType, index: number) => (
             <DetailsTopSlider
-              key={movie.id}
+              key={Math.random()*1000}
               index={index}
               movie={movie}
               activeSlide={activeSlide}
@@ -207,7 +223,7 @@ export default function Trending({ title = "Trending" }: Props) {
         >
           {shuffledPopular.map((movie: MovieType | ShowType, index: number) => (
             <DetailsSlider
-              key={movie.id}
+              key={Math.random()*1000}
               index={index}
               movie={movie}
               activeSlide={activeSlide}

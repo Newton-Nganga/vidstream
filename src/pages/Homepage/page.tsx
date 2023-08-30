@@ -30,7 +30,7 @@ export default function HomePage() {
       <FeaturedMovie />
 
       {/* trending */}
-      {/* <Trending title="Trending" /> */}
+      <Trending title="Trending" />
     </VidstreamPage>
   );
 }

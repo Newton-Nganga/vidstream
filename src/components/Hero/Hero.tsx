@@ -90,7 +90,7 @@ export default function Hero() {
   };
 
  
-  console.log(data.trending[5])
+  //console.log(data.trending[5])
   return (
     <section className="bg-black">
       <section className="">

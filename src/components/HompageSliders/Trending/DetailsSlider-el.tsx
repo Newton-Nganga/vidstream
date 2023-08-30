@@ -12,7 +12,6 @@ type DataProps = {
 export function DetailsTopSlider({ movie,index, activeSlide }: DataProps) {
   return (
         <div
-          key={movie.id}
           className={`${
             activeSlide === index ? "slide-active" : "border-white"
           } slide-item`}
@@ -33,11 +32,11 @@ export function DetailsTopSlider({ movie,index, activeSlide }: DataProps) {
         </div>
   );
 }
+console.log()
 export default function DetailsSlider({ movie}: DataProps) {
   //console.log("release_date" in movie ? movie.release_date : "no release date");
   return (
         <div
-          key={movie.id}
           className="relative my-4 w-full h-[650px] rounded-xl overflow-clip"
         >
           <img
@@ -58,7 +57,7 @@ export default function DetailsSlider({ movie}: DataProps) {
               <div className="w-fit sm:w-[255px] p-3 pr-4 mb-8 mr-auto bg-red-600/40 border-r-4 border-l-4 border-red-600">
                 <img src={logo} alt="logo" className="w-[130px]" />
               </div>
-              <h1 className="texture my-4 w-fit mr-auto">
+              <h1 className="texture my-4 w-fit mr-auto leading-[3rem]">
                 {"title" in movie ? movie?.title : movie?.name}
               </h1>
 
