@@ -31,7 +31,7 @@ export default function ShowFallbackPage() {
   if(loading)return <p>Loading ...</p>
   if(error) return <p>Error: {error.message}</p>
   return (
-    <InnerPage>
+    <InnerPage title="Shows">
       <section className="section">
         <div className="inner-secion flex flex-wrap gap-4">
           {data.topShows?.map((show:ShowType, index:number) => (

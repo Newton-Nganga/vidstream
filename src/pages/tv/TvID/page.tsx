@@ -132,7 +132,7 @@ export default function ShowPage() {
   const currentEp: FullShowEpisode = currentSn.episodes[currentEpisodeNumber];
 
   return (
-    <InnerPage>
+    <InnerPage title="Tv Show Details ">
       <section>
         {/* The Player to play the episodes and trailer */}
         <ShowPlayer

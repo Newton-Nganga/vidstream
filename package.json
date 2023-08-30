@@ -13,16 +13,20 @@
   },
   "dependencies": {
     "@apollo/client": "^3.8.1",
+    "@emailjs/browser": "^3.11.0",
     "@types/react-slick": "^0.23.10",
     "dotenv": "^16.3.1",
+    "formik": "^2.4.3",
     "graphql": "^16.8.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.4.1",
     "react-icons": "^4.10.1",
     "react-player": "^2.12.0",
     "react-router-dom": "^6.15.0",
     "react-slick": "^0.29.0",
-    "slick-carousel": "^1.8.1"
+    "slick-carousel": "^1.8.1",
+    "yup": "^1.2.0"
   },
   "browserslist": {
     "production": [

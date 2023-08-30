@@ -6,10 +6,11 @@ import titlecover from "@assets/images/title.jpg";
 
 
 type Props = {
+  title:string
   children: React.ReactNode;
 };
 
-export default function InnerPage({ children }: Props) {
+export default function InnerPage({ title,children }: Props) {
 
   return (
     <VidstreamPage>
@@ -22,7 +23,7 @@ export default function InnerPage({ children }: Props) {
           />
           <div className="absolute  py-12 z-10 bg-gradient-to-r from-black/95 from-40% via-black/70 via-70% to-black/50 to-100%  w-full h-full">
             <div className="flex flex-col absolute w-[90vw] max-w-[1200px] top-[50%] left-[50%] -translate-y-[50%] -translate-x-[50%]  center-absolute text-white">
-              <h1>Movie/Show  Details</h1>
+              <h1>{title}</h1>
               <p>
                 <a href={"/"} className="hover:text-red-600">
                   Home

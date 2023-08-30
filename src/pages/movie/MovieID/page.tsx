@@ -63,7 +63,7 @@ const {loading,error,data} = useQuery(GET_MOVIE,{variables:{movieId:movieId}})
  }
 
   return (
-    <InnerPage>
+    <InnerPage title="Movie Details">
       <section>
         {/* The media Player Component */}
         <MoviePlayer movieId={movieId} trailerArray={data.movie.trailer} />

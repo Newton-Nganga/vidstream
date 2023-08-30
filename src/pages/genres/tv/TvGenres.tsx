@@ -40,13 +40,13 @@ export default function TvGenres() {
      }
       
   return (
-    <InnerPage>
+    <InnerPage title='Show Genres'>
         <section className='section'>
             <div className='inner-section'>
            <h1>Genre : {genre}</h1>
            <div className='flex flex-wrap justify-center'>
             {data.genreShows.map((show:FullShowType)=>(
-               <GenreCard data={show}/>
+               <GenreCard key={data.id} data={show}/>
             ))}
             </div>
             </div>

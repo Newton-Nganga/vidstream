@@ -24,7 +24,7 @@ const GET_GENRE = gql`
   }
 `;
 
-export default function TvGenres() {
+export default function MovieGenrePage() {
   const { id, genre } = useParams();
   const movieID = id ? parseInt(id) : null;
   const { loading, error, data } = useQuery(GET_GENRE, {
@@ -36,15 +36,15 @@ export default function TvGenres() {
   if (error) {
     return <p>Error : {error.message}</p>;
   }
-
+  
   return (
-    <InnerPage>
+    <InnerPage title="Movie Genres">
       <section className="section">
         <div className="inner-section">
-          <h1>Genre : {genre}</h1>
+          <h1 className="py-4">Genre : {genre}</h1>
           <div className="flex flex-wrap justify-center">
-            {data.genreShows.map((movie: FullMovieType) => (
-              <GenreCard data={movie} />
+            {data.genreMovies.map((movie: FullMovieType) => (
+              <GenreCard key={data.id} data={movie} />
             ))}
           </div>
         </div>

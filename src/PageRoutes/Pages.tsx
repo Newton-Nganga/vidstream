@@ -9,6 +9,10 @@ import ShowPage from "@/pages/tv/TvID/page";
 import ShowFallbackPage from "@/pages/tv/page";
 import SearchPage from "@/pages/search/page";
 import TvGenres from "@/pages/genres/tv/TvGenres";
+import MovieGenrePage from "@/pages/genres/movie/MovieGenre";
+import AccountPage from "@/pages/account/page";
+import FavouritesPage from "@/pages/account/collections/favourites/Favourites";
+import WatchlistPage from "@/pages/account/collections/watchlist/Watchlist";
 export default function Pages(){
     return(
         <BrowserRouter>
@@ -18,10 +22,13 @@ export default function Pages(){
             <Route element={<MovieFallbackPage/>} path="/movie"/>
             <Route element={<ShowPage/>} path="/tv/:id"/>
             <Route element={<ShowFallbackPage/>} path="/tv"/>
-            <Route element={<TvGenres/>} path="/genres/tv/:id/:genre"/>
-            <Route element={""} path="/genres/movie/:id/:genre"/>
+            <Route element={<TvGenres/>} path="/genres/tv/:id/:genre/tv"/>
+            <Route element={<MovieGenrePage/>} path="/genres/movie/:id/:genre/mv"/>
             <Route element={<SearchPage/>} path="/search"/>
             <Route element={<ContactPage/>} path="/contact"/>
+            <Route element={<FavouritesPage/>} path="/account/:userId/favourites"/>
+            <Route element={<WatchlistPage/>} path="/account/:userId/watchlist"/>
+            <Route element={<AccountPage/>} path="/account/:userId/me"/>
             <Route element={<NotFound/>} path="*"/>
           </Routes>
     </BrowserRouter>

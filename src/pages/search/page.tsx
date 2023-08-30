@@ -55,7 +55,7 @@ export default function SearchPage() {
   if(error) return <p>Error:{error.message}</p>
 
   return (
-    <InnerPage>
+    <InnerPage title="Search Movies and Shows">
       <section className="section">
         <div className="inner-section">
           <div className="flex relative p-1 border w-full rounded-[30px] text-base">

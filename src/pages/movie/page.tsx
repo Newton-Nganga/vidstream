@@ -35,7 +35,7 @@ export default  function MovieFallbackPage() {
     return <p>Error : {error.message}</p>
  }
   return (
-    <InnerPage>
+    <InnerPage title="Movies">
       <section className="section">
         <div className="inner-secion flex flex-wrap gap-4">
           {data.popularMovies?.map((movie:MovieType) => (

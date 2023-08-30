@@ -2,6 +2,7 @@ import  { useState, Fragment } from "react";
 import { BsRecordCircle } from "react-icons/bs";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 import { PagesLinks,MovieGenres,ShowGenres } from "./NavData";
+import { Link } from "react-router-dom";
 
 interface StateType {
   section: string | null;
@@ -52,12 +53,12 @@ const SingleColumnLink =({links}:LinkProps)=>{
     <div className="flex flex-col">
         {links.map((link) => {
           return (
-            <a key={link.id} href={link.link}>
+            <Link key={link.id} to={link.link} replace={true}>
               <div className="nav-item">
                 <BsRecordCircle className="text-red-600" />
                <p className="w-max text-[15px] ">{link.name}</p>
               </div>
-            </a>
+            </Link>
           );
         })}
       </div>
@@ -70,24 +71,24 @@ const DoubleColumnLink=({links}:LinkProps)=>{
         <div>
         {links.slice(0,(links.length / 2)).map((link) => {
           return (
-            <a key={link.id} href={link.link}>
+            <Link key={link.id} to={link.link} replace={true}>
               <div className="nav-item">
                 <BsRecordCircle className="text-red-600" />
                 <p className="w-max text-[15px] ">{link.name}</p>
               </div>
-            </a>
+            </Link>
           );
         })}
         </div>
         <div>
         {links.slice((links.length / 2)).map((link) => {
           return (
-            <a key={link.id} href={link.link}>
+            <Link key={link.id} to={link.link} replace={true}>
               <div className="nav-item">
                 <BsRecordCircle className="text-red-600" />
                 <p className="w-max text-[15px] ">{link.name}</p>
               </div>
-            </a>
+            </Link>
           );
         })}
         </div>

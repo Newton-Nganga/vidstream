@@ -5,7 +5,7 @@ import InnerPage from "@components/InnerPages/InnerPages"
 
 export default function NotFound() {
     return (
-      <InnerPage>
+      <InnerPage title="404 Page Not Found">
           <section className='section'>
               <div className='inner-section'>
                  <div className="flex flex-col justify-center items-center">
