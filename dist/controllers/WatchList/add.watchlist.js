@@ -40,7 +40,7 @@ exports.addUserWatchList = void 0;
 var client_1 = require("@prisma/client");
 var prisma = new client_1.PrismaClient();
 var addUserWatchList = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var userId, _a, media_type, movie_id, poster_path, backdrop_path, movie_title, user, collectionId, watchListMovie, error_1;
+    var userId, _a, media_type, movie_id, poster_path, backdrop_path, movie_title, user, collectionId, alreadyAdded, watchListMovie, error_1;
     var _b;
     return __generator(this, function (_c) {
         switch (_c.label) {
@@ -49,7 +49,7 @@ var addUserWatchList = function (req, res) { return __awaiter(void 0, void 0, vo
                 _a = req.body, media_type = _a.media_type, movie_id = _a.movie_id, poster_path = _a.poster_path, backdrop_path = _a.backdrop_path, movie_title = _a.movie_title;
                 _c.label = 1;
             case 1:
-                _c.trys.push([1, 4, , 5]);
+                _c.trys.push([1, 5, , 6]);
                 return [4 /*yield*/, prisma.user.findUnique({
                         where: { clientId: userId },
                         include: { collection: true },
@@ -60,6 +60,14 @@ var addUserWatchList = function (req, res) { return __awaiter(void 0, void 0, vo
                     return [2 /*return*/, res.status(404).json({ message: 'User not found.' })];
                 }
                 collectionId = (_b = user.collection) === null || _b === void 0 ? void 0 : _b.id;
+                return [4 /*yield*/, prisma.watchList.findUnique({
+                        where: { movie_id: parseInt(movie_id) }
+                    })];
+            case 3:
+                alreadyAdded = _c.sent();
+                if (alreadyAdded) {
+                    return [2 /*return*/, res.status(400).json({ message: "The movie is already in your list" })];
+                }
                 return [4 /*yield*/, prisma.watchList.create({
                         data: {
                             movie_id: parseInt(movie_id),
@@ -70,16 +78,16 @@ var addUserWatchList = function (req, res) { return __awaiter(void 0, void 0, vo
                             collection: { connect: { id: collectionId } },
                         },
                     })];
-            case 3:
+            case 4:
                 watchListMovie = _c.sent();
                 res.status(201).json({ message: 'Movie added to watchlist successfully.', watchListMovie: watchListMovie });
-                return [3 /*break*/, 5];
-            case 4:
+                return [3 /*break*/, 6];
+            case 5:
                 error_1 = _c.sent();
                 console.error('Error adding movie to watchlist:', error_1);
                 res.status(500).json({ message: 'An error occurred while adding  movie to watchlist.' });
-                return [3 /*break*/, 5];
-            case 5: return [2 /*return*/];
+                return [3 /*break*/, 6];
+            case 6: return [2 /*return*/];
         }
     });
 }); };

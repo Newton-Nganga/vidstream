@@ -36,20 +36,34 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.userIdExists = void 0;
-var userIdExists = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var userId;
-    return __generator(this, function (_a) {
-        userId = req.params.userId;
-        if (!userId || typeof (userId) !== "string" || userId === null) {
-            return [2 /*return*/, res.status(400).json({ Message: "Error : Error you must be logged in first!" })];
+exports.validateUserData = exports.validateData = void 0;
+var validateData = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var _a, media_type, movie_id, poster_path, backdrop_path, movie_title;
+    return __generator(this, function (_b) {
+        _a = req.body, media_type = _a.media_type, movie_id = _a.movie_id, poster_path = _a.poster_path, backdrop_path = _a.backdrop_path, movie_title = _a.movie_title;
+        if (!media_type || !movie_id || !poster_path || !backdrop_path || !movie_title) {
+            return [2 /*return*/, res.status(400).json({ Message: "Error: All fields are required" })];
         }
-        //grab the list of all users from clerk
-        //compare it with users in the db
-        //if the user does not exist return error
-        //if the db users are more delete the ones not in clerk
+        if (typeof (movie_id) && typeof (movie_title) && typeof (media_type) && typeof (poster_path) && typeof (backdrop_path) !== "string") {
+            return [2 /*return*/, res.status(400).json({ Message: "Error: Field values can only be strings" })];
+        }
         next();
         return [2 /*return*/];
     });
 }); };
-exports.userIdExists = userIdExists;
+exports.validateData = validateData;
+var validateUserData = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var _a, clientId, username, email, imageUrl;
+    return __generator(this, function (_b) {
+        _a = req.body, clientId = _a.clientId, username = _a.username, email = _a.email, imageUrl = _a.imageUrl;
+        if (!clientId || !username || !email || !imageUrl) {
+            return [2 /*return*/, res.status(400).json({ Message: "Error: All fields are required" })];
+        }
+        if (typeof (clientId) && typeof (username) && typeof (email) && typeof (imageUrl) !== "string") {
+            return [2 /*return*/, res.status(400).json({ Message: "Error: Field values can only be strings" })];
+        }
+        next();
+        return [2 /*return*/];
+    });
+}); };
+exports.validateUserData = validateUserData;

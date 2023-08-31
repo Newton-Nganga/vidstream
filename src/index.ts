@@ -2,6 +2,9 @@ import "dotenv/config"
 import express from "express"
 import router from "./Routes/Routes"
 import bodyParser from "body-parser"
+import cors from 'cors'
+
+
 const app = express()
 const PORT = 8000
 
@@ -10,6 +13,14 @@ const PORT = 8000
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
 
+const whitelist =['*', 'http://localhost:5173','https://vidstream.vercel.app']
+
+const corsOptions ={
+    origins:whitelist,
+    methods:['GET', 'POST', 'PATCH', 'DELETE'], 
+}
+
+app.use(cors(corsOptions))
 app.use('/vidstream-clients-server',router)
 
 

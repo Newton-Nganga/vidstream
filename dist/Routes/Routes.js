@@ -15,6 +15,7 @@ var deleteAll_watchlist_1 = require("../controllers/WatchList/deleteAll.watchlis
 var delete_watchlist_1 = require("../controllers/WatchList/delete.watchlist");
 var add_watchlist_1 = require("../controllers/WatchList/add.watchlist");
 var userid_exists_1 = require("../Middlewares/userid.exists");
+var data_validate_1 = require("../Middlewares/data.validate");
 var router = (0, express_1.Router)();
 //* An user object is created and maintained using the .patch call
 //* but deleted using the .delete and created during sign up via .post
@@ -30,7 +31,7 @@ router.post('/users/:userId', userid_exists_1.userIdExists, user_create_1.create
 //Route to return all the favourites collection for a user
 router.get('/users/:userId/favourites', userid_exists_1.userIdExists, getAll_favourites_1.fetchUserFavorites);
 //Route to add a movie to the favourites
-router.post('/users/:userId/favourites', userid_exists_1.userIdExists, add_favourites_1.addUserFavoriteMovie);
+router.post('/users/:userId/favourites', userid_exists_1.userIdExists, data_validate_1.validateData, add_favourites_1.addUserFavoriteMovie);
 //Route called to remove a specific favourite
 router.delete('/users/:userId/favourites/:favouriteId', userid_exists_1.userIdExists, delete_favourites_1.deleteUserFavorite);
 //Route called to delete all the favourites in the collection
@@ -39,7 +40,7 @@ router.delete("/users/:userId/favourites", userid_exists_1.userIdExists, deleteA
 //Route to return all the watchlist for the user
 router.get('/users/:userId/watchlist', userid_exists_1.userIdExists, getAll_watchlist_1.fetchUserWatchList);
 //Route to add a movie or show to the watchlist
-router.post('/users/:userId/watchlist', userid_exists_1.userIdExists, add_watchlist_1.addUserWatchList);
+router.post('/users/:userId/watchlist', userid_exists_1.userIdExists, data_validate_1.validateData, add_watchlist_1.addUserWatchList);
 //delete a movie from the watchlist
 router.delete('/users/:userId/watchlist/:watchListId', userid_exists_1.userIdExists, delete_watchlist_1.deleteUserWatchList);
 //delete all the users watchlist collection
