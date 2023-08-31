@@ -10,7 +10,7 @@ export const fetchOrUpdateUser = async (req:Request, res:Response) => {
     try {
       let user = await prisma.user.findUnique({
         where: { clientId: userId },
-        include: { collections: { include: { favourites: true, watchlist: true } } },
+        include: { collection: { include: { favourites: true, watchList: true } } },
       });
   
       if (!user) {
@@ -24,16 +24,17 @@ export const fetchOrUpdateUser = async (req:Request, res:Response) => {
         user = await prisma.user.update({
           where: { clientId: userId },
           data: { clientId },
-          include:{collections:{include:{favourites:true,watchlist:true}}}
+          include:{collection:{include:{favourites:true,watchList:true}}}
         });
         
         updated = true;
       }
+      
       if (username && user.username !== username) {
         user = await prisma.user.update({
           where: { clientId: userId },
-          data: {collections: username },
-          include:{collections:{include:{favourites:true,watchlist:true}}}
+          data: { username },
+          include:{collection:{include:{favourites:true,watchList:true}}}
         });
         updated = true;
       }
@@ -41,7 +42,7 @@ export const fetchOrUpdateUser = async (req:Request, res:Response) => {
         user = await prisma.user.update({
           where: { clientId: userId },
           data: { email },
-          include:{collections:{include:{favourites:true,watchlist:true}}}
+          include:{collection:{include:{favourites:true,watchList:true}}}
         });
         updated = true;
       }
@@ -49,7 +50,7 @@ export const fetchOrUpdateUser = async (req:Request, res:Response) => {
         user = await prisma.user.update({
           where: { clientId: userId },
           data: { imageUrl },
-          include:{collections:{include:{favourites:true,watchlist:true}}}
+          include:{collection:{include:{favourites:true,watchList:true}}}
         });
         updated = true;
       }
@@ -57,7 +58,7 @@ export const fetchOrUpdateUser = async (req:Request, res:Response) => {
       if (updated) {
         user = await prisma.user.findUnique({
           where: { clientId: userId },
-          include: { collections: { include: { favourites: true, watchlist: true } } },
+          include: { collection: { include: { favourites: true, watchList: true } } },
         });
       }
   

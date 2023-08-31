@@ -8,18 +8,19 @@ export const deleteUserObject= async(req:Request,res:Response)=>{
   
   try {
     const user = await prisma.user.findUnique({
-      where: { id: userId },
-      include: { collections: { include: { favourites: true, watchlist: true } } },
+      where: { clientId: userId },
+      //include: { collections: { include: { favourites: true, watchlist: true } } },
+      include:{collection:true}
     });
-    
+   
     if (!user) {
       return res.status(404).json({ message: 'User not found.' });
     }
 
-    await prisma.favourites.deleteMany({ where: { collectionId: user.collections[0].id } });
-    await prisma.watchList.deleteMany({ where: { collectionId: user.collections[0].id } });
-    await prisma.collection.delete({ where: { id: user.collections[0].id} });
-    await prisma.user.delete({ where: { id: userId } });
+    await prisma.favourites.deleteMany({ where: { collectionId: user.collection?.id } });
+    await prisma.watchList.deleteMany({ where: { collectionId: user.collection?.id } });
+    await prisma.collection.delete({ where: { id: user.collection?.id} });
+    await prisma.user.delete({ where: { clientId: userId } });
 
     res.status(200).json({ message: 'User and associated data deleted successfully.' });
   } catch (error) {

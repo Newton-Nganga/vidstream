@@ -1,20 +1,20 @@
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient()
 
-import { Request,Response,NextFunction } from "express";
+import { Request,Response} from "express";
 
 
 export const deleteUserWatchList = async (req:Request, res:Response) => {
     const userId = req.params.userId;
-    const watchListId = req.params.favoriteId;
+    const watchListId = parseInt(req.params.watchListId);
   
     try {
       const user = await prisma.user.findUnique({
         where: { clientId: userId },
         include: {
-          collections: {
+          collection: {
             include: {
-              watchlist: true,
+              watchList: true,
             },
           },
         },
@@ -24,16 +24,16 @@ export const deleteUserWatchList = async (req:Request, res:Response) => {
         return res.status(404).json({ message: 'User not found.' });
       }
   
-      const collectionId = user.collections[0]?.id;
+      const collectionId = user.collection?.id;
       //filer the movie
-      const WatchListMovie = user.collections[0]?.watchlist.find((fav) => fav.id === watchListId);
+      const WatchListMovie = user.collection?.watchList.find((fav) => fav.movie_id === watchListId);
   
       if (!WatchListMovie) {
         return res.status(404).json({ message: 'WatchList not found.' });
       }
   
       await prisma.watchList.delete({
-        where: { id: watchListId },
+        where: { movie_id: watchListId },
       });
   
       res.status(200).json({ message: 'Movie deleted from watchlist successfully.' });

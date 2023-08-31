@@ -11,19 +11,19 @@ export const fetchUserFavorites = async (req:Request, res:Response) => {
       const user = await prisma.user.findUnique({
         where: { clientId: userId },
         include: {
-          collections: {
+          collection: {
             include: {
               favourites: true,
             },
           },
         },
       });
-  
+     
       if (!user) {
         return res.status(404).json({ message: 'User not found.' });
       }
       //return an array of all the favourites for a user
-      const favorites = user.collections[0]?.favourites || [];
+      const favorites = user.collection?.favourites || [];
   
       res.status(200).json({ message: 'Favorites fetched successfully.', favorites });
     } catch (error) {

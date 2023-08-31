@@ -11,9 +11,9 @@ export const deleteAllUserWatchList = async (req:Request, res:Response) => {
       const user = await prisma.user.findUnique({
         where: { clientId: userId },
         include: {
-          collections: {
+          collection: {
             include: {
-              watchlist: true,
+              watchList: true,
             },
           },
         },
@@ -23,7 +23,7 @@ export const deleteAllUserWatchList = async (req:Request, res:Response) => {
         return res.status(404).json({ message: 'User not found.' });
       }
   
-      const collectionId = user.collections[0]?.id;
+      const collectionId = user.collection?.id;
   
       if (collectionId) {
         await prisma.watchList.deleteMany({ where: { collectionId } });

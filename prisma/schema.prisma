@@ -46,6 +46,7 @@ model Favourites {
   id             String      @id @default(auto()) @map("_id") @db.ObjectId
   movie_id       Int         @unique
   movie_title    String
+  media_type     String
   poster_path    String
   backdrop_path  String
   collectionId   String      @db.ObjectId
@@ -56,6 +57,7 @@ model WatchList {
   id             String      @id @default(auto()) @map("_id") @db.ObjectId
   movie_id       Int         @unique
   movie_title    String
+  media_type     String
   poster_path    String
   backdrop_path  String
   collectionId   String      @db.ObjectId

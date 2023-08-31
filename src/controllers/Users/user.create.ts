@@ -5,7 +5,6 @@ import { Request,Response,NextFunction } from "express";
 
 
 export const createUserObject = async(req:Request,res:Response,next:NextFunction)=>{
-
     const {clientId,username,email,imageUrl} = req.body
     try{
 
@@ -15,18 +14,17 @@ export const createUserObject = async(req:Request,res:Response,next:NextFunction
           username,
           email,
           imageUrl,
-          collections: { create: {} }, // instantiate an empty collection object for the new user
+          collection: { create: {} }, // instantiate an empty collection object for the new user
         },
         include: {
-          collections: true,
+          collection: true,
         },
       });
   
       res.status(201).json({ message: 'User created successfully.', user });
 
     }catch(error){
-
-      return  res.status(500).json({ message: 'An error occurred while creating the user.' });
+      return  res.status(500).json({ message: 'An error occurred while creating the user.',error });
     }
     
     }

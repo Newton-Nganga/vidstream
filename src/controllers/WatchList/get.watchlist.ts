@@ -6,16 +6,16 @@ import { Request,Response,NextFunction } from "express";
 
 export const fetchUserWatchListById = async (req:Request, res:Response) => {
     const userId = req.params.userId;
-    const watchlistId = req.params.watchlistId;
+    const watchlistId = parseInt(req.params.watchlistId);
   
     try {
       const user = await prisma.user.findUnique({
         where: { clientId: userId },
         include: {
-          collections: {
+          collection: {
             include: {
-              watchlist: {
-                where: { id: watchlistId },
+              watchList: {
+                where: { movie_id: watchlistId },
               },
             },
           },
@@ -26,7 +26,7 @@ export const fetchUserWatchListById = async (req:Request, res:Response) => {
         return res.status(404).json({ message: 'User not found.' });
       }
       
-      const watchlistMovie = user.collections[0].watchlist[0]; // Assuming the ID is unique, so we select the first found favorite
+      const watchlistMovie = user.collection?.watchList[0]; // Assuming the ID is unique, so we select the first found favorite
     
       if (!watchlistMovie) {
         return res.status(404).json({ message: 'Movie from watchlist not found.' });

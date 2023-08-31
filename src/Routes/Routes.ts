@@ -28,6 +28,7 @@ import { userIdExists } from "../Middlewares/userid.exists";
 const router = Router()
 
 
+
 //* An user object is created and maintained using the .patch call
 //* but deleted using the .delete and created during sign up via .post
 // ** User Routes
@@ -46,11 +47,11 @@ router.post('/users/:userId',userIdExists,createUserObject)
 //Route to return all the favourites collection for a user
 router.get('/users/:userId/favourites',userIdExists,fetchUserFavorites)
 //Route to add a movie to the favourites
-router.put('/users/:userId/favourites',userIdExists,addUserFavoriteMovie)
+router.post('/users/:userId/favourites',userIdExists,addUserFavoriteMovie)
 //Route called to remove a specific favourite
-router.delete('/users/:userId/favourites/:favid',userIdExists,deleteUserFavorite)
+router.delete('/users/:userId/favourites/:favouriteId',userIdExists,deleteUserFavorite)
 //Route called to delete all the favourites in the collection
-router.delete("/users/:userId/favourites/all",userIdExists,deleteAllUserFavorites)
+router.delete("/users/:userId/favourites",userIdExists,deleteAllUserFavorites)
 
 
 //** Watchlist Routes
@@ -58,10 +59,15 @@ router.delete("/users/:userId/favourites/all",userIdExists,deleteAllUserFavorite
 //Route to return all the watchlist for the user
 router.get('/users/:userId/watchlist',userIdExists,fetchUserWatchList)
 //Route to add a movie or show to the watchlist
-router.put('/users/:userId/favourites',userIdExists,addUserWatchList)
+router.post('/users/:userId/watchlist',userIdExists,addUserWatchList)
 //delete a movie from the watchlist
-router.delete('/users/:userId/watchlist/:watchid',userIdExists,deleteUserWatchList)
+router.delete('/users/:userId/watchlist/:watchListId',userIdExists,deleteUserWatchList)
 //delete all the users watchlist collection
-router.delete('/users/:userId/watchlist/all',userIdExists,deleteAllUserWatchList)
+router.delete('/users/:userId/watchlist',userIdExists,deleteAllUserWatchList)
 
+
+
+router.get('/',(req,res)=>{
+    res.status(200).json("Bingoo you are in")
+})
 export default router
