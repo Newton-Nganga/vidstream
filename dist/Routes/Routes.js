@@ -17,6 +17,7 @@ var add_watchlist_1 = require("../controllers/WatchList/add.watchlist");
 var userid_exists_1 = require("../Middlewares/userid.exists");
 var data_validate_1 = require("../Middlewares/data.validate");
 var router = (0, express_1.Router)();
+router.get('/', function (req, res) { return res.status(200).json("Vidstream services"); });
 //* An user object is created and maintained using the .patch call
 //* but deleted using the .delete and created during sign up via .post
 // ** User Routes

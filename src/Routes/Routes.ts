@@ -28,7 +28,7 @@ import { validateData } from "../Middlewares/data.validate";
 
 const router = Router()
 
-
+router.get('/',(req,res)=> res.status(200).json("Vidstream services"))
 
 //* An user object is created and maintained using the .patch call
 //* but deleted using the .delete and created during sign up via .post

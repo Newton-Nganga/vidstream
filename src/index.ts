@@ -4,7 +4,7 @@ import router from "./Routes/Routes"
 import bodyParser from "body-parser"
 import cors from 'cors'
 // import "dotenv/config"
-require('dotenv').config()
+//require('dotenv').config()
 
 const app = express()
 
