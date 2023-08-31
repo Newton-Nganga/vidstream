@@ -3,12 +3,10 @@ import express from "express"
 import router from "./Routes/Routes"
 import bodyParser from "body-parser"
 import cors from 'cors'
-import dotenv from 'dotenv';
 
-dotenv.config();
 const app = express()
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env['PORT'] || 3000
 
 // app.use(express.json())
 // app.use(express.urlencoded({extended:true}))
