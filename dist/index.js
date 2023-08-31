@@ -10,9 +10,9 @@ import { MovieAPI } from "./datasources/movie-api.js";
 import { ShowAPI } from "./datasources/show-api.js";
 import { SearchAPI } from "./datasources/search-api.js";
 import { MovieOrShowAPI } from "./datasources/movieorshow-api.js";
+import  * as dotenv from 'dotenv'
 
-require('dotenv').config()
-
+dotenv.config()
 import cors from 'cors';
 const { json } = bs
 const app = express();
