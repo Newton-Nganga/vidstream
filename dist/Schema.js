@@ -90,7 +90,7 @@ type Movie{
     "An object with trailerData"
     trailer:[Trailer!]
     "A list of the crew in the show or movie"
-    credits:CastAndCrew!
+    credits:CastAndCrew
 }
 type CastAndCrew{
     id:ID!
@@ -99,7 +99,7 @@ type CastAndCrew{
 }
 type MovieDetails{
     id:ID!
-    genres:[Genre]!
+    genres:[Genre]
     runtime:Int!
     tagline:String
 }
@@ -108,7 +108,7 @@ type Genre{
     name:String
 }
 type Trailer{
-    id:Int
+    id:ID!
     "The name of the trailer"
     name:String
     "The url = provider + key"
@@ -155,7 +155,7 @@ type ShowDetails{
     status:String
     type:String
     production_companies:[ProductionCompany]
-    genres:[Genre!]
+    genres:[Genre]
     "the cast and crew of this season"
     created_by:[CreatedBy] 
 }

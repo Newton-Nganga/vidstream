@@ -24,7 +24,7 @@ await server.start();
 
 app.use(
   '/vidstream-server/graphql',
-  cors<cors.CorsRequest>({ origin: ['https://vidstream.vercel.app', 'https://studio.apollographql.com','*'] }),
+  cors<cors.CorsRequest>({ origin: ['https://vidstream.vercel.app', 'https://studio.apollographql.com','http://localhost:5173','*'] }),
   json(),
   expressMiddleware(server,{
     context: async () => {

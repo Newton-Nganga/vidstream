@@ -11,5 +11,5 @@
     "module": "esNext",
   },
   "include": ["src"],
-  "exclude":["src/route.ts"]
+  "exclude":["src/route.ts","src/index.ts"]
 }
