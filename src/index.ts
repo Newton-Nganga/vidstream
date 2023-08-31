@@ -3,7 +3,7 @@ import express from "express"
 import router from "./Routes/Routes"
 import bodyParser from "body-parser"
 import cors from 'cors'
-import "dotenv/config"
+// import "dotenv/config"
 
 const app = express()
 
