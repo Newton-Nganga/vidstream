@@ -1,7 +1,7 @@
 import { RESTDataSource } from "@apollo/datasource-rest";
 export class ShowAPI extends RESTDataSource {
-    baseURL = "https://api.themoviedb.org/3/";
-    appendApiKey = "?api_key=14fc1a4b07ca3aea2cf869ddedc090c7";
+    baseURL = process.env.MOVIES_BASE_URL;
+    appendApiKey = `?api_key=${process.env.MOVIES_API_KEY}&language=en-US&page=1`;
     //resolve the queries
     async getSpecificShow(id) {
         return await this.get(`tv/${id}${this.appendApiKey}`);

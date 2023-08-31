@@ -11,6 +11,9 @@ import {ShowAPI} from "./datasources/show-api"
 import { SearchAPI } from "./datasources/search-api"
 import { MovieOrShowAPI } from "./datasources/movieorshow-api"
 import cors from 'cors';
+import * as dotenv from "dotenv"
+
+dotenv.config()
 
 const app = express();
 const httpServer = http.createServer(app);
