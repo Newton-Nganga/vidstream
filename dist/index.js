@@ -8,8 +8,8 @@ var express_1 = __importDefault(require("express"));
 var Routes_1 = __importDefault(require("./Routes/Routes"));
 var body_parser_1 = __importDefault(require("body-parser"));
 var cors_1 = __importDefault(require("cors"));
-// import "dotenv/config"
-//require('dotenv').config()
+var dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 var app = (0, express_1.default)();
 var PORT = process.env.PORT || 3000;
 // app.use(express.json())

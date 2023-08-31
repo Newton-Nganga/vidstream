@@ -3,9 +3,9 @@ import express from "express"
 import router from "./Routes/Routes"
 import bodyParser from "body-parser"
 import cors from 'cors'
-// import "dotenv/config"
-//require('dotenv').config()
+import dotenv from 'dotenv';
 
+dotenv.config();
 const app = express()
 
 const PORT = process.env.PORT || 3000
