@@ -7,7 +7,7 @@
   "scripts": {
     "compile": "tsc",
     "dev": "ts-node-dev --respawn ./src/index.ts",
-    "start": "node ./dist/index.js",
+    "start": "node dist/index.js",
     "start:dev": "npm run compile && node ./dist/index.js",
     "generate": "graphql-codegen"
   },
