@@ -18,7 +18,7 @@ export default function Movie({ data }: Props) {
   const title = "title" in data ? data.title : data.name;
 
   return (
-    <a href={`/${mediaType === "movie"? "movie":"tv"}/${data.id}`} data-placeholder_moviesection>
+    <div data-placeholder_moviesection>
       <div className="relative my-5 w-full h-[160px] sm:w-[40vw] md:w-[28vw] lg:w-[22vw] xl:w-[285px] lg:h-[160px]  flex hover:z-10 hover:scale-[1.1] duration-[0.2s] group rounded-xl  border-[3px] border-white overflow-clip">
         <div className="absolute  w-full h-full flex">
           {/* slider card image */}
@@ -38,14 +38,14 @@ export default function Movie({ data }: Props) {
                 `${data?.details?.number_of_seasons} Seasons`
               )}
             </p>
-            <button className="btn">
+            <a href={`/${mediaType === "movie"? "movie":"tv"}/${data.id}`} className="btn bg-red-800 text-white hover:text-red-800">
               <FaPlay />
               <span>Play Now</span>
-            </button>
+            </a>
           </div>
-          <MovieAddFavourite />
+          <MovieAddFavourite data={data}/>
         </div>
       </div>
-    </a>
+    </div>
   );
 }

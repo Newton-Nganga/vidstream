@@ -6,12 +6,13 @@ import {
 import React from "react";
 import { RiHeartFill, RiShareLine, RiVolumeMuteFill } from "react-icons/ri";
 
+
 type Props = {
   currentEpisodeNumber: number;
   currentSeasonNumber: number;
   currentSn: FullShowSeason;
   currentEp: FullShowEpisode;
-  title:string
+  title: string;
   genres: {
     name: string;
   }[];
@@ -33,15 +34,7 @@ const ListingEl = ({ list_title, children }: ListProp) => {
   );
 };
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const IconEl = ({ icon }: any) => {
-  return (
-    <div className="h-10 w-10 p-1 flex justify-center items-center rounded-full bg-white/50">
-      <div className="flex items-center justify-center rounded-full bg-white text-red-600 opacity-100 hover:text-white hover:bg-red-600 text-xl p-1">
-        {icon}
-      </div>
-    </div>
-  );
-};
+
 function GenericSpan({ text }: GenericSpanProps) {
   return <span className="text-sm">{text}</span>;
 }
@@ -54,37 +47,45 @@ function ShowDetails({
   currentEpisodeNumber,
   currentSeasonNumber,
 }: Props) {
-  const actorList = currentEp.credits.cast.slice(0,5).map((actor, index) => (
-    <GenericSpan key={index} text={`${actor.name} ,`} />
-  ));
+  const actorList = currentEp.credits.cast
+    .slice(0, 5)
+    .map((actor, index) => (
+      <GenericSpan key={index} text={`${actor.name} ,`} />
+    ));
 
   const genreList = genres.map((genre, index) => (
     <GenericSpan key={index} text={`${genre.name} ,`} />
   ));
 
-  const crewList = currentEp.credits.crew.slice(0,5).map((crew, index) => (
-    <GenericSpan key={index} text={`${crew.name} ,`} />
-  ));
-  console.log(currentEp)
+  const crewList = currentEp.credits.crew
+    .slice(0, 5)
+    .map((crew, index) => <GenericSpan key={index} text={`${crew.name} ,`} />);
+  console.log(currentEp);
+
+
   return (
     <section className="section">
       <div className="inner-section flex flex-col border-slice py-4 gap-4">
         <h4 className="texture my-4 w-fit mr-auto text-2xl font-extrabold leading-[3rem]">
           {title}
         </h4>
-        <h1>
+        <h1 className="font-mono">
           S{currentSeasonNumber}E{currentEpisodeNumber} -
-          <span>Episode{currentEpisodeNumber}</span>
+          <span>Episode {currentEpisodeNumber}</span>
         </h1>
         <p>{currentEp.overview}</p>
         <div className="flex-col flex items-center md:flex-row gap-8">
           <div className="relative h-[250px] w-[180px] rounded-md overflow-clip">
             <img
               alt={`Episode ${currentEp.episode_number}`}
-              src={import.meta.env.VITE_PUBLIC_IMAGE_PREFIX+`${currentEp.still_path
-                      ? currentEp.still_path
-                      : currentSn.poster_path
-                  }`}
+              src={
+                import.meta.env.VITE_PUBLIC_IMAGE_PREFIX +
+                `${
+                  currentEp.still_path
+                    ? currentEp.still_path
+                    : currentSn.poster_path
+                }`
+              }
               className="absolute h-full w-full"
             />
           </div>
@@ -104,13 +105,21 @@ function ShowDetails({
               </div>
             </div>
             <div className="flex gap-4 mt-2">
-              {[
-                <RiVolumeMuteFill key={0} />,
-                <RiHeartFill key={1} />,
-                <RiShareLine key={3} />,
-              ].map((icon, index) => (
-                <IconEl key={index}>{icon}</IconEl>
-              ))}
+              <button className="details-icon-wrapper">
+              <div className="details-icon">
+                  <RiHeartFill key={1} />
+                </div>
+              </button>
+              <div className="details-icon-wrapper">
+              <div className="details-icon">
+                  <RiShareLine key={3} />
+                </div>
+              </div>
+              <div className="details-icon-wrapper">
+              <div className="details-icon">
+                  <RiVolumeMuteFill key={0} />
+                </div>
+              </div>
             </div>
           </div>
         </div>

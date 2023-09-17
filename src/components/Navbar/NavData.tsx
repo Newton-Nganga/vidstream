@@ -8,97 +8,97 @@ export const MovieGenres:Genre[] = [
     {
       "id": 28,
       "name": "Action",
-      "link":"genres/movie/28/Action/mv"
+      "link":"/genres/movie/28/Action/mv"
     },
     {
       "id": 12,
       "name": "Adventure",
-        "link":"genres/movie/12/Adventure/mv"
+        "link":"/genres/movie/12/Adventure/mv"
     },
     {
       "id": 16,
       "name": "Animation",
-        "link":"genres/movie/16/Animation/mv"
+        "link":"/genres/movie/16/Animation/mv"
     },
     {
       "id": 35,
       "name": "Comedy",
-        "link":"genres/movie/35/Comedy/mv"
+        "link":"/genres/movie/35/Comedy/mv"
     },
     {
       "id": 80,
       "name": "Crime",
-        "link":"genres/movie/80/Crime/mv"
+        "link":"/genres/movie/80/Crime/mv"
     },
     {
       "id": 99,
       "name": "Documentary",
-        "link":"genres/movie/99/Documentary/mv"
+        "link":"/genres/movie/99/Documentary/mv"
     },
     {
       "id": 18,
       "name": "Drama",
-        "link":"genres/movie/18/Drama/mv"
+        "link":"/genres/movie/18/Drama/mv"
     },
     {
       "id": 10751,
       "name": "Family",
-        "link":"genres/movie/10751/Family/mv"
+        "link":"/genres/movie/10751/Family/mv"
     },
     {
       "id": 14,
       "name": "Fantasy",
-        "link":"genres/movie/14/Fantasy/mv"
+        "link":"/genres/movie/14/Fantasy/mv"
     },
     {
       "id": 36,
       "name": "History",
-        "link":"genres/movie/36/History/mv"
+        "link":"/genres/movie/36/History/mv"
     },
     {
       "id": 27,
       "name": "Horror",
-        "link":"genres/movie/27/Horror/mv"
+        "link":"/genres/movie/27/Horror/mv"
     },
     {
       "id": 10402,
       "name": "Music",
-        "link":"genres/movie/10402/Music/mv"
+        "link":"/genres/movie/10402/Music/mv"
     },
     {
       "id": 9648,
       "name": "Mystery",
-        "link":"genres/movie/9648/Mystery/mv"
+        "link":"/genres/movie/9648/Mystery/mv"
     },
     {
       "id": 10749,
       "name": "Romance",
-        "link":"genres/movie/10749/Romance/mv"
+        "link":"/genres/movie/10749/Romance/mv"
     },
     {
       "id": 878,
       "name": "Science Fiction",
-        "link":"genres/movie/878/Science Fiction/mv"
+        "link":"/genres/movie/878/Science Fiction/mv"
     },
     {
       "id": 10770,
       "name": "TV Movie",
-      "link":"genres/movie/10770/Tv Movie/mv"
+      "link":"/genres/movie/10770/Tv Movie/mv"
     },
     {
       "id": 53,
       "name": "Thriller",
-        "link":"genres/movie/53/Thriller/mv"
+        "link":"/genres/movie/53/Thriller/mv"
     },
     {
       "id": 10752,
       "name": "War",
-        "link":"genres/movie/10752/War/mv"
+        "link":"/genres/movie/10752/War/mv"
     },
     {
       "id": 37,
       "name": "Western",
-        "link":"genres/movie/37/Western/mv"
+        "link":"/genres/movie/37/Western/mv"
     }
   ]
 export const ShowGenres:Genre[]=[

@@ -18,10 +18,10 @@ export default function HomePage() {
       <TopRatedShows />
 
       {/* upcoming movies */}
-      {/* <UpcomingMovies /> */}
       <UpcomingMovies />
+     
       {/* Top movies */}
-      {/* <TopRatedMovies/> */}
+     
       <TopMovies />
       {/* Discover shows */}
       <TvMysteries />

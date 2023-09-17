@@ -53,7 +53,7 @@ const SingleColumnLink =({links}:LinkProps)=>{
     <div className="flex flex-col">
         {links.map((link) => {
           return (
-            <Link key={link.id} to={link.link} replace={true}>
+            <Link key={link.id} to={link.link} replace>
               <div className="nav-item">
                 <BsRecordCircle className="text-red-600" />
                <p className="w-max text-[15px] ">{link.name}</p>
@@ -66,12 +66,14 @@ const SingleColumnLink =({links}:LinkProps)=>{
 }
 
 const DoubleColumnLink=({links}:LinkProps)=>{
+
+
   return(
     <div className="flex flex-row justify-between gap-4  items-start">
         <div>
         {links.slice(0,(links.length / 2)).map((link) => {
           return (
-            <Link key={link.id} to={link.link} replace={true}>
+            <Link key={link.id} to={link.link} replace>
               <div className="nav-item">
                 <BsRecordCircle className="text-red-600" />
                 <p className="w-max text-[15px] ">{link.name}</p>
@@ -83,7 +85,7 @@ const DoubleColumnLink=({links}:LinkProps)=>{
         <div>
         {links.slice((links.length / 2)).map((link) => {
           return (
-            <Link key={link.id} to={link.link} replace={true}>
+            <Link key={link.id} to={link.link} replace>
               <div className="nav-item">
                 <BsRecordCircle className="text-red-600" />
                 <p className="w-max text-[15px] ">{link.name}</p>

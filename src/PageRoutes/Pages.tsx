@@ -13,7 +13,14 @@ import MovieGenrePage from "@/pages/genres/movie/MovieGenre";
 import AccountPage from "@/pages/account/page";
 import FavouritesPage from "@/pages/account/collections/favourites/Favourites";
 import WatchlistPage from "@/pages/account/collections/watchlist/Watchlist";
+import AboutPage from "@/pages/about/About";
+import { Toaster } from "react-hot-toast";
+
+//Fetch the featured movie details and provide it across the pages
+
+
 export default function Pages(){
+   
     return(
         <BrowserRouter>
          <Routes>
@@ -26,11 +33,13 @@ export default function Pages(){
             <Route element={<MovieGenrePage/>} path="/genres/movie/:id/:genre/mv"/>
             <Route element={<SearchPage/>} path="/search"/>
             <Route element={<ContactPage/>} path="/contact"/>
+            <Route element={<AboutPage/>} path="/about"/>
             <Route element={<FavouritesPage/>} path="/account/:userId/favourites"/>
             <Route element={<WatchlistPage/>} path="/account/:userId/watchlist"/>
             <Route element={<AccountPage/>} path="/account/:userId/me"/>
             <Route element={<NotFound/>} path="*"/>
           </Routes>
+          <Toaster containerStyle={{ top: 90 }} />
     </BrowserRouter>
     )
 }

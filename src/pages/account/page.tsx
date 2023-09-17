@@ -2,11 +2,26 @@
 
 import InnerPage from '@/components/InnerPages/InnerPages'
 import user from "@assets/images/user.png";
+import axios from 'axios';
+import { useEffect, useRef, useState } from 'react';
+import toast from 'react-hot-toast';
+import { useParams } from 'react-router-dom';
 
+interface ListType{
+  id:string,
+  movie_id:string | number
+  movie_title:string 
+  backdrop_path:string 
+  poster_path:string 
+  media_type:string 
+  collectionId:string
+}
 type ListingElProps={
     fieldname:string
+    data:ListType[]
 }
-const ListingEl=({fieldname}:ListingElProps)=>{
+const ListingEl=({fieldname,data}:ListingElProps)=>{
+  const {userId} = useParams()
   return(
     <div className='w-full flex flex-col bg-[#081523] rounded-xl mt-2 p-4'>
     <div className='w-[70vw] mx-auto'>
@@ -20,26 +35,21 @@ const ListingEl=({fieldname}:ListingElProps)=>{
             </tr>
         </thead>
         <tbody className='my-2 bg-[#01030541]'>
-            <tr>
-              <td className='p-2'>The Meg 2</td>
-              <td className='p-2'>Movie</td>
-              <td className='p-2'><a href="" className='text-blue-400'>view</a></td>
-            </tr>
-            <tr>
-              <td className='p-2'>Spartacus season 2</td>
-              <td className='p-2'>show</td>
-              <td className='p-2'><a href="" className='text-blue-400'>view</a></td>
-            </tr>
-            <tr>
-              <td className='p-2'>The Meg 2</td>
-              <td className='p-2'>Movie</td>
-              <td className='p-2'><a href="" className='text-blue-400'>view</a></td>
-            </tr>
+          {data?.map((item)=>{
+            return(
+              <tr key={item.id}>
+              <td className='p-2'>{item.movie_title}</td>
+              <td className='p-2'>{item.media_type}</td>
+              <td className='p-2'><a href={item.media_type === "movie" ? `/movie/${item.movie_id}` :`/tv/${item.movie_id}`} className='text-blue-400'>view</a></td>
+              </tr>
+            )
+          })}
+            
         </tbody>
         <tfoot className='bg-[#050d16]'>
             <tr>
                 <td colSpan={3} className='p-2 pr-0 text-right'>
-                    <a className='w-fit px-4 py-2 bg-blue-500 hover:text-white'>Manage {fieldname}</a>
+                    <a href={fieldname === "Favourites" ? `/account/${userId}/favourites`: `/account/${userId}/watchlist`} className='w-fit px-4 py-2 bg-blue-500 hover:text-white'>Manage {fieldname}</a>
                 </td>
             </tr>
         </tfoot>
@@ -50,6 +60,40 @@ const ListingEl=({fieldname}:ListingElProps)=>{
 }
 
 export default function AccountPage() {
+  const [favourites,setFavourites] = useState([])
+  const [watchlist,setWatchlist] = useState([])
+  const userProfile = useRef({
+    clientId:"2021",
+  username:"Roy Tomm",
+  email:"nganga77newt@gmail.com",
+  imageUrl:"https://somewhere.png"
+  })
+  const {userId} = useParams()
+   
+
+  const fetchuserobject = `${import.meta.env.VITE_CLIENTS_SERVER_URL}/users/${userId}/`
+//a method to fetch the favourites
+  useEffect(()=>{
+    async function fetchUserObject(){
+      const response = await  axios.patch(fetchuserobject,{
+        ...userProfile.current
+      })
+      if(response.status !== 200){
+        toast.error("An error occurred whilst fetching the watchlist movies")
+      }
+      //console.log("The response after fetching favourites:",response)
+      console.log(response.data.user);
+      const {collection,...user}= response.data.user
+      userProfile.current = user
+      setFavourites(collection.favourites)
+      setWatchlist(collection.watchList)
+    }
+    fetchUserObject()
+  },[])
+
+
+
+ 
   return (
     <InnerPage title='My Account'>
      <section className='section'>
@@ -59,13 +103,15 @@ export default function AccountPage() {
                 <div className='rounded-full h-[150px] w-[150px] '>
                     <img src={user} alt='user'/></div>
                 <div>
-                    <p>Name : John Doe</p>
-                    <p>Email : johndoe@gmail.com</p>
+                    <p>Name : {userProfile.current.username}</p>
+                    <p>Email : {userProfile.current.email}</p>
                 </div>
             </div>
         </div>
-       <ListingEl fieldname='Favourites'/>
-       <ListingEl fieldname='Watchlist'/>
+        <ListingEl  data={favourites} fieldname='Favourites'/>
+        <ListingEl data={watchlist} fieldname='WatchList'/> 
+       
+
        <article className='w-full bg-[#081523] mt-8 border rounded-md border-red-600 p-4'>
          <div className='text-center max-w-[600px] mx-auto'>
             <p> Caution!! This action is irreversible and you wanna be sure before you proceed with deletion.Get rid of this account</p>

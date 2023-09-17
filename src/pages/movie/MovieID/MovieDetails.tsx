@@ -24,16 +24,7 @@ const ListingEl=({list_title,children}:ListProp)=>{
         </p>
     )
 }
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const IconEl =({icon}:any)=>{
-    return(
-        <div className="h-10 w-10 p-1 flex justify-center items-center rounded-full bg-white/50">
-        <div className="flex items-center justify-center rounded-full bg-white text-red-600 opacity-100 hover:text-white hover:bg-red-600 text-xl p-1">
-          {icon}
-        </div>
-        </div>
-    )
-}
+
 function GenericSpan({ text }: GenericSpanProps) {
     return <span className="ml-2 text-[15px]">{text}</span>;
   }
@@ -73,11 +64,22 @@ export function MovieDetails({movie}:Props){
              </ListingEl>
               </div>
             </div>
-            <div className="flex gap-4">
-              <IconEl><RiVolumeMuteFill/></IconEl>
-             {[<RiVolumeMuteFill key={0}/>, <RiHeartFill key={1}/>,<RiShareLine key={3}/>].map(
-                 (icon,index) => <IconEl key={index}>{icon}</IconEl>
-              )}
+            <div className="flex gap-4 mt-2">
+              <button className="details-icon-wrapper">
+              <div className="details-icon">
+                  <RiHeartFill key={1} />
+                </div>
+              </button>
+              <div className="details-icon-wrapper">
+              <div className="details-icon">
+                  <RiShareLine key={3} />
+                </div>
+              </div>
+              <div className="details-icon-wrapper">
+              <div className="details-icon">
+                  <RiVolumeMuteFill key={0} />
+                </div>
+              </div>
             </div>
           </div>
         </section>

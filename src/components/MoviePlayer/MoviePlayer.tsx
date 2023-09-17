@@ -1,6 +1,7 @@
 
 import { useState } from "react";
 import ReactPlayer from "react-player";
+import {match} from "ts-pattern"
 import {Trailer } from "../../__generated_types/UsefulTypes";
 
 type Props = {
@@ -9,7 +10,7 @@ type Props = {
 };
 
 export function MoviePlayer({ trailerArray,movieId }: Props) {
-  const [trailer, setTrailer] = useState<"trailer"|"2embed"|"multiembed">("2embed");
+  const [trailer, setTrailer] = useState<"trailer"|"2embed"|"multiembed" | "vidsrc">("2embed");
  //trailer,2embed,multiembed
   const oficialYTTrailers = trailerArray.filter(
     (trailer) => trailer.official && trailer.site === "YouTube"
@@ -29,9 +30,10 @@ export function MoviePlayer({ trailerArray,movieId }: Props) {
       ) : (
         <iframe
            src={
-            trailer === "2embed"
-            ? `https://www.2embed.cc/embed/${movieId}`
-            :`https://multiembed.mov/?video_id=${movieId}&tmdb=1`
+           match(trailer)
+            .with("2embed",()=>`https://www.2embed.cc/embed/${movieId}`)
+            .with("multiembed",()=>`https://multiembed.mov/?video_id=${movieId}&tmdb=1`)
+            .otherwise(()=>`https://vidsrc.to/embed/movie/${movieId}`)
            }
           width="100%"
           height="500"
@@ -44,7 +46,7 @@ export function MoviePlayer({ trailerArray,movieId }: Props) {
       <div className="inner-section flex-col">
         <div className="flex flex-col">
           <div className="flex gap-3 pt-2">
-            <button className={`${trailer !== "trailer" && "bg-blue-400"}`} onClick={() => setTrailer("trailer")}>
+            <button className={`${trailer !== "trailer" && "bg-blue-400"} rounded-md w-fit`} onClick={() => setTrailer("trailer")}>
             Trailer
           </button>
           <button className={`${trailer !== "2embed" && "bg-blue-400"}`}  onClick={() => setTrailer("2embed")}>
@@ -52,6 +54,9 @@ export function MoviePlayer({ trailerArray,movieId }: Props) {
           </button>
           <button className={`${trailer !== "multiembed" && "bg-blue-400"}`}  onClick={() => setTrailer("multiembed")}>
             server 2
+          </button>
+          <button className={`${trailer !== "vidsrc" && "bg-blue-400"}`}  onClick={() => setTrailer("vidsrc")}>
+            server 3
           </button>
           </div>
           

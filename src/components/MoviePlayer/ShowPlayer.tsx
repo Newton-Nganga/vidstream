@@ -1,5 +1,6 @@
 import React,{useState} from "react";
 import ReactPlayer from "react-player";
+import {match} from "ts-pattern"
 import {
   FullShowEpisode,
   FullShowSeason,
@@ -26,7 +27,7 @@ export const ShowPlayer = ({
   setCurrentEpisodeNumber,
   setCurrentSeasonNumber,
 }: Props) => {
-  const [frame, setFrame] = useState<"trailer"|"2embed"|"multiembed">("2embed");
+  const [frame, setFrame] = useState<"trailer"|"2embed"|"multiembed"|"vidsrc">("2embed");
   //A filtering function
   const filterOfficialYouTubeTrailers = (trailers: Trailer[]): Trailer[] =>
     trailers.filter(
@@ -71,9 +72,11 @@ export const ShowPlayer = ({
       ) : (
         <iframe
           src={
-            frame=== "2embed" 
-            ? `https://www.2embed.cc/embed/${data.id}&s=${currentSeasonNumber}&e=${currentEpisodeNumber}`
-            :`https://multiembed.mov/?video_id=${data.id}&s=${currentSeasonNumber}&e=${currentEpisodeNumber}&tmdb=1`}
+            match(frame)
+            .with("2embed",()=>`https://www.2embed.cc/embed/${data.id}&s=${currentSeasonNumber}&e=${currentEpisodeNumber}`)
+            .with("multiembed",()=>`https://multiembed.mov/?video_id=${data.id}&s=${currentSeasonNumber}&e=${currentEpisodeNumber}&tmdb=1`)
+            .otherwise(()=>`https://vidsrc.to/embed/tv/${data.id}/${currentSeasonNumber}/${currentEpisodeNumber}`)
+          }
           width="100%"
           height="500"
           allowFullScreen={true}
@@ -85,7 +88,7 @@ export const ShowPlayer = ({
       <div className="inner-section flex-col">
         <div className="w-full flex flex-col py-4">
         <div className="flex gap-3 pt-2">
-            <button className={`${frame !== "trailer" && "bg-blue-400"}`} onClick={() => setFrame("trailer")}>
+            <button className={`${frame !== "trailer" && "bg-blue-400"} rounded-md w-fit`} onClick={() => setFrame("trailer")}>
             Trailer
           </button>
           <button className={`${frame !== "2embed" && "bg-blue-400"}`}  onClick={() => setFrame("2embed")}>
@@ -93,6 +96,9 @@ export const ShowPlayer = ({
           </button>
           <button className={`${frame !== "multiembed" && "bg-blue-400"}`}  onClick={() => setFrame("multiembed")}>
             server 2
+          </button>
+          <button className={`${frame !== "vidsrc" && "bg-blue-400"}`}  onClick={() => setFrame("vidsrc")}>
+            server 3
           </button>
           </div>
           <div className="w-full flex gap-4 py-2 pt-4">
@@ -103,7 +109,7 @@ export const ShowPlayer = ({
                 className={`${
                   currentSeasonNumber !== index + 1
                    ?"bg-slate-500" :"bg-slate-800"
-                } px-8 rounded-md text-black w-fit text-white`}
+                } px-8 rounded-md  w-fit text-white`}
               >
                 S{index + 1}
               </button>

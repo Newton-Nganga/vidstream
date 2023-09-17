@@ -14,8 +14,7 @@ import Navlink from "./Navlink";
 export default function Navbar() {
   const scrolled = useScrollPosition();
   const [isOpen, setIsOpen] = useState({ type: "", state: false });
-
-
+  
 
   return (
     <nav

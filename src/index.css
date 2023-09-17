@@ -20,6 +20,7 @@
 body {
   font-size: 1rem;
   color: white;
+  font-family: 'Poppins', sans-serif;
 }
 
 @layer base {
@@ -68,7 +69,9 @@ body {
     background-color: rgba(255, 255, 255, 0.301);
   }
 
-
+ .cursive{
+  font-family: 'Satisfy',cursive;
+ }
 
   .slick-slider {
     position: relative;
@@ -146,6 +149,20 @@ body {
 @keyframes load {
     0%{ left: -100%}
     100%{ left: 150%}
+}
+.animate-me{
+  animation: rotateme 3s infinite;
+}
+@keyframes rotateme{
+  0%{
+    transform:rotateY(0deg);
+  }
+  50%{
+    transform:rotateY(180deg);
+  }
+  100%{
+    transform:rotateY(360deg);
+  }
 }
 }
 
@@ -246,5 +263,10 @@ body {
   .footer-social-btn {
     @apply text-lg hover:text-red-600 rounded-md bg-[#233a50] hover:shadow hover:shadow-red-600 h-10 w-10 flex items-center justify-center
   }
-
+  .details-icon-wrapper{
+    @apply h-10 w-10 p-1 flex justify-center items-center rounded-full bg-white/50
+  }
+  .details-icon{
+    @apply w-8 h-8 flex items-center justify-center rounded-full bg-white text-red-600 opacity-100 hover:text-white hover:bg-red-600 text-xl
+  }
 }
