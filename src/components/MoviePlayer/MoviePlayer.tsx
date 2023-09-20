@@ -45,8 +45,8 @@ export function MoviePlayer({ trailerArray,movieId }: Props) {
       )}
       <div className="inner-section flex-col">
         <div className="flex flex-col">
-          <div className="flex gap-3 pt-2">
-            <button className={`${trailer !== "trailer" && "bg-blue-400"} rounded-md w-fit`} onClick={() => setTrailer("trailer")}>
+          <div className="flex flex-col sm:flex-row gap-3 pt-2">
+            <button className={`${trailer !== "trailer" && "bg-blue-400"} rounded-md sm:w-fit`} onClick={() => setTrailer("trailer")}>
             Trailer
           </button>
           <button className={`${trailer !== "2embed" && "bg-blue-400"}`}  onClick={() => setTrailer("2embed")}>

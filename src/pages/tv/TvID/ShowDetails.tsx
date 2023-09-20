@@ -75,7 +75,7 @@ function ShowDetails({
         </h1>
         <p>{currentEp.overview}</p>
         <div className="flex-col flex items-center md:flex-row gap-8">
-          <div className="relative h-[250px] w-[180px] rounded-md overflow-clip">
+          <div className="relative h-[250px] w-full sm:w-[180px] rounded-md overflow-clip">
             <img
               alt={`Episode ${currentEp.episode_number}`}
               src={

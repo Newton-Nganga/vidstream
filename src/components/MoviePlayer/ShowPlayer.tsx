@@ -87,8 +87,8 @@ export const ShowPlayer = ({
       )}
       <div className="inner-section flex-col">
         <div className="w-full flex flex-col py-4">
-        <div className="flex gap-3 pt-2">
-            <button className={`${frame !== "trailer" && "bg-blue-400"} rounded-md w-fit`} onClick={() => setFrame("trailer")}>
+        <div className="flex flex-col sm:flex-row gap-3 pt-2">
+            <button className={`${frame !== "trailer" && "bg-blue-400"} rounded-md sm:w-fit`} onClick={() => setFrame("trailer")}>
             Trailer
           </button>
           <button className={`${frame !== "2embed" && "bg-blue-400"}`}  onClick={() => setFrame("2embed")}>
@@ -101,7 +101,7 @@ export const ShowPlayer = ({
             server 3
           </button>
           </div>
-          <div className="w-full flex gap-4 py-2 pt-4">
+          <div className="w-full flex flex-wrap gap-4 py-2 pt-4">
             {seasonsArray.map((snButton, index) => (
               <button
                 key={index}
@@ -115,7 +115,9 @@ export const ShowPlayer = ({
               </button>
             ))}
           </div>
+          <div className="border my-2 border-gray-600 rounded-full"></div>
           <div className="w-full flex gap-4 flex-wrap text-slate-200"> 
+          
             {episodesArray.map((epButton, index) => (
               <button
                 key={index}
