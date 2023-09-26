@@ -38,7 +38,7 @@ router.patch('/users/:userId',userIdExists,fetchOrUpdateUser)
 //route called to delete the account
 router.delete('/users/:userId',userIdExists,deleteUserObject)
 //function to create user on sign up
-router.post('/users/:userId',userIdExists,createUserObject)
+router.post('/users/:userId',createUserObject)
 
 
 
