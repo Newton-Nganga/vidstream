@@ -26,7 +26,7 @@ router.patch('/users/:userId', userid_exists_1.userIdExists, fetchorupdate_user_
 //route called to delete the account
 router.delete('/users/:userId', userid_exists_1.userIdExists, user_delete_1.deleteUserObject);
 //function to create user on sign up
-router.post('/users/:userId', userid_exists_1.userIdExists, user_create_1.createUserObject);
+router.post('/users/:userId', user_create_1.createUserObject);
 // * A movie or show can only be added or deleted into favourites and watchlists
 // ** Favourites Routes
 //Route to return all the favourites collection for a user

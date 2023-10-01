@@ -39,8 +39,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteUserObject = void 0;
 var client_1 = require("@prisma/client");
 var prisma = new client_1.PrismaClient();
+//import clerk from "@clerk/clerk-sdk-node"
+var clerk_sdk_node_1 = require("@clerk/clerk-sdk-node");
+var clerk = (0, clerk_sdk_node_1.Clerk)({ secretKey: process.env.CLERK_SECRET_KEY });
 var deleteUserObject = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var userId, user, error_1;
+    var userId, user, us, error_1;
     var _a, _b, _c;
     return __generator(this, function (_d) {
         switch (_d.label) {
@@ -48,7 +51,7 @@ var deleteUserObject = function (req, res) { return __awaiter(void 0, void 0, vo
                 userId = req.params.userId;
                 _d.label = 1;
             case 1:
-                _d.trys.push([1, 7, , 8]);
+                _d.trys.push([1, 8, , 9]);
                 return [4 /*yield*/, prisma.user.findUnique({
                         where: { clientId: userId },
                         //include: { collections: { include: { favourites: true, watchlist: true } } },
@@ -71,14 +74,18 @@ var deleteUserObject = function (req, res) { return __awaiter(void 0, void 0, vo
                 return [4 /*yield*/, prisma.user.delete({ where: { clientId: userId } })];
             case 6:
                 _d.sent();
-                res.status(200).json({ message: 'User and associated data deleted successfully.' });
-                return [3 /*break*/, 8];
+                return [4 /*yield*/, clerk.users.deleteUser(userId)];
             case 7:
+                us = _d.sent();
+                console.log("user deletion", us);
+                res.status(200).json({ message: 'User and associated data deleted successfully.', us: us });
+                return [3 /*break*/, 9];
+            case 8:
                 error_1 = _d.sent();
                 console.error('Error deleting user and associated data:', error_1);
                 res.status(500).json({ message: 'An error occurred while deleting the user and associated data.' });
-                return [3 /*break*/, 8];
-            case 8: return [2 /*return*/];
+                return [3 /*break*/, 9];
+            case 9: return [2 /*return*/];
         }
     });
 }); };

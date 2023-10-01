@@ -1,7 +1,13 @@
 import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient()
+
 import { Request,Response} from "express";
 
+const prisma = new PrismaClient()
+//import clerk from "@clerk/clerk-sdk-node"
+
+import {Clerk} from "@clerk/clerk-sdk-node"
+
+const clerk = Clerk({secretKey:process.env.CLERK_SECRET_KEY})
 
 export const deleteUserObject= async(req:Request,res:Response)=>{
     const userId = req.params.userId;
@@ -16,13 +22,15 @@ export const deleteUserObject= async(req:Request,res:Response)=>{
     if (!user) {
       return res.status(404).json({ message: 'User not found.' });
     }
-
+    
     await prisma.favourites.deleteMany({ where: { collectionId: user.collection?.id } });
     await prisma.watchList.deleteMany({ where: { collectionId: user.collection?.id } });
     await prisma.collection.delete({ where: { id: user.collection?.id} });
     await prisma.user.delete({ where: { clientId: userId } });
-
-    res.status(200).json({ message: 'User and associated data deleted successfully.' });
+    //delete the client
+    const us = await clerk.users.deleteUser(userId)
+    
+    res.status(200).json({ message: 'User and associated data deleted successfully.',user:us });
   } catch (error) {
 
     console.error('Error deleting user and associated data:', error);

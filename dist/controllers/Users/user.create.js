@@ -40,14 +40,23 @@ exports.createUserObject = void 0;
 var client_1 = require("@prisma/client");
 var prisma = new client_1.PrismaClient();
 var createUserObject = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, clientId, username, email, imageUrl, user, error_1;
+    var _a, clientId, username, email, imageUrl, userExists, user, error_1;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
                 _a = req.body, clientId = _a.clientId, username = _a.username, email = _a.email, imageUrl = _a.imageUrl;
                 _b.label = 1;
             case 1:
-                _b.trys.push([1, 3, , 4]);
+                _b.trys.push([1, 4, , 5]);
+                return [4 /*yield*/, prisma.user.findUnique({
+                        where: { clientId: clientId },
+                        include: { collection: { include: { favourites: true, watchList: true } } },
+                    })];
+            case 2:
+                userExists = _b.sent();
+                if (userExists) {
+                    return [2 /*return*/, res.status(201).json({ message: "User already created", user: userExists })];
+                }
                 return [4 /*yield*/, prisma.user.create({
                         data: {
                             clientId: clientId,
@@ -60,14 +69,14 @@ var createUserObject = function (req, res, next) { return __awaiter(void 0, void
                             collection: true,
                         },
                     })];
-            case 2:
+            case 3:
                 user = _b.sent();
                 res.status(201).json({ message: 'User created successfully.', user: user });
-                return [3 /*break*/, 4];
-            case 3:
+                return [3 /*break*/, 5];
+            case 4:
                 error_1 = _b.sent();
                 return [2 /*return*/, res.status(500).json({ message: 'An error occurred while creating the user.', error: error_1 })];
-            case 4: return [2 /*return*/];
+            case 5: return [2 /*return*/];
         }
     });
 }); };

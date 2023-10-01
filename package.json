@@ -16,6 +16,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@clerk/types": "^3.53.0",
     "@types/cors": "^2.8.13",
     "@types/express": "^4.17.17",
     "@types/node": "^20.5.7",
@@ -26,7 +27,9 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
+    "@clerk/clerk-sdk-node": "^4.12.10",
     "@prisma/client": "^5.2.0",
+    "backend": "^0.0.0",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
