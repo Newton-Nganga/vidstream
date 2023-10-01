@@ -2,17 +2,21 @@ import { RiAddLine, RiHeartFill, RiVolumeMuteFill } from "react-icons/ri";
 import { MovieType, ShowType } from "@/__generated_types/UsefulTypes";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useUser } from "@clerk/clerk-react";
 
 interface Props {
   data: MovieType | ShowType;
 }
 
 export default function MovieAddFavourite({ data }: Props) {
+
+    const {user}= useUser();
+
   const handleAddFavourites = async () => {
     //check if the user exists or is logged in
     //add to the favourites then redirect to /account/id/
     const url =
-      import.meta.env.VITE_CLIENTS_SERVER_URL + "/users/2021/favourites";
+      import.meta.env.VITE_CLIENTS_SERVER_URL + `/users/${user?.id}/favourites`;
     const response = await axios.post(url, {
       media_type: "title" in data ? "movie" : "tv",
       movie_id: `${data.id}`,
@@ -39,7 +43,7 @@ export default function MovieAddFavourite({ data }: Props) {
     //check if the user exists or is logged in
     //add to the favourites then redirect to /account/id/
     const url =
-      import.meta.env.VITE_CLIENTS_SERVER_URL + "/users/2021/watchlist";
+      import.meta.env.VITE_CLIENTS_SERVER_URL + `/users/${user?.id}/watchlist`;
     const response = await axios.post(url, {
       media_type: "title" in data ? "movie" : "tv",
       movie_id: `${data.id}`,

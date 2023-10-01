@@ -52,7 +52,7 @@ export default function Navbar() {
               <VscBellDot />
             </button>
             {isSignedIn ? (
-              <UserButton />
+              <UserButton userProfileMode="navigation" afterSignOutUrl="/" userProfileUrl="/account/profile"/>
             ) : (
               <SignInButton afterSignInUrl="/">
                 <button className="flex w-[45px] h-[45px] relative rounded-full overflow-clip bg-transparent p-0">

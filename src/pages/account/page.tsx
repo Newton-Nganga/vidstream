@@ -1,11 +1,11 @@
 
 
 import InnerPage from '@/components/InnerPages/InnerPages'
-import user from "@assets/images/user.png";
+import userFallbackImage from "@assets/images/user.png";
+import { useUser } from '@clerk/clerk-react';
 import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
-import { useParams } from 'react-router-dom';
 
 interface ListType{
   id:string,
@@ -17,11 +17,11 @@ interface ListType{
   collectionId:string
 }
 type ListingElProps={
-    fieldname:string
+    fieldname:string 
     data:ListType[]
 }
 const ListingEl=({fieldname,data}:ListingElProps)=>{
-  const {userId} = useParams()
+
   return(
     <div className='w-full flex flex-col bg-[#081523] rounded-xl mt-2 p-4'>
     <div className='w-[70vw] mx-auto'>
@@ -49,7 +49,7 @@ const ListingEl=({fieldname,data}:ListingElProps)=>{
         <tfoot className='bg-[#050d16]'>
             <tr>
                 <td colSpan={3} className='p-2 pr-0 text-right'>
-                    <a href={fieldname === "Favourites" ? `/account/${userId}/favourites`: `/account/${userId}/watchlist`} className='w-fit px-4 py-2 bg-blue-500 hover:text-white'>Manage {fieldname}</a>
+                    <a href={fieldname === "Favourites" ? `/account/favorites`: `/account/watchlist`} className='w-fit px-4 py-2 bg-blue-500 hover:text-white'>Manage {fieldname}</a>
                 </td>
             </tr>
         </tfoot>
@@ -59,19 +59,35 @@ const ListingEl=({fieldname,data}:ListingElProps)=>{
   )
 }
 
-export default function AccountPage() {
+
+export default function AccountPage() { 
+  const {isLoaded,user} = useUser()
+  
+  const checkIfClerkIsInitialized = async():Promise<void>=>{
+    //check if clerk is initialized && isLoaded === true
+    //else await for 100ms then call the while loop again
+     while(!isLoaded || !isLoaded == null){
+       await new Promise(resolve => setTimeout(resolve,100))
+     }
+     
+   }
+   checkIfClerkIsInitialized()
+ 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  //const {id,username,primaryEmailAddress,imageUrl}:any= user
   const [favourites,setFavourites] = useState([])
   const [watchlist,setWatchlist] = useState([])
-  const userProfile = useRef({
-    clientId:"2021",
-  username:"Roy Tomm",
-  email:"nganga77newt@gmail.com",
-  imageUrl:"https://somewhere.png"
-  })
-  const {userId} = useParams()
-   
 
-  const fetchuserobject = `${import.meta.env.VITE_CLIENTS_SERVER_URL}/users/${userId}/`
+  const userProfile = useRef({
+    clientId:user?.id,
+    username:user?.username,
+    email:user?.primaryEmailAddress?.emailAddress,
+    imageUrl:user?.imageUrl ?  user.imageUrl : " "
+  })
+ 
+
+
+  const fetchuserobject = `${import.meta.env.VITE_CLIENTS_SERVER_URL}/users/${user?.id}/`
 //a method to fetch the favourites
   useEffect(()=>{
     async function fetchUserObject(){
@@ -91,31 +107,28 @@ export default function AccountPage() {
     fetchUserObject()
   },[])
 
-
-
- 
   return (
     <InnerPage title='My Account'>
      <section className='section'>
       <div className='inner-section '>
         <div className='w-full bg-[#081523] rounded-xl p-4'>
             <div className='flex items-center gap-4 max-w-[400px] mx-auto'>
-                <div className='rounded-full h-[150px] w-[150px] '>
-                    <img src={user} alt='user'/></div>
+                <div className='rounded-full h-[150px] w-[150px] border p-1 border-red-300 felx justify-center items-center'>
+                    <img src={user?.imageUrl ? user?.imageUrl : userFallbackImage} alt='user' className='rounded-full w-full h-full'/></div>
                 <div>
-                    <p>Name : {userProfile.current.username}</p>
-                    <p>Email : {userProfile.current.email}</p>
+                    <p className='text-xs'>Name : {userProfile.current.username}</p>
+                    <p className='text-xs'>Email : {userProfile.current.email}</p>
                 </div>
             </div>
         </div>
-        <ListingEl  data={favourites} fieldname='Favourites'/>
-        <ListingEl data={watchlist} fieldname='WatchList'/> 
+        <ListingEl key="fav" data={favourites} fieldname='Favourites'/>
+        <ListingEl key="list"  data={watchlist} fieldname='WatchList'/> 
        
 
        <article className='w-full bg-[#081523] mt-8 border rounded-md border-red-600 p-4'>
          <div className='text-center max-w-[600px] mx-auto'>
             <p> Caution!! This action is irreversible and you wanna be sure before you proceed with deletion.Get rid of this account</p>
-            <button className='w-fit my-4'>
+            <button className='w-fit my-4' >
                 Delete My Account
             </button>
          </div>

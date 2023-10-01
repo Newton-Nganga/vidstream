@@ -201,14 +201,24 @@ export const PagesLinks=[
     link:"/register"
   },
   {
-    id:"profile",
-    name:"My Profile",
-    link:"/profile"
-  },
-  {
     id:"account",
     name:"Account",
-    link:"/account"
+    link:"/account/me"
+  },
+  {
+    id:"profile",
+    name:"My Profile",
+    link:"/account/profile"
+  },
+  {
+    id:"favorites",
+    name:"Favourites",
+    link:"/account/favorites"
+  },
+  {
+    id:"wachlist",
+    name:"Watchlist",
+    link:"/account/watchlist"
   },
 ]
 

@@ -37,7 +37,7 @@ export default function CollectionCard({data,type}: Props) {
         </div>
         <div className='flex gap-2 my-3 '>
           <a
-           href={data.media_type === "movie" ? `/movie/${data.movie_id}`:`/tv/${data.id}`}
+           href={data.media_type === "movie" ? `/movie/${data.movie_id}`:`/tv/${data.movie_id}`}
           className='relative flex-grow flex items-center justify-center text-sm text-center  rounded-md bg-[#081523]'>
             visit
             <HiOutlineExternalLink className="absolute top-2 right-2"/>
