@@ -61,7 +61,7 @@ export default function TopMovies() {
     }
   };
  
-  const handleBeforeChange = (current: number, next: number) => {
+  const handleBeforeChange = ( next: number) => {
     setActiveSlide(next);
   };
 

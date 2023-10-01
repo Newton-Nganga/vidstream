@@ -1,6 +1,6 @@
-import React,{useEffect,useRef,useState} from 'react'
+import{useEffect,useRef,useState} from 'react'
 
-export default function useScrollPosition():Boolean {
+export default function useScrollPosition():boolean {
     const [scrollPosition, setScrollPosition] = useState<boolean>(false)
     const navRef = useRef<boolean>()
     navRef.current = scrollPosition

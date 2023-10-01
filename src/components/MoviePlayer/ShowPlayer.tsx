@@ -102,7 +102,7 @@ export const ShowPlayer = ({
           </button>
           </div>
           <div className="w-full flex flex-wrap gap-4 py-2 pt-4">
-            {seasonsArray.map((snButton, index) => (
+            {seasonsArray.map(( index) => (
               <button
                 key={index}
                 onClick={() => setCurrentSeasonNumber(index + 1)}
@@ -118,7 +118,7 @@ export const ShowPlayer = ({
           <div className="border my-2 border-gray-600 rounded-full"></div>
           <div className="w-full flex gap-4 flex-wrap text-slate-200"> 
           
-            {episodesArray.map((epButton, index) => (
+            {episodesArray.map(( index) => (
               <button
                 key={index}
                 onClick={() => setCurrentEpisodeNumber(index + 1)}

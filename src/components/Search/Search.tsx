@@ -13,10 +13,11 @@ type Prop = {
 };
 
 export default function Search({ movie }: Prop) {
+  const movieid= movie.id
   return (
     <a
       href={
-      "media_type" in movie  ? `/tv/${movie.id}` : `/movie/${movie.id}`
+      "media_type" in movie  ? `/tv/${movieid}` : `/movie/${movieid}`
       }
     >
       <div className="min-w-[150px] group w-1/2 md:w-1/3 lg:w-[180px] flex flex-col sm:m-3">

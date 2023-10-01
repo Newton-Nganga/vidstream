@@ -107,7 +107,7 @@ export default function Trending({ title = "Trending" }: Props) {
       slider1Ref.current.slickPrev();
     }
   };
-  const handleBeforeChange = (current: number, next: number) => {
+  const handleBeforeChange = ( next: number) => {
     setActiveSlide(next);
   };
 
