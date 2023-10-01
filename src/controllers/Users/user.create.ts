@@ -13,7 +13,7 @@ export const createUserObject = async(req:Request,res:Response,next:NextFunction
         include: { collection: { include: { favourites: true, watchList: true } } },
       });
       if(userExists){
-        return res.status(200).json({message:"User already created",user:userExists})
+        return res.status(201).json({message:"User already created",user:userExists})
       }
       //if there is no user then create one
      const user = await prisma.user.create({
