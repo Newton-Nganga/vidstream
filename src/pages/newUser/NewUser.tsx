@@ -19,7 +19,7 @@ export default function RegisterNewUser() {
 
   checkIfClerkIsInitialized();
  
-  console.log("registering new user account-------");
+  //console.log("registering new user account-------");
 //only run the registration once
   useEffect(() => { 
    const url = `${import.meta.env.VITE_CLIENTS_SERVER_URL}/users/${user?.id}/`;
@@ -34,13 +34,13 @@ export default function RegisterNewUser() {
       if (response.status !== 201) {
         toast.error("An error occurred whilst regisering your account");
       }
-      console.log("register account response", response);
+      //console.log("register account response", response);
       navigate("/account/me");
      
     }
 
     registerUserAccount();
-    console.log("registered new user account-------");
+    //console.log("registered new user account-------");
   }, [user,navigate]);
  
 

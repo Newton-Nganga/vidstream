@@ -1,6 +1,7 @@
 
 
 import InnerPage from '@/components/InnerPages/InnerPages'
+
 import userFallbackImage from "@assets/images/user.png";
 import { useUser } from '@clerk/clerk-react';
 import axios from 'axios';
@@ -62,7 +63,8 @@ const ListingEl=({fieldname,data}:ListingElProps)=>{
 
 export default function AccountPage() { 
   const {isLoaded,user} = useUser()
-  
+
+
   const checkIfClerkIsInitialized = async():Promise<void>=>{
     //check if clerk is initialized && isLoaded === true
     //else await for 100ms then call the while loop again
@@ -86,7 +88,7 @@ export default function AccountPage() {
   })
  
 
-
+ 
   const fetchuserobject = `${import.meta.env.VITE_CLIENTS_SERVER_URL}/users/${user?.id}/`
 //a method to fetch the favourites
   useEffect(()=>{
@@ -98,7 +100,7 @@ export default function AccountPage() {
         toast.error("An error occurred whilst fetching the watchlist movies")
       }
       //console.log("The response after fetching favourites:",response)
-      console.log(response.data.user);
+      //console.log(response.data.user);
       const {collection,...user}= response.data.user
       userProfile.current = user
       setFavourites(collection.favourites)
@@ -106,7 +108,20 @@ export default function AccountPage() {
     }
     fetchUserObject()
   },[])
+  //get the deleteAccount function from the custom hook
 
+ 
+const handleDeleteAccount = async()=>{
+  const uri = `${import.meta.env.VITE_CLIENTS_SERVER_URL}/users/${user?.id}/`
+   const response = await axios.delete(uri)
+   if(response.status !== 200){
+  //  console.log("Error deleting user account",response);
+    toast.error("Error deleting user account")
+   }
+   toast.success("Success :: Account deleted")
+   //console.log(response)
+  
+}
   return (
     <InnerPage title='My Account'>
      <section className='section'>
@@ -128,7 +143,7 @@ export default function AccountPage() {
        <article className='w-full bg-[#081523] mt-8 border rounded-md border-red-600 p-4'>
          <div className='text-center max-w-[600px] mx-auto'>
             <p> Caution!! This action is irreversible and you wanna be sure before you proceed with deletion.Get rid of this account</p>
-            <button className='w-fit my-4' >
+            <button className='w-fit my-4' onClick={handleDeleteAccount}>
                 Delete My Account
             </button>
          </div>
