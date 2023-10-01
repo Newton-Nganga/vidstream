@@ -1,6 +1,6 @@
 import { MovieType, ShowType } from "../__generated_types/UsefulTypes";
 import WatchTime from "./WatchTime";
-import Placeholder from "@assets/images/placehoder.png"
+import Placeholder from "@assets/images/placeholder.png"
 type Props = {
   data: MovieType | ShowType;
 };
