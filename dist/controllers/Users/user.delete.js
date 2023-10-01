@@ -39,7 +39,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteUserObject = void 0;
 var client_1 = require("@prisma/client");
 var prisma = new client_1.PrismaClient();
-//import clerk from "@clerk/clerk-sdk-node"
 var clerk_sdk_node_1 = require("@clerk/clerk-sdk-node");
 var clerk = (0, clerk_sdk_node_1.Clerk)({ secretKey: process.env.CLERK_SECRET_KEY });
 var deleteUserObject = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
@@ -77,8 +76,7 @@ var deleteUserObject = function (req, res) { return __awaiter(void 0, void 0, vo
                 return [4 /*yield*/, clerk.users.deleteUser(userId)];
             case 7:
                 us = _d.sent();
-                console.log("user deletion", us);
-                res.status(200).json({ message: 'User and associated data deleted successfully.', us: us });
+                res.status(200).json({ message: 'User and associated data deleted successfully.', user: us });
                 return [3 /*break*/, 9];
             case 8:
                 error_1 = _d.sent();

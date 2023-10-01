@@ -3,7 +3,6 @@ import { PrismaClient } from "@prisma/client";
 import { Request,Response} from "express";
 
 const prisma = new PrismaClient()
-//import clerk from "@clerk/clerk-sdk-node"
 
 import {Clerk} from "@clerk/clerk-sdk-node"
 

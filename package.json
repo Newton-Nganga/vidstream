@@ -9,7 +9,7 @@
     "startDev": "tsc-watch --onSuccess \"node ./dist/index.js\"",
     "dev": "tsc-watch --onSuccess \"node ./dist/index.js\"",
     "watch": "npx ts-node index.ts",
-    "build": "tsc",
+    "build": "npm i",
     "seed": "ts-node prisma/seed.ts"
   },
   "keywords": [],
