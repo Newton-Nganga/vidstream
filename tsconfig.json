@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
     /* import alias config*/
-    "baseUrl": ".",
+    //"baseUrl": ".",
     "paths": {
-      "@/*":["./src/*","./dist/*",""],
+      "@/*":["./src/*","./dist/*"],
       "@components/*":["./src/components/*"],
       "@assets":["./src/assets/*"],
       "@pages":["./src/pages/*"],
