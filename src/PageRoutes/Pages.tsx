@@ -47,10 +47,10 @@ export default function Pages() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register/*" element={<RegisterPage />} />
         <Route element={<HomePage />} path="/" />
-        <Route element={<MoviePage />} path="/movie/:id" />
         <Route element={<MovieFallbackPage />} path="/movie" />
-        <Route element={<ShowPage />} path="/tv/:id" />
+        <Route element={<MoviePage />} path="/movie/:id" />
         <Route element={<ShowFallbackPage />} path="/tv" />
+        <Route element={<ShowPage />} path="/tv/:id" />
         <Route element={<TvGenres />} path="/genres/tv/:id/:genre/tv" />
         <Route element={<MovieGenrePage />} path="/genres/movie/:id/:genre/mv" />
         <Route element={<SearchPage />} path="/search" />
