@@ -22,38 +22,48 @@ import UserProfilePage from "@/pages/account/profile/Page";
 import ProtectedRoute from "@/utils/PrivateRoutes";
 import RegisterNewUser from "@/pages/newUser/NewUser";
 
-
 const clerkPublicKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 if (!import.meta.env.VITE_CLERK_PUBLISHABLE_KEY) {
   throw new Error("Missing publishable key");
 }
 
-
-
 export default function Pages() {
-  
- const hours = new Date().getHours()
+  const hours = new Date().getHours();
 
   const navigate = useNavigate();
   return (
     <ClerkProvider
       appearance={{ baseTheme: shadesOfPurple }}
       publishableKey={clerkPublicKey}
-     // afterSignInUrl={`/register/${new Date().getMinutes()}`}
+      // afterSignInUrl={`/register/${new Date().getMinutes()}`}
       navigate={(to) => navigate(to)}
-    
     >
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register/*" element={<RegisterPage />} />
         <Route element={<HomePage />} path="/" />
-        <Route element={<MovieFallbackPage />} path="/movie" />
-        <Route element={<MoviePage />} path="/movie/:id" />
-        <Route element={<ShowFallbackPage />} path="/tv" />
-        <Route element={<ShowPage />} path="/tv/:id" />
+        <Route element={<MovieFallbackPage />} path="/movie/*" />
+        <Route
+          path={`${process.env.PUBLIC_URL}/movie/:id`}
+          element={<MoviePage />}
+        />
+        <Route
+          path={`${process.env.PUBLIC_URL}/tv/:id`}
+          element={<ShowPage />}
+        />
+        <Route
+          path={`${process.env.PUBLIC_URL}/search`}
+          element={<SearchPage />}
+        />
+        {/* <Route element={<MoviePage />} path="/movie/:id" /> */}
+        <Route element={<ShowFallbackPage />} path="/tv/*" />
+        {/* <Route element={<ShowPage />} path="/tv/:id" /> */}
         <Route element={<TvGenres />} path="/genres/tv/:id/:genre/tv" />
-        <Route element={<MovieGenrePage />} path="/genres/movie/:id/:genre/mv" />
-        <Route element={<SearchPage />} path="/search" />
+        <Route
+          element={<MovieGenrePage />}
+          path="/genres/movie/:id/:genre/mv"
+        />
+        {/* <Route element={<SearchPage />} path="/search" /> */}
         <Route element={<ContactPage />} path="/contact" />
         <Route element={<AboutPage />} path="/about" />
         <Route element={<NotFound />} path="*" />
@@ -65,24 +75,34 @@ export default function Pages() {
           }
           path="/account/me"
         />
-        <Route path="/account/favorites" element={
-        <ProtectedRoute>
-          <FavouritesPage />
-        </ProtectedRoute>
-        } />
-        <Route path="/account/watchlist" element={
-          <ProtectedRoute>
-             <WatchlistPage />
-          </ProtectedRoute>
-       
-        } />
-        <Route path="/account/profile" element={
-        <ProtectedRoute>
-          <UserProfilePage />
-        </ProtectedRoute>
-        } />
-        <Route element={<RegisterNewUser/>} 
-        path={`/register/account/${hours}`} />
+        <Route
+          path="/account/favorites"
+          element={
+            <ProtectedRoute>
+              <FavouritesPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/account/watchlist"
+          element={
+            <ProtectedRoute>
+              <WatchlistPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/account/profile"
+          element={
+            <ProtectedRoute>
+              <UserProfilePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          element={<RegisterNewUser />}
+          path={`/register/account/${hours}`}
+        />
         <Route element={<NotFound />} path="*" />
       </Routes>
       <Toaster containerStyle={{ top: 90 }} />
