@@ -43,30 +43,17 @@ export default function Pages() {
         <Route path="/register/*" element={<RegisterPage />} />
         <Route element={<HomePage />} path="/" />
         <Route element={<MovieFallbackPage />} path="/movie/*" />
-        <Route
-          path={`${process.env.PUBLIC_URL}/movie/:id`}
-          element={<MoviePage />}
-        />
-        <Route
-          path={`${process.env.PUBLIC_URL}/tv/:id`}
-          element={<ShowPage />}
-        />
-        <Route
-          path={`${process.env.PUBLIC_URL}/search`}
-          element={<SearchPage />}
-        />
-        {/* <Route element={<MoviePage />} path="/movie/:id" /> */}
+        <Route element={<MoviePage />} path="/movie/:id/*" />
         <Route element={<ShowFallbackPage />} path="/tv/*" />
-        {/* <Route element={<ShowPage />} path="/tv/:id" /> */}
+        <Route element={<ShowPage />} path="/tv/:id/*" />
         <Route element={<TvGenres />} path="/genres/tv/:id/:genre/tv" />
         <Route
           element={<MovieGenrePage />}
           path="/genres/movie/:id/:genre/mv"
         />
-        {/* <Route element={<SearchPage />} path="/search" /> */}
+        <Route element={<SearchPage />} path="/search/*" />
         <Route element={<ContactPage />} path="/contact" />
         <Route element={<AboutPage />} path="/about" />
-        <Route element={<NotFound />} path="*" />
         <Route
           element={
             <ProtectedRoute>
