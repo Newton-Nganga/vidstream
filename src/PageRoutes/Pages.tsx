@@ -39,7 +39,7 @@ export default function Pages() {
       navigate={(to) => navigate(to)}
     >
       <Routes>
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/login/" element={<LoginPage />} />
         <Route path="/register/*" element={<RegisterPage />} />
         <Route element={<HomePage />} path="/" />
         <Route element={<MovieFallbackPage />} path="/movie/*" />

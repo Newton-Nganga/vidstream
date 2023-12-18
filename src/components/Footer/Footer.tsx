@@ -41,7 +41,7 @@ export default function Footer() {
        </ul>
       </div>
       <div className="w-full gap-4 flex flex-col md:w-1/3 lg:w-1/4">
-      <h4 className="footer-title">Important a</h4>
+      <h4 className="footer-title">Important</h4>
        <ul>
         <li><a href='#'>Support</a></li>
         <li><a href='#'>FAQ</a></li>
